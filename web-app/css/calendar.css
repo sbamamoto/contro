@@ -1,0 +1,119 @@
+/* 
+    Document   : calendar
+    Created on : 02.12.2012, 16:42:52
+    Author     : matsimoto
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+.wrapper{
+    position: relative;
+    float: left;
+    left: 0px;
+    width: 1350px;
+    margin-bottom: 10px;
+    background-color: #cccccc;
+}
+.monday{
+    position: relative;
+    float: left;
+    left: 5px;
+    width: 190px;
+    height: 190px;
+    background-color: #828282;
+}
+
+.tuesday{
+    position: relative;
+    float: left;
+    left: 15px;
+    width: 190px;
+    height: 190px;
+    background-color: #828282;
+}
+
+.wednesday{
+    position: relative;
+    float: left;
+    left: 25px;
+    width: 190px;
+    height: 190px;
+    background-color: #828282;
+}
+
+.friday{
+    position: relative;
+    float: left;
+    left: 35px;
+    width: 190px;
+    height: 190px;
+    background-color: #828282;
+}
+
+.saturday{
+    position: relative;
+    float: left;
+    left: 45px;
+    width: 190px;
+    height: 190px;
+    background-color: #828282;
+}
+
+.sunday{
+    position: relative;
+    float: left;
+    left: 55px;
+    width: 190px;
+    height: 190px;
+    background-color: #828282;
+}
+
+
+a.menu { 
+    display:block;
+    text-decoration:none;
+    color:white;
+}
+
+a.menu:link    { background-color:transparent; }
+a.menu:visited { background-color:transparent; }
+a.menu:hover   { background-color:#00f; }
+a.menu:active  { background-color:#a03; }
+
+div.deviceon {
+    font-size: 6pt;
+    font-family:  sans-serif;
+    color:white;
+    background-color: forestgreen;
+}      
+div.devicepowered {
+    font-size: 6pt;
+    font-family:  sans-serif;
+    color:yellow;
+    background-color: forestgreen;
+}
+div.deviceoff {
+    font-size: 6pt;
+    font-family:  sans-serif;
+    color:white;
+    background-color: darkblue;
+}
+h1 {
+    font-family: sans-serif;
+}
+tr.even {
+    background-color: whitesmoke;
+}
+tr.odd {
+    background-color: white;
+}
+th {
+    font-family: sans-serif;
+    background-color: black;
+    color: white;
+}
+
