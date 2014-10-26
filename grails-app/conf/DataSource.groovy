@@ -15,7 +15,7 @@ environments {
 	development {
 		dataSource {     
                         dbCreate = "update" // one of 'create', 'create-drop','update'
-                        url = "jdbc:postgresql://192.168.1.3/contro"
+                        url = "jdbc:postgresql://mediaserver/contro"
                     
 //			dbCreate = "update" // one of 'create', 'create-drop','update'
 //			url = "jdbc:h2:file:/opt/dbfiles/testDb"

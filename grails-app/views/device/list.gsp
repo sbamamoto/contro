@@ -6,6 +6,12 @@
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'device.label', default: 'Device')}" />
         <title><g:message code="default.list.label" args="[entityName]" /></title>
+        <script>
+            $( document ).ready(function() {
+            $("li").removeClass("active");
+            $("#devices").addClass("active");
+            });
+        </script>
     </head>
     <body>
         <div class="nav">
