@@ -67,7 +67,7 @@
           <g:if test="${week[day]!=null}">
             <g:each in="${week[day][hour]}">
               <div id="timingItem" class="${it[1]}">
-                <g:link class="menu" controller="device" action="show" id="${it[2]}"> ${it[0]}</g:link>
+                <g:link class="menu" action="deviceTimings" id="${it[2]}"> ${it[0]}</g:link>
               </div>
             </g:each>
           </g:if>

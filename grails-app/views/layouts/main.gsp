@@ -36,8 +36,10 @@
                             <li id="rooms"><a href="${createLink(controller:"room")}"><h1>Räume</h1></a></li>
                             <li id="devices"><a href="${createLink(controller:"device")}"><h1>Geräte</h1></a></li>
                             <li id="timing"><a href="${createLink(controller:"timing")}"><h1>Zeiten</h1></a></li>
+                            <li id="partymode"><a href="${createLink(controller:"partymode")}"><h1>Partymode</h1></a></li>
                         </ul>
                     </li>
+                    <li id="all"><a href="${createLink(controller:"general")}"><h1>Alle</h1></a></li>
 
                 </ul>
             </div><!-- /.navbar-collapse -->

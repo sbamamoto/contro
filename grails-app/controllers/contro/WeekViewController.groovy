@@ -21,6 +21,44 @@ class WeekViewController {
         return week
     }
     
+    
+    def changeschedule () {
+        print params['deviceid']
+        print params['ontimings']
+        print params['offtimings']
+        print params['oldonid']
+        print "oldoffid: "+params['oldoffid']
+        print params['removeOn']
+        print params['removeOff']
+        def device = Device.findById(params['deviceid'])
+        if (params['removeOn']=="on" || params['ontimings']!=params['oldonid']) {
+            def ontiming = Timing.findById(params['oldonid'])
+            if (ontiming != null) {
+                device.removeFromTimings(ontiming)
+            }
+        }
+        if (params['removeOff']=="on" || params['offtimings']!=params['oldoffid']) {
+            def offtiming = Timing.findById(params['oldoffid'])
+            print "timing: "+offtiming
+            if (offtiming!=null) {
+                device.removeFromTimings(offtiming)
+            }
+        }
+        
+        if (params['removeOn']!="on" && params['ontimings']!=params['oldonid']) {
+            def ontiming = Timing.findById(params['ontimings'])
+            device.addToTimings(ontiming)
+        }
+        if (params['removeOff']!="on" && params['offtimings']!=params['oldoffid']) {
+            def offtiming = Timing.findById(params['offtimings'])
+            device.addToTimings(offtiming)
+        }
+        
+        
+        redirect (controller:"weekView", action:"deviceTimings", params: [id: params['deviceid']])
+    }
+    
+    
     def index() { 
         def devices=Device.list()
         def week = [:]
@@ -49,10 +87,174 @@ class WeekViewController {
                 if (timing.sunday) {
                     week = checkTiming(6, timing, device, week)
                 }
-
-                
             }            
         }
         [week:week]
+    }
+    
+    
+    def deviceTimings () {
+        def device = Device.findById(params['id'])
+        def timings = device.timings.sort(  { a, b -> a.timing <=> b.timing})
+        // get Date of this monday
+        def today = new GregorianCalendar()
+        today.set(Calendar.DAY_OF_WEEK, today.getFirstDayOfWeek());
+        print "***************"+today.getTime()
+        Date mondayOfWeek = today.getTime()
+        def onSchedule = []
+        
+        def myJson = ""
+        def powerOn = ""
+        def powerOff = ""
+        def offset = 0
+        
+        timings.each {            
+            mondayOfWeek = today.getTime()
+            if (it.monday) {
+                if (it.power) {  // Startzeit
+                    onSchedule.add(it)
+                }
+                else if (!it.power && onSchedule.size() == 0) {
+                    powerOff = mondayOfWeek.format("yyyy-MM-dd")+"T"+it.timing+":00"
+                    myJson = myJson+"{title: '"+it.description+"', start: '" + powerOff +"', end: '"+ powerOff + "', offid: '" + it.id + "', devid: '"+ params['id'] +"'},"
+                }
+                else if (!it.power) {
+                    powerOff = mondayOfWeek.format("yyyy-MM-dd")+"T"+it.timing+":00"
+                    onSchedule.each { on ->
+                        powerOn = mondayOfWeek.format("yyyy-MM-dd")+"T"+on.timing+":00"
+                        myJson = myJson+"{title: '" + on.description + "', start: '" + powerOn +"', end: '"+ powerOff  + "', onid: '"+ on.id +"', offid: '" + it.id + "', devid: '"+ params['id'] +"'},"
+                    }
+                    onSchedule = []
+                }
+            }          
+        }
+        mondayOfWeek = today.getTime()+1
+        timings.each {
+            if (it.tuesday) {
+                if (it.power) {  // Startzeit
+                    onSchedule.add(it)
+                }
+                else if (!it.power && onSchedule.size() == 0) {
+                    powerOff = mondayOfWeek.format("yyyy-MM-dd")+"T"+it.timing+":00"
+                    myJson = myJson+"{title: '"+it.description+"', start: '" + powerOff +"', end: '"+ powerOff + "', offid: '" + it.id + "', devid: '"+ params['id'] +"'},"
+                }
+                else if (!it.power) {
+                    powerOff = mondayOfWeek.format("yyyy-MM-dd")+"T"+it.timing+":00"
+                    onSchedule.each { on ->
+                        powerOn = mondayOfWeek.format("yyyy-MM-dd")+"T"+on.timing+":00"
+                        myJson = myJson+"{title: '" + on.description + "', start: '" + powerOn +"', end: '"+ powerOff  + "', onid: '"+ on.id +"', offid: '" + it.id + "', devid: '"+ params['id'] +"'},"
+                    }
+                    onSchedule = []
+                }
+            }          
+        }
+        mondayOfWeek = mondayOfWeek+1
+        timings.each {
+            if (it.wednesday) {
+                if (it.power) {  // Startzeit
+                    onSchedule.add(it)
+                }
+                else if (!it.power && onSchedule.size() == 0) {
+                    powerOff = mondayOfWeek.format("yyyy-MM-dd")+"T"+it.timing+":00"
+                    myJson = myJson+"{title: '"+it.description+"', start: '" + powerOff +"', end: '"+ powerOff + "', offid: '" + it.id +"', devid: '"+ params['id'] +"'},"
+                }
+                else if (!it.power) {
+                    powerOff = mondayOfWeek.format("yyyy-MM-dd")+"T"+it.timing+":00"
+                    onSchedule.each { on ->
+                        powerOn = mondayOfWeek.format("yyyy-MM-dd")+"T"+on.timing+":00"
+                        myJson = myJson+"{title: '" + on.description + "', start: '" + powerOn +"', end: '"+ powerOff  + "', onid: '"+ on.id +"', offid: '" + it.id + "', devid: '"+ params['id'] +"'},"
+                    }
+                    onSchedule = []
+                }
+            }          
+        }
+        mondayOfWeek = mondayOfWeek+1
+        timings.each {
+            if (it.thursday) {
+                if (it.power) {  // Startzeit
+                    onSchedule.add(it)
+                }
+                else if (!it.power && onSchedule.size() == 0) {
+                    powerOff = mondayOfWeek.format("yyyy-MM-dd")+"T"+it.timing+":00"
+                    myJson = myJson+"{title: '"+it.description+"', start: '" + powerOff +"', end: '"+ powerOff + "', offid: '" + it.id + "', devid: '"+ params['id'] +"'},"
+                }
+                else if (!it.power) {
+                    powerOff = mondayOfWeek.format("yyyy-MM-dd")+"T"+it.timing+":00"
+                    onSchedule.each { on ->
+                        powerOn = mondayOfWeek.format("yyyy-MM-dd")+"T"+on.timing+":00"
+                        myJson = myJson+"{title: '" + on.description + "', start: '" + powerOn +"', end: '"+ powerOff  + "', onid: '"+ on.id +"', offid: '" + it.id + "', devid: '"+ params['id'] +"'},"
+                    }
+                    onSchedule = []
+                }
+            }          
+        }
+        mondayOfWeek = mondayOfWeek+1
+        timings.each {
+            if (it.friday) {
+                if (it.power) {  // Startzeit
+                    onSchedule.add(it)
+                }
+                else if (!it.power && onSchedule.size() == 0) {
+                    powerOff = mondayOfWeek.format("yyyy-MM-dd")+"T"+it.timing+":00"
+                    myJson = myJson+"{title: '"+it.description+"', start: '" + powerOff +"', end: '"+ powerOff + "', offid: '" + it.id + "', devid: '"+ params['id'] +"'},"
+                }
+                else if (!it.power) {
+                    powerOff = mondayOfWeek.format("yyyy-MM-dd")+"T"+it.timing+":00"
+                    onSchedule.each { on ->
+                        powerOn = mondayOfWeek.format("yyyy-MM-dd")+"T"+on.timing+":00"
+                        myJson = myJson+"{title: '" + on.description + "', start: '" + powerOn +"', end: '"+ powerOff  + "', onid: '"+ on.id +"', offid: '" + it.id + "', devid: '"+ params['id'] +"'},"
+                    }
+                    onSchedule = []
+                }
+            }          
+        }
+        
+        mondayOfWeek = mondayOfWeek+1
+        timings.each {
+            if (it.saturday) {
+                if (it.power) {  // Startzeit
+                    onSchedule.add(it)
+                }
+                else if (!it.power && onSchedule.size() == 0) {
+                    powerOff = mondayOfWeek.format("yyyy-MM-dd")+"T"+it.timing+":00"
+                    myJson = myJson+"{title: '"+it.description+"', start: '" + powerOff +"', end: '"+ powerOff + "', offid: '" + it.id + "', devid: '"+ params['id'] +"'},"
+                }
+                else if (!it.power) {
+                    powerOff = mondayOfWeek.format("yyyy-MM-dd")+"T"+it.timing+":00"
+                    onSchedule.each { on ->
+                        powerOn = mondayOfWeek.format("yyyy-MM-dd")+"T"+on.timing+":00"
+                        myJson = myJson+"{title: '" + on.description + "', start: '" + powerOn +"', end: '"+ powerOff  + "', onid: '"+ on.id +"', offid: '" + it.id + "', devid: '"+ params['id'] +"'},"
+                    }
+                    onSchedule = []
+                }
+            }          
+        }
+        
+        mondayOfWeek = mondayOfWeek+1
+        
+        timings.each {
+            if (it.sunday) {
+                print it.description
+                // Ein OFF ohne ON ist ein siguöäres Ereignis
+                
+                if (it.power) {  // Startzeit
+                    onSchedule.add(it)
+                }
+                else if (!it.power && onSchedule.size() == 0) {
+                    powerOff = mondayOfWeek.format("yyyy-MM-dd")+"T"+it.timing+":00"
+                    myJson = myJson+"{title: '"+it.description+"', start: '" + powerOff +"', end: '"+ powerOff + "', offid: '" + it.id +"', devid: '"+ params['id'] +"'},"
+                }
+                else if (!it.power) {
+                    powerOff = mondayOfWeek.format("yyyy-MM-dd")+"T"+it.timing+":00"
+                    onSchedule.each { on ->
+                        powerOn = mondayOfWeek.format("yyyy-MM-dd")+"T"+on.timing+":00"
+                        myJson = myJson+"{title: '" + on.description + "', start: '" + powerOn +"', end: '"+ powerOff  + "', onid: '"+ on.id +"', offid: '" + it.id + "', devid: '"+ params['id'] +"'},"
+                    }
+                    onSchedule = []
+                }
+            }          
+        }
+        def date = new Date()
+        [events:myJson, date:date, device:device]
     }
 }

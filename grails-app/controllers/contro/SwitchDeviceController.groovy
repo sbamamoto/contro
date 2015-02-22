@@ -24,15 +24,53 @@ class SwitchDeviceController {
     def switchDevice = {
         def device = Device.findByDevice(params.device)
         
-            if (params.state.toInteger() > 0) {
-                device.state="ON"
-            }
-            else {
-                device.state="OFF"
-            }
+        if (params.state.toInteger() > 0) {
+            device.state="ON"
+        }
+        else {
+            device.state="OFF"
+        }
         device.save()
         runcgi("http://localhost/home/switchDevice.py?Helligkeit="+
-                    params.state+"&device="+params.device)
+            params.state+"&device="+params.device)
+        redirect (controller:"tablet")
+    }
+    
+    def switchRoom = {
+        def room = Room.get(params.room)
+        
+        room.devices.each {
+            if (params.state.toInteger() > 0) {
+                it.state="ON"
+            }
+            else {
+                it.state="OFF"
+            }
+            it.save()
+            runcgi("http://localhost/home/switchDevice.py?Helligkeit="+
+                params.state+"&device="+it.device)
+            Thread.sleep(500);
+        }
+        redirect (controller:"tablet")
+    }
+    
+    def switchAll = {
+        def room = Room.list()
+        
+        room.each {
+            it.devices.each {
+                if (params.state.toInteger() > 0) {
+                    it.state="ON"
+                }
+                else {
+                    it.state="OFF"
+                }
+                it.save()
+                runcgi("http://localhost/home/switchDevice.py?Helligkeit="+
+                    params.state+"&device="+it.device)
+                Thread.sleep(500);
+            }
+        }
         redirect (controller:"tablet")
     }
     

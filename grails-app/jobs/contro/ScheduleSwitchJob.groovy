@@ -2,6 +2,7 @@ package contro
 
 import java.util.Date;
 import java.util.Calendar;
+import contro.Setting
 
 class ScheduleSwitchJob {
     def timeout = 30000l // execute job once in 30 seconds
@@ -88,13 +89,15 @@ class ScheduleSwitchJob {
 
     
     def execute() {
-        List devices = Device.list()
-        Date now = new Date();
-
-        devices.each { device ->
-            System.out.println (device.description+" "+device.state+"  ("+device.device+")")
-            device.timings.each{switchIt(device,it,now)}
-        }
+        def mode = Setting.findBySetting('partymode')
+        if (mode?.value=="ON") {
+            List devices = Device.list()
+            Date now = new Date();
         
+            devices.each { device ->
+                System.out.println (device.description+" "+device.state+"  ("+device.device+")")
+                device.timings.each{switchIt(device,it,now)}
+            }
+        }
     }
 }

@@ -53,7 +53,7 @@
                                   <label for="timings"><g:message code="device.timings.label" default="Timings" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: deviceInstance, field: 'timings', 'errors')}">
-                                    <g:select name="timings" from="${contro.Timing.list()}" multiple="yes" optionKey="id" size="5" value="${deviceInstance?.timings}" />
+                                    <g:select size="20" name="timings" from="${contro.Timing.list()}" multiple="yes" optionKey="id" value="${deviceInstance?.timings}" />
                                 </td>
                             </tr>
                         
