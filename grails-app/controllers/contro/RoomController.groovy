@@ -2,21 +2,23 @@ package contro
 
 class RoomController {
 
-    static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+    static allowedMethods = [save: "POST", update: "POST", delete: "GET"]
 
     def index = {
         redirect(action: "list", params: params)
     }
 
     def list = {
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        [roomInstanceList: Room.list(params), roomInstanceTotal: Room.count()]
+        
+        [roomInstanceList: Room.list().sort{ it.name } , roomInstanceTotal: Room.count()]
+        
     }
 
     def create = {
         def roomInstance = new Room()
         roomInstance.properties = params
-        return [roomInstance: roomInstance]
+        
+        render (view:"edit", model: [roomInstance: roomInstance, allDevices: Device.list().sort { it.description }])
     }
 
     def save = {
@@ -48,7 +50,11 @@ class RoomController {
             redirect(action: "list")
         }
         else {
-            return [roomInstance: roomInstance]
+            def roomDevices = []
+            roomInstance.devices.each{
+                roomDevices.add(it.device)
+            }
+            return [roomInstance: roomInstance, allDevices:Device.list(), associatedDevices:roomDevices]
         }
     }
 
@@ -84,17 +90,47 @@ class RoomController {
         if (roomInstance) {
             try {
                 roomInstance.delete(flush: true)
-                flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'room.label', default: 'Room'), params.id])}"
+                flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'room.label', default: 'Raum'), params.id])}"
+                flash.textClass="text-success"
                 redirect(action: "list")
             }
             catch (org.springframework.dao.DataIntegrityViolationException e) {
-                flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'room.label', default: 'Room'), params.id])}"
+                flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'room.label', default: 'Raum'), params.id])}"
+                flash.textClass="text-danger"
                 redirect(action: "show", id: params.id)
             }
         }
         else {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'room.label', default: 'Room'), params.id])}"
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'room.label', default: 'Raum'), params.id])}"
+            flash.textClass="text-danger"
             redirect(action: "list")
         }
+    }
+    
+    
+    def saveRoom = {
+        def room
+        if (params.id) {
+            room = Room.get(params.id)
+        }
+        else {
+            room = new Room();
+        }
+        room.devices?.clear()
+        room.properties = params
+//        println "xxxxxxxxxx"+params.devices
+//        if (params.devices.size() > 1) {
+//            params.devices.each {
+//                if (it && it != "-1") {
+//                    room.addToDevices(Device.get(it))
+//                }
+//            }
+//        }
+
+        println params
+        room.save(flush:true,failOnError:true)
+        flash.message="${message(code: 'default.updated.message', args: [message(code: 'room.label', default: 'Raum '), room.name])}"
+        flash.textClass="text-success"
+        redirect action:"list"
     }
 }

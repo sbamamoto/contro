@@ -8,144 +8,109 @@
         <title><g:message code="default.edit.label" args="[entityName]" /></title>
     </head>
     <body>
-        <div class="nav">
-            <span class="menuButton"><a class="home" href="${createLink(uri: '/')}">Home</a></span>
-            <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
-            <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
-        </div>
-        <div class="body">
-            <h1><g:message code="default.edit.label" args="[entityName]" /></h1>
-            <g:if test="${flash.message}">
-            <div class="message">${flash.message}</div>
-            </g:if>
-            <g:hasErrors bean="${timingInstance}">
-            <div class="errors">
-                <g:renderErrors bean="${timingInstance}" as="list" />
+
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-4">
+                    <g:if test="${flash.message}">
+                        <div class="message">${flash.message}</div>
+                    </g:if>
+                    <nav>
+                        <ul class="pager">
+                            <li class="previous"><g:link action="list"><span aria-hidden="true">&larr;</span> Timingliste</g:link></li>
+                            </ul>
+                        </nav>
+                    <g:form action="update">
+                        <div class="form-group">
+                            <label for="timingDescription">Description:</label>
+                            <input type="text" class="form-control" name="description" id="description" placeHolder="Description" value="${timingInstance.description}"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="time">Time:</label>
+                            <input type="text" class="form-control" name="timing" id="timing" placeHolder="Time HH:MM" value="${timingInstance.timing}"/>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" value="${timingInstance.power}" name="power" ${timingInstance.power?"checked":""}/>
+                                Power
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="Intensity">Intensity:</label>
+                            <input type="text" class="form-control" name="dimmValue" id="dimmValue" placeHolder="Intensity" value="${timingInstance.dimmValue}"/>
+                        </div>
+
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" value="${timingInstance.ramp}" name="ramp" ${timingInstance.ramp?"checked":""}/>
+                                Ramp
+                            </label>
+                        </div>
+                        <br>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" value="${timingInstance.monday}" name="monday" ${timingInstance.monday?"checked":""}/>
+                                Montag
+                            </label>
+                        </div>
+
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" value="${timingInstance.tuesday}" name="tuesday" ${timingInstance.tuesday?"checked":""}/>
+                                Dienstag
+                            </label>
+                        </div>
+
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" value="${timingInstance.wednesday}" name="wednesday" ${timingInstance.wednesday?"checked":""}/>
+                                Mittwoch
+                            </label>
+                        </div>
+
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" value="${timingInstance.thursday}" name="thursday" ${timingInstance.thursday?"checked":""}/>
+                                Donnerstag
+                            </label>
+                        </div>
+
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" value="${timingInstance.friday}" name="friday" ${timingInstance.friday?"checked":""}/>
+                                Freitag
+                            </label>
+                        </div>
+
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" value="${timingInstance.saturday}" name="saturday" ${timingInstance.saturday?"checked":""}/>
+                                Samstag
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" value="${timingInstance.sunday}" name="sunday" ${timingInstance.sunday?"checked":""}/>
+                                Sonntag
+                            </label>
+                        </div>
+                        <br>
+                        <g:hiddenField name="id" value="${timingInstance?.id}" />
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </g:form>    
+                </div>
+                <div class="col-md-4" style="margin-top:100px;">
+                <h4>Durch das Timing gesteuert:</h4>
+                <ul class="list-group">
+<g:each in="${devices}">
+                        <li class="list-group-item">${it.description}</li>
+                        
+                        
+                        </g:each>
+                </ul>
+                </div>
             </div>
-            </g:hasErrors>
-            <g:form method="post" >
-                <g:hiddenField name="id" value="${timingInstance?.id}" />
-                <g:hiddenField name="version" value="${timingInstance?.version}" />
-                <div class="dialog">
-                    <table>
-                        <tbody>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="power"><g:message code="timing.power.label" default="Power" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: timingInstance, field: 'power', 'errors')}">
-                                    <g:checkBox name="power" value="${timingInstance?.power}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="ramp"><g:message code="timing.ramp.label" default="Ramp" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: timingInstance, field: 'ramp', 'errors')}">
-                                    <g:checkBox name="ramp" value="${timingInstance?.ramp}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="timing"><g:message code="timing.timing.label" default="Timing" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: timingInstance, field: 'timing', 'errors')}">
-                                    <g:textField name="timing" value="${timingInstance?.timing}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="dimmValue"><g:message code="timing.dimmValue.label" default="Dimm Value" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: timingInstance, field: 'dimmValue', 'errors')}">
-                                    <g:textField name="dimmValue" value="${timingInstance?.dimmValue}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="description"><g:message code="timing.description.label" default="Description" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: timingInstance, field: 'description', 'errors')}">
-                                    <g:textField name="description" value="${timingInstance?.description}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="monday"><g:message code="timing.monday.label" default="Monday" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: timingInstance, field: 'monday', 'errors')}">
-                                    <g:checkBox name="monday" value="${timingInstance?.monday}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="tuesday"><g:message code="timing.tuesday.label" default="Tuesday" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: timingInstance, field: 'tuesday', 'errors')}">
-                                    <g:checkBox name="tuesday" value="${timingInstance?.tuesday}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="wednesday"><g:message code="timing.wednesday.label" default="Wednesday" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: timingInstance, field: 'wednesday', 'errors')}">
-                                    <g:checkBox name="wednesday" value="${timingInstance?.wednesday}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="thursday"><g:message code="timing.thursday.label" default="Thursday" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: timingInstance, field: 'thursday', 'errors')}">
-                                    <g:checkBox name="thursday" value="${timingInstance?.thursday}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="friday"><g:message code="timing.friday.label" default="Friday" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: timingInstance, field: 'friday', 'errors')}">
-                                    <g:checkBox name="friday" value="${timingInstance?.friday}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="saturday"><g:message code="timing.saturday.label" default="Saturday" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: timingInstance, field: 'saturday', 'errors')}">
-                                    <g:checkBox name="saturday" value="${timingInstance?.saturday}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="sunday"><g:message code="timing.sunday.label" default="Sunday" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: timingInstance, field: 'sunday', 'errors')}">
-                                    <g:checkBox name="sunday" value="${timingInstance?.sunday}" />
-                                </td>
-                            </tr>
-                        
-                        </tbody>
-                    </table>
-                </div>
-                <div class="buttons">
-                    <span class="button"><g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" /></span>
-                    <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
-                </div>
-            </g:form>
         </div>
     </body>
 </html>

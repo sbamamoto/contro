@@ -6,92 +6,64 @@
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'device.label', default: 'Device')}" />
         <title><g:message code="default.edit.label" args="[entityName]" /></title>
+
+        <script>
+            $(function () {
+            $('[data-toggle="popover"]').popover()
+            })
+            
+            function program(){
+                var device = $('#device').val();
+                $('#device-pop').popover('hide');
+                var url = "${createLink(action:"programDevice")}/"+device;
+                $.ajax({url:url});
+                
+            }
+        </script>
     </head>
     <body>
-        <div class="nav">
-            <span class="menuButton"><a class="home" href="${createLink(uri: '/')}">Home</a></span>
-            <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
-            <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
-        </div>
-        <div class="body">
-            <h1><g:message code="default.edit.label" args="[entityName]" /></h1>
-            <g:if test="${flash.message}">
-            <div class="message">${flash.message}</div>
-            </g:if>
-            <g:hasErrors bean="${deviceInstance}">
-            <div class="errors">
-                <g:renderErrors bean="${deviceInstance}" as="list" />
+        <div class="container">
+            <div class="col-md-4">
+                <nav>
+                    <ul class="pager">
+                        <li class="previous"><g:link action="list"><span aria-hidden="true">&larr;</span> Geräteliste</g:link></li>
+                        </ul>
+                    </nav>
+                <g:form action="saveDevice">
+                    <div class="form-group">
+                        <label for="description">Beschreibung:</label>
+                        <input type="text" class="form-control" name="device.description" id="description" placeHolder="Description" value="${deviceInstance?.description}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">FS20 Adresse:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="program-device">
+                                <a href="#" role="button" data-toggle="popover" id="device-pop" title="Programming Help" data-html="true" 
+                                data-content="Press button on device until button starts flashing.<br><br>When button flashes press program button.<br><br><button type='input' onclick='program();return false;' class='btn btn-primary' >Program Device</button>">PRG</a></button></span>
+                            <input type="text" class="form-control" name="device.device" id="device" placeHolder="FS20 Code" value="${deviceInstance?.device}" aria-describedby="program-device"/>
+                        </div>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="device.canDimm" ${deviceInstance.canDimm ?"checked":""}/>
+                            dimmbar
+                        </label>
+                    </div>
+                    <br>
+                    <div style="height:400px;overflow-y: scroll;border: solid gainsboro thin; padding-left:5px;">
+                        <g:each in="${allTimings}">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="${it.id}" name="device.timings" ${deviceTimings?.contains(it.id)?"checked":""}/>
+                                    ${it.description}
+                                </label>
+                            </div>
+                        </g:each>                
+                    </div><br>
+                    <g:hiddenField name="device.id" value="${deviceInstance?.id}" />
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </g:form>    
             </div>
-            </g:hasErrors>
-            <g:form method="post" >
-                <g:hiddenField name="id" value="${deviceInstance?.id}" />
-                <g:hiddenField name="version" value="${deviceInstance?.version}" />
-                <div class="dialog">
-                    <table>
-                        <tbody>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="canDimm"><g:message code="device.canDimm.label" default="Can Dimm" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: deviceInstance, field: 'canDimm', 'errors')}">
-                                    <g:checkBox name="canDimm" value="${deviceInstance?.canDimm}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="description"><g:message code="device.description.label" default="Description" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: deviceInstance, field: 'description', 'errors')}">
-                                    <g:textField name="description" value="${deviceInstance?.description}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="timings"><g:message code="device.timings.label" default="Timings" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: deviceInstance, field: 'timings', 'errors')}">
-                                    <g:select size="20" name="timings" from="${contro.Timing.list()}" multiple="yes" optionKey="id" value="${deviceInstance?.timings}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="state"><g:message code="device.state.label" default="State" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: deviceInstance, field: 'state', 'errors')}">
-                                    <g:textField name="state" value="${deviceInstance?.state}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="device"><g:message code="device.device.label" default="Device" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: deviceInstance, field: 'device', 'errors')}">
-                                    <g:textField name="device" value="${deviceInstance?.device}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="dimm"><g:message code="device.dimm.label" default="Dimm" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: deviceInstance, field: 'dimm', 'errors')}">
-                                    <g:textField name="dimm" value="${deviceInstance?.dimm}" />
-                                </td>
-                            </tr>
-                        
-                        </tbody>
-                    </table>
-                </div>
-                <div class="buttons">
-                    <span class="button"><g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" /></span>
-                    <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
-                </div>
-            </g:form>
         </div>
     </body>
 </html>

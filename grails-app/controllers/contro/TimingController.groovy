@@ -2,7 +2,7 @@ package contro
 
 class TimingController {
 
-    static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+    static allowedMethods = [save: "POST", update: "POST", delete: "GET"]
 
     def index = {
         redirect(action: "list", params: params)
@@ -10,13 +10,13 @@ class TimingController {
 
     def list = {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        [timingInstanceList: Timing.list(params), timingInstanceTotal: Timing.count()]
+        [timingInstanceList: Timing.list().sort { it.timing }, timingInstanceTotal: Timing.count()]
     }
 
     def create = {
         def timingInstance = new Timing()
         timingInstance.properties = params
-        return [timingInstance: timingInstance]
+        render (view:"edit", model:[timingInstance: timingInstance])
     }
 
     def save = {
@@ -48,12 +48,26 @@ class TimingController {
             redirect(action: "list")
         }
         else {
-            return [timingInstance: timingInstance]
+            def c = Device.createCriteria()
+                def results = c.list {
+                    timings{
+                        eq('id', params.long("id"))
+                    }
+                }
+            println results
+            return [timingInstance: timingInstance, devices:results.sort { it.description }]
         }
     }
 
     def update = {
-        def timingInstance = Timing.get(params.id)
+        def timingInstance
+        if (params.id){
+            timingInstance = Timing.get(params.id)
+        }
+        else {
+            timingInstance = new Timing()
+        }
+
         if (timingInstance) {
             if (params.version) {
                 def version = params.version.toLong()
@@ -65,9 +79,17 @@ class TimingController {
                 }
             }
             timingInstance.properties = params
+            timingInstance.monday = params.containsKey("monday")
+            timingInstance.tuesday = params.containsKey("tuesday")
+            timingInstance.wednesday = params.containsKey("wednesday")
+            timingInstance.thursday = params.containsKey("thursday")
+            timingInstance.friday = params.containsKey("friday")
+            timingInstance.saturday = params.containsKey("saturday")
+            timingInstance.sunday = params.containsKey("sunday")
+            
             if (!timingInstance.hasErrors() && timingInstance.save(flush: true)) {
                 flash.message = "${message(code: 'default.updated.message', args: [message(code: 'timing.label', default: 'Timing'), timingInstance.id])}"
-                redirect(action: "show", id: timingInstance.id)
+                redirect(action: "list", id: timingInstance.id)
             }
             else {
                 render(view: "edit", model: [timingInstance: timingInstance])

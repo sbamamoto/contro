@@ -48,12 +48,15 @@ grails.spring.bean.packages = []
 environments {
     production {
         grails.serverURL = "http://192.168.1.3:8080/${appName}"
+        runingMode = "LIVE"
     }
     development {
         grails.serverURL = "http://localhost:8080/${appName}"
+        runningMode = "DEV"
     }
     test {
         grails.serverURL = "http://localhost:8080/${appName}"
+        runningMode = "TEST"
     }
 
 }

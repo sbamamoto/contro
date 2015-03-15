@@ -90,7 +90,7 @@ class ScheduleSwitchJob {
     
     def execute() {
         def mode = Setting.findBySetting('partymode')
-        if (mode?.value=="ON") {
+        if (mode?.value=="OFF") {
             List devices = Device.list()
             Date now = new Date();
         

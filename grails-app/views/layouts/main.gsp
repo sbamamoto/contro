@@ -1,11 +1,15 @@
+<!DOCTYPE html>
 <html>
     <head>
         <title><g:layoutTitle default="Grails" /></title>
         <script src="${resource(dir:'js',file:'jquery-2.1.1.min.js')}"></script>
+        <script src="${resource(dir:'js',file:'jquery-ui.min.js')}"></script>
+        <script src="${resource(dir:'js',file:'bootstrap.min.js')}"></script>
+        
+        
         <link rel="stylesheet" href="${resource(dir:'css',file:'bootstrap.min.css')}" />
         <link rel="stylesheet" href="${resource(dir:'css',file:'bootstrap-theme.min.css')}" />
-        <script src="${resource(dir:'js',file:'bootstrap.min.js')}"></script>
-        <!--link rel="stylesheet" href="${resource(dir:'css',file:'main.css')}" /-->
+        
         <link rel="shortcut icon" href="${resource(dir:'images',file:'favicon.ico')}" type="image/x-icon" />	
         <g:layoutHead />
     <r:layoutResources />
