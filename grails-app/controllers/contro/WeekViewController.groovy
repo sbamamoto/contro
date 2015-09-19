@@ -12,7 +12,7 @@ class WeekViewController {
             week[index][hour]=[]  //init timeslot with empty list
         }
         
-        if (timing.dimmValue.trim().equals("150")) {
+        if (timing.dimmValue?.trim().equals("150")) {
             week[index][hour].add(["ON  "+device.description, "deviceon", device.id])
         }
         else {

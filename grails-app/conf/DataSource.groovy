@@ -30,7 +30,7 @@ environments {
 	production {
 		dataSource {
                         dbCreate = "update" // one of 'create', 'create-drop','update'
-                        url = "jdbc:postgresql://mediaserver/contro"
+                        url = "jdbc:postgresql://localhost/contro"
 		}
 	}
 }

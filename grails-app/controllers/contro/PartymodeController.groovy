@@ -5,7 +5,7 @@ import contro.Setting
 class PartymodeController {
 
     def index() { 
-        def mode = Setting.findBySetting("partymode")?.value?:OFF
+        def mode = Setting.findBySetting("partymode")?.value?:'OFF'
         [mode:mode]
     }
     
