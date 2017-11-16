@@ -8,7 +8,17 @@ quartz {
 environments {
     test {
         quartz {
-            autoStartup = false
+            autoStartup = true
+        }
+    }
+    production {
+        quartz {
+            autoStartup = true
+        }
+    }
+    development {
+        quartz {
+            autoStartup = true
         }
     }
 }
