@@ -15,9 +15,10 @@ class DeviceController {
     }
 
     def create = {
+        def controllers = Interface.list()
         def deviceInstance = new Device()
         deviceInstance.properties = params
-        render (view:"edit", model: [deviceInstance: deviceInstance,allTimings: Timing.list().sort { it.timing }])
+        render (view:"edit", model: [deviceInstance: deviceInstance,allTimings: Timing.list().sort { it.timing }, controllers:controllers])
     }
 
     def save = {
@@ -43,6 +44,7 @@ class DeviceController {
     }
 
     def edit = {
+        def controllers = Interface.list()
         def deviceInstance = Device.get(params.id)
         if (!deviceInstance) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'device.label', default: 'Device'), params.id])}"
@@ -53,7 +55,7 @@ class DeviceController {
             deviceInstance.timings.each {
                 deviceTimings.add(it.id)
             }
-            return [deviceInstance: deviceInstance, allTimings: Timing.list().sort { it.timing }, deviceTimings:deviceTimings  ]
+            return [deviceInstance: deviceInstance, allTimings: Timing.list().sort { it.timing }, deviceTimings:deviceTimings, controllers:controllers  ]
         }
     }
 
