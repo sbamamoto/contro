@@ -79,6 +79,7 @@ class TimingController {
                 }
             }
             timingInstance.properties = params
+            timingInstance.power = params.containsKey("power")
             timingInstance.monday = params.containsKey("monday")
             timingInstance.tuesday = params.containsKey("tuesday")
             timingInstance.wednesday = params.containsKey("wednesday")
@@ -86,6 +87,14 @@ class TimingController {
             timingInstance.friday = params.containsKey("friday")
             timingInstance.saturday = params.containsKey("saturday")
             timingInstance.sunday = params.containsKey("sunday")
+            
+            if (timingInstance.dimmValue == null && !timingInstance.power) {
+                timingInstance.dimmValue=0
+            }
+            if (timingInstance.dimmValue == null && timingInstance.power) {
+                timingInstance.dimmValue=150
+            }
+                
             
             if (!timingInstance.hasErrors() && timingInstance.save(flush: true)) {
                 flash.message = "${message(code: 'default.updated.message', args: [message(code: 'timing.label', default: 'Timing'), timingInstance.id])}"
