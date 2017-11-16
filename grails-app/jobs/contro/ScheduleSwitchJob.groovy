@@ -16,12 +16,15 @@ class ScheduleSwitchJob {
 
         try {
             URL u = new URL(url);
-            InputStream is = u.openStream();
+            HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();            
+            InputStream is = u.openStream();            
             InputStreamReader isr = new InputStreamReader(is);
             BufferedReader br = new BufferedReader(isr);
             String theLine;
             while ((theLine = br.readLine()) != null) {
-                System.out.println(theLine);
+                if (connection.getResponseCode() > 200) {
+                    System.out.println(theLine);
+                }
             }
         }
         catch (MalformedURLException ex) {
@@ -50,7 +53,7 @@ class ScheduleSwitchJob {
         if (rightDay && now.getMinutes()==Integer.parseInt(timeArray[1]) &&
             now.getHours()==Integer.parseInt(timeArray[0])) {
             if (!timing.power){
-                System.out.println("    Switching OFF required")
+                //System.out.println("    Switching OFF required")
                 Device.withTransaction {
                     def dbdevice=Device.findById(device.id)
                     dbdevice.state = "OFF"
@@ -60,12 +63,14 @@ class ScheduleSwitchJob {
                         dbdevice.errors.allErrors.each{println it.defaultMessage}
                     }
                 }
+                def url = device.controller.url
+                    .replace("#address#", device.device)
+                    .replace("#brightness#", timing.dimmValue)
                 Thread.sleep(500)
-                runcgi("http://localhost/home/switchDevice.py?Helligkeit="+
-                    timing.dimmValue+"&device="+device.device)
+                runcgi(url)
             }
             else {
-                System.out.println("    Switching ON required")
+                //System.out.println("    Switching ON required")
                 Device.withTransaction {
                     def dbdevice=Device.findById(device.id)
                     dbdevice.state = "ON"
@@ -80,8 +85,10 @@ class ScheduleSwitchJob {
                     }
                 }
                 Thread.sleep(500)
-                runcgi("http://localhost/home/switchDevice.py?Helligkeit="+
-                    timing.dimmValue+"&device="+device.device)
+                def url = device.controller.url
+                    .replace("#address#", device.device)
+                    .replace("#brightness#", timing.dimmValue)
+                runcgi(url)
             }
 
         }
@@ -95,7 +102,7 @@ class ScheduleSwitchJob {
             Date now = new Date();
         
             devices.each { device ->
-                System.out.println (device.description+" "+device.state+"  ("+device.device+")")
+                //System.out.println (device.description+" "+device.state+"  ("+device.device+")")
                 device.timings.each{switchIt(device,it,now)}
             }
         }
