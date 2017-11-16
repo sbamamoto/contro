@@ -34,7 +34,8 @@
                             <th>Aktive Timings</th>
                             <th>ist dimmbar</th>
                             <th>Zustand</th>
-                            <th>FS20 Adresse</th>
+                            <th>Adresse</th>
+                            <th>controller</th>
                             <th>Aktion</th>
                         </tr>
                     </thead>
@@ -49,7 +50,8 @@
                             <td>${deviceInstance.state == "ON" ? "eingeschaltet" : "ausgeschaltet"}</td>
                             
                             <td>${deviceInstance.device}</td>
-                                <td><a href="${createLink (action:'delete')}/${deviceInstance.id}"  onClick="return confirm('Gerät: [${deviceInstance.description}] löschen ?');"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+                            <td>${deviceInstance.controller}</td>
+                            <td><a href="${createLink (action:'delete')}/${deviceInstance.id}"  onClick="return confirm('Gerät: [${deviceInstance.description}] löschen ?');"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
                         </tr>
                     </g:each>
                     </tbody>

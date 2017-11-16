@@ -11,13 +11,13 @@
             $(function () {
             $('[data-toggle="popover"]').popover()
             })
-            
+
             function program(){
-                var device = $('#device').val();
-                $('#device-pop').popover('hide');
+            var device = $('#device').val();
+            $('#device-pop').popover('hide');
                 var url = "${createLink(action:"programDevice")}/"+device;
-                $.ajax({url:url});
-                
+            $.ajax({url:url});
+
             }
         </script>
     </head>
@@ -34,13 +34,20 @@
                         <label for="description">Beschreibung:</label>
                         <input type="text" class="form-control" name="device.description" id="description" placeHolder="Description" value="${deviceInstance?.description}"/>
                     </div>
+
+                    <div class=form-group">
+                        <label for="controller">Controller:</label>
+                        <g:select from="${controllers}" class="form-control" id="controller" name="device.controller" value="${deviceInstance?.controller?.id}" optionKey="id" >
+                        </g:select>
+                    </div>
+                    <br/>
                     <div class="form-group">
-                        <label for="description">FS20 Adresse:</label>
+                        <label for="description">Adresse:</label>
                         <div class="input-group">
                             <span class="input-group-addon" id="program-device">
                                 <a href="#" role="button" data-toggle="popover" id="device-pop" title="Programming Help" data-html="true" 
                                 data-content="Press button on device until button starts flashing.<br><br>When button flashes press program button.<br><br><button type='input' onclick='program();return false;' class='btn btn-primary' >Program Device</button>">PRG</a></button></span>
-                            <input type="text" class="form-control" name="device.device" id="device" placeHolder="FS20 Code" value="${deviceInstance?.device}" aria-describedby="program-device"/>
+                            <input type="text" class="form-control" name="device.device" id="device" placeHolder="Geräteadresse" value="${deviceInstance?.device}" aria-describedby="program-device"/>
                         </div>
                     </div>
                     <div class="checkbox">

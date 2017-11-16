@@ -6,6 +6,7 @@ class Device {
     String device
     String state = 'OFF'
     String dimm = '0'
+    Interface controller
     
     static hasMany = [
         timings : Timing
