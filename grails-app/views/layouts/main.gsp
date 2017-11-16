@@ -41,6 +41,7 @@
                             <li id="devices"><a href="${createLink(controller:"device")}"><h1>Geräte</h1></a></li>
                             <li id="timing"><a href="${createLink(controller:"timing")}"><h1>Zeiten</h1></a></li>
                             <li id="partymode"><a href="${createLink(controller:"partymode")}"><h1>Partymode</h1></a></li>
+                            <li id="interfaces"><a href="${createLink(controller:"interface")}"><h1>Controller</h1></a></li>
                         </ul>
                     </li>
                     <li id="all"><a href="${createLink(controller:"general")}"><h1>Alle</h1></a></li>
