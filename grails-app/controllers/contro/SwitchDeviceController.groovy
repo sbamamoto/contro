@@ -2,7 +2,7 @@ package contro
 
 class SwitchDeviceController {
     def runcgi(url) {
-
+        println ("URL: "+url)
         try {
             URL u = new URL(url);
             InputStream is = u.openStream();
@@ -30,9 +30,13 @@ class SwitchDeviceController {
         else {
             device.state="OFF"
         }
+
         device.save()
-        runcgi("http://localhost/home/switchDevice.py?Helligkeit="+
-            params.state+"&device="+params.device)
+        def url = device.controller.url
+           .replace("#address#", params.device)
+            .replace("#brightness#", params.state)
+
+        runcgi(url)
         redirect (controller:"tablet")
     }
     
@@ -47,8 +51,12 @@ class SwitchDeviceController {
                 it.state="OFF"
             }
             it.save()
-            runcgi("http://localhost/home/switchDevice.py?Helligkeit="+
-                params.state+"&device="+it.device)
+
+            def url = it.controller.url
+                .replace("#address#", it.device)
+                .replace("#brightness#", it.state)
+
+            runcgi(url)
             Thread.sleep(500);
         }
         redirect (controller:"tablet")
@@ -66,8 +74,11 @@ class SwitchDeviceController {
                     it.state="OFF"
                 }
                 it.save()
-                runcgi("http://localhost/home/switchDevice.py?Helligkeit="+
-                    params.state+"&device="+it.device)
+                def url = it.controller.url
+                .replace("#address#", it.device)
+                .replace("#brightness#", it.state)
+
+                runcgi(url)
                 Thread.sleep(500);
             }
         }
