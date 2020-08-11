@@ -31,3 +31,4 @@
 build
 private
 env-setup
+.gradle
