@@ -16,7 +16,7 @@
     <body>
 
         <div class="container">
-            <h1>Raumliste <button class="btn btn-primary" onclick="location.href='${createLink(action:"create")}';"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></h1>
+            <h1>Raumliste <button class="btn btn-primary" onclick="location.href='${createLink(action:"create")}';"><span class="fa fa-plus" aria-hidden="true"></span></button></h1>
             <g:if test="${flash.message}">
                 <div class="${flash.textClass}">${flash.message}</div>
             </g:if>
@@ -34,7 +34,7 @@
                         <g:each in="${roomInstanceList}" status="i" var="roomInstance">
                             <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                                 <td><g:link action="edit" id="${roomInstance.id}">${fieldValue(bean: roomInstance, field: "name")}</g:link></td>
-                                <td><a href="${createLink (action:'delete')}/${roomInstance.id}"  onClick="return confirm('Raum: [${roomInstance.name}] löschen ?');"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+                                <td><a href="${createLink (action:'delete')}/${roomInstance.id}"  onClick="return confirm('Raum: [${roomInstance.name}] löschen ?');"><span class="fa fa-trash" aria-hidden="true"></span></a></td>
                             </tr>
                         </g:each>
                     </tbody>

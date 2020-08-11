@@ -3,6 +3,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+       
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'device.label', default: 'Device')}" />
         <title><g:message code="default.edit.label" args="[entityName]" /></title>
@@ -27,8 +28,8 @@
                 <nav>
                     <ul class="pager">
                         <li class="previous"><g:link action="list"><span aria-hidden="true">&larr;</span> Geräteliste</g:link></li>
-                        </ul>
-                    </nav>
+                    </ul>
+                </nav>
                 <g:form action="saveDevice">
                     <div class="form-group">
                         <label for="description">Beschreibung:</label>
@@ -45,11 +46,16 @@
                         <label for="description">Adresse:</label>
                         <div class="input-group">
                             <span class="input-group-addon" id="program-device">
-                                <a href="#" role="button" data-toggle="popover" id="device-pop" title="Programming Help" data-html="true" 
-                                data-content="Press button on device until button starts flashing.<br><br>When button flashes press program button.<br><br><button type='input' onclick='program();return false;' class='btn btn-primary' >Program Device</button>">PRG</a></button></span>
+                                <button type="button" class="btn btn-danger" data-toggle="popover" title="Programming Help" data-html="true" 
+                                data-content="Press button on device until button starts flashing.<br><br>When button flashes press program button.<br><br><button type='input' onclick='program();return false;' class='btn btn-primary' >Program Device</button>">PRG</button></span>
                             <input type="text" class="form-control" name="device.device" id="device" placeHolder="Geräteadresse" value="${deviceInstance?.device}" aria-describedby="program-device"/>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="description">Kanal:</label>
+                        <input type="text" class="form-control" name="device.channel" id="channel" placeHolder="Kanal" value="${deviceInstance?.channel}"/>
+                    </div>
+
                     <div class="checkbox">
                         <label>
                             <input type="checkbox" name="device.canDimm" ${deviceInstance.canDimm ?"checked":""}/>

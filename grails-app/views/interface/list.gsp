@@ -22,7 +22,7 @@
     </head>
     <body>
         <div class="container">
-            <h1>Controllerliste <button class="btn btn-primary" onclick="location.href='${createLink(action:"create")}';"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></h1>
+            <h1>Controllerliste <button class="btn btn-primary" onclick="location.href='${createLink(action:"create")}';"><span class="fa fa-plus" aria-hidden="true"></span></button></h1>
             <g:if test="${flash.message}">
                 <div class="${flash.textClass}">${flash.message}</div>
             </g:if>
@@ -39,7 +39,7 @@
                         <tr>                        
                             <td><g:link action="edit" id="${interfaceInstance.id}">${interfaceInstance.description}</g:link></td>
                             <td>${interfaceInstance.url}</td>
-                            <td><a href="${createLink (action:'delete')}/${interfaceInstance.id}"  onClick="return confirm('Gerät: [${interfaceInstance.description}] löschen ?');"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+                            <td><a href="${createLink (action:'delete')}/${interfaceInstance.id}"  onClick="return confirm('Gerät: [${interfaceInstance.description}] löschen ?');"><span class="fa fa-trash" aria-hidden="true"></span></a></td>
                         </tr>
                     </g:each>
                     </tbody>

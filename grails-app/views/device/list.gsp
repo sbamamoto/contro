@@ -22,7 +22,7 @@
     </head>
     <body>
         <div class="container">
-            <h1>Geräteliste <button class="btn btn-primary" onclick="location.href='${createLink(action:"create")}';"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button></h1>
+            <h1>Geräteliste <button class="btn btn-primary" onclick="location.href='${createLink(action:"create")}';"><span class="fa fa-plus" aria-hidden="true"></span></button></h1>
             <g:if test="${flash.message}">
                 <div class="${flash.textClass}">${flash.message}</div>
             </g:if>
@@ -35,7 +35,8 @@
                             <th>ist dimmbar</th>
                             <th>Zustand</th>
                             <th>Adresse</th>
-                            <th>controller</th>
+                            <th>Kanal</th>
+                            <th>Controller</th>
                             <th>Aktion</th>
                         </tr>
                     </thead>
@@ -50,8 +51,9 @@
                             <td>${deviceInstance.state == "ON" ? "eingeschaltet" : "ausgeschaltet"}</td>
                             
                             <td>${deviceInstance.device}</td>
+                            <td>${deviceInstance.channel}</td>
                             <td>${deviceInstance.controller}</td>
-                            <td><a href="${createLink (action:'delete')}/${deviceInstance.id}"  onClick="return confirm('Gerät: [${deviceInstance.description}] löschen ?');"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+                            <td><a href="${createLink (action:'delete')}/${deviceInstance.id}"  onClick="return confirm('Gerät: [${deviceInstance.description}] löschen ?');"><span class="fa fa-trash" aria-hidden="true"></span></a></td>
                         </tr>
                     </g:each>
                     </tbody>

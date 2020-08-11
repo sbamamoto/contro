@@ -3,8 +3,10 @@ package contro
 class DeviceController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "GET"]
-    def switchService;
     
+    def switchService
+    def deviceModelService
+
     def index = {
         redirect(action: "list", params: params)
     }
@@ -122,16 +124,7 @@ class DeviceController {
     }
     
     def saveDevice = {
-        def device
-        if (params.device.id){
-            device = Device.get(params.device.id)
-        }
-        else {
-            device = new Device()
-        }
-        device.timings?.clear()
-        device.properties = params.device
-        device.save(flush:true,failOnError:true)
+        def device = deviceModelService.saveDevice(params.device)
         flash.message="${message(code: 'default.updated.message', args: [message(code: 'device.label', default: 'Device'), device.description])}"
         flash.textClass="text-success"
         redirect action:"list"

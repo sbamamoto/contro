@@ -2,49 +2,45 @@
 <html>
     <head>
         <title><g:layoutTitle default="Grails" /></title>
+        
         <script src="${resource(dir:'js',file:'jquery-2.1.1.min.js')}"></script>
         <script src="${resource(dir:'js',file:'jquery-ui.min.js')}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
         <script src="${resource(dir:'js',file:'bootstrap.min.js')}"></script>
-        
         
         <link rel="stylesheet" href="${resource(dir:'css',file:'bootstrap.min.css')}" />
         <link rel="stylesheet" href="${resource(dir:'css',file:'bootstrap-theme.min.css')}" />
-        
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
         <link rel="shortcut icon" href="${resource(dir:'images',file:'favicon.ico')}" type="image/x-icon" />	
         <g:layoutHead />
     <r:layoutResources />
 </head>
 <body>
-    <nav class="navbar navbar-default" role="navigation">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#"><h1><b>Contro</b></h1></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
         <div class="container-fluid">
-          <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#"><h1><b>Contro</b></h1></a>
-            </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li id="tablet"><a href="${createLink(controller:"tablet")}"><h1>Schalten</h1></a></li>
-                    <li id="week"><a href="${createLink(controller:"weekView")}"><h1>Wochenplan</h1></a></li>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li id="tablet" class="nav-item"><a class="nav-link" href="${createLink(controller:"tablet")}"><h1>Schalten</h1></a></li>
+                    <li id="week" class="nav-item"><a class="nav-link" href="${createLink(controller:"weekView")}"><h1>Wochenplan</h1></a></li>
 
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><h1>Einstellungen</h1> <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li id="rooms"><a href="${createLink(controller:"room")}"><h1>Räume</h1></a></li>
-                            <li id="devices"><a href="${createLink(controller:"device")}"><h1>Geräte</h1></a></li>
-                            <li id="timing"><a href="${createLink(controller:"timing")}"><h1>Zeiten</h1></a></li>
-                            <li id="partymode"><a href="${createLink(controller:"partymode")}"><h1>Partymode</h1></a></li>
-                            <li id="interfaces"><a href="${createLink(controller:"interface")}"><h1>Controller</h1></a></li>
-                        </ul>
+                    <li class="nav-item dropdown">
+                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><h1>Einstellungen</h1></a>
+                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="${createLink(controller:"room")}"><h1>Räume</h1></a>
+                            <a class="dropdown-item" href="${createLink(controller:"device")}"><h1>Geräte</h1></a>
+                            <a class="dropdown-item" href="${createLink(controller:"timing")}"><h1>Zeiten</h1></a>
+                            <a class="dropdown-item" href="${createLink(controller:"partymode")}"><h1>Partymode</h1></a>
+                            <a class="dropdown-item" href="${createLink(controller:"interface")}"><h1>Controller</h1></a>
+                        </div>
                     </li>
-                    <li id="all"><a href="${createLink(controller:"general")}"><h1>Alle</h1></a></li>
+                    <li class="nav-item" id="all"><a class="nav-link" href="${createLink(controller:"general")}"><h1>Alle</h1></a></li>
 
                 </ul>
             </div><!-- /.navbar-collapse -->

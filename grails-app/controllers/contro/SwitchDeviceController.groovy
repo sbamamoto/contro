@@ -1,6 +1,8 @@
 package contro
 
 class SwitchDeviceController {
+    def deviceModelService
+
     def runcgi(url) {
         println ("URL: "+url)
         try {
@@ -22,19 +24,24 @@ class SwitchDeviceController {
     }
     
     def switchDevice = {
-        def device = Device.findByDevice(params.device)
-        
+        def state = ""
+
         if (params.state.toInteger() > 0) {
-            device.state="ON"
+            state="ON"
         }
         else {
-            device.state="OFF"
+            state="OFF"
         }
 
-        device.save()
+        def device = deviceModelService.setState(params.id, state)
+
         def url = device.controller.url
            .replace("#address#", params.device)
             .replace("#brightness#", params.state)
+
+        if (device.channel) {
+            url = url.replace("#channel#", device.channel)
+        }
 
         runcgi(url)
         redirect (controller:"tablet")
@@ -51,6 +58,8 @@ class SwitchDeviceController {
                 it.state="OFF"
             }
             it.save()
+
+
 
             def url = it.controller.url
                 .replace("#address#", it.device)

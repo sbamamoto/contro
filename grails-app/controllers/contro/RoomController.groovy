@@ -3,6 +3,7 @@ package contro
 class RoomController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "GET"]
+    def roomModelService
 
     def index = {
         redirect(action: "list", params: params)
@@ -21,27 +22,27 @@ class RoomController {
         render (view:"edit", model: [roomInstance: roomInstance, allDevices: Device.list().sort { it.description }])
     }
 
-    def save = {
-        def roomInstance = new Room(params)
-        if (roomInstance.save(flush: true)) {
-            flash.message = "${message(code: 'default.created.message', args: [message(code: 'room.label', default: 'Room'), roomInstance.id])}"
-            redirect(action: "show", id: roomInstance.id)
-        }
-        else {
-            render(view: "create", model: [roomInstance: roomInstance])
-        }
-    }
+//    def save = {
+//        def roomInstance = new Room(params)
+//        if (roomInstance.save(flush: true)) {
+//            flash.message = "${message(code: 'default.created.message', args: [message(code: 'room.label', default: 'Room'), roomInstance.id])}"
+//            redirect(action: "show", id: roomInstance.id)
+//        }
+//        else {
+//            render(view: "create", model: [roomInstance: roomInstance])
+//        }
+//    }
 
-    def show = {
-        def roomInstance = Room.get(params.id)
-        if (!roomInstance) {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'room.label', default: 'Room'), params.id])}"
-            redirect(action: "list")
-        }
-        else {
-            [roomInstance: roomInstance]
-        }
-    }
+//    def show = {
+//        def roomInstance = Room.get(params.id)
+//        if (!roomInstance) {
+//            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'room.label', default: 'Room'), params.id])}"
+//            redirect(action: "list")
+//        }
+//        else {
+//            [roomInstance: roomInstance]
+//        }
+//    }
 
     def edit = {
         def roomInstance = Room.get(params.id)
@@ -58,38 +59,38 @@ class RoomController {
         }
     }
 
-    def update = {
-        def roomInstance = Room.get(params.id)
-        if (roomInstance) {
-            if (params.version) {
-                def version = params.version.toLong()
-                if (roomInstance.version > version) {
-                    
-                    roomInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'room.label', default: 'Room')] as Object[], "Another user has updated this Room while you were editing")
-                    render(view: "edit", model: [roomInstance: roomInstance])
-                    return
-                }
-            }
-            roomInstance.properties = params
-            if (!roomInstance.hasErrors() && roomInstance.save(flush: true)) {
-                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'room.label', default: 'Room'), roomInstance.id])}"
-                redirect(action: "show", id: roomInstance.id)
-            }
-            else {
-                render(view: "edit", model: [roomInstance: roomInstance])
-            }
-        }
-        else {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'room.label', default: 'Room'), params.id])}"
-            redirect(action: "list")
-        }
-    }
+//    def update = {
+//        def roomInstance = Room.get(params.id)
+//        if (roomInstance) {
+//            if (params.version) {
+//                def version = params.version.toLong()
+//                if (roomInstance.version > version) {
+
+//                    roomInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'room.label', default: 'Room')] as Object[], "Another user has updated this Room while you were editing")
+//                    render(view: "edit", model: [roomInstance: roomInstance])
+//                    return
+//                }
+//            }
+//            roomInstance.properties = params
+//            if (!roomInstance.hasErrors() && roomInstance.save(flush: true)) {
+//                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'room.label', default: 'Room'), roomInstance.id])}"
+//                redirect(action: "show", id: roomInstance.id)
+//            }
+//            else {
+//                render(view: "edit", model: [roomInstance: roomInstance])
+//            }
+//        }
+//        else {
+//            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'room.label', default: 'Room'), params.id])}"
+//            redirect(action: "list")
+//        }
+//    }
 
     def delete = {
         def roomInstance = Room.get(params.id)
         if (roomInstance) {
             try {
-                roomInstance.delete(flush: true)
+                roomModelService.deleteRoom(params)
                 flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'room.label', default: 'Raum'), params.id])}"
                 flash.textClass="text-success"
                 redirect(action: "list")
@@ -118,17 +119,8 @@ class RoomController {
         }
         room.devices?.clear()
         room.properties = params
-//        println "xxxxxxxxxx"+params.devices
-//        if (params.devices.size() > 1) {
-//            params.devices.each {
-//                if (it && it != "-1") {
-//                    room.addToDevices(Device.get(it))
-//                }
-//            }
-//        }
-
         println params
-        room.save(flush:true,failOnError:true)
+        roomModelService.saveRoom(params)
         flash.message="${message(code: 'default.updated.message', args: [message(code: 'room.label', default: 'Raum '), room.name])}"
         flash.textClass="text-success"
         redirect action:"list"

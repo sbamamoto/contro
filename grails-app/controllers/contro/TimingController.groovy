@@ -3,6 +3,7 @@ package contro
 class TimingController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "GET"]
+    def timingModelService
 
     def index = {
         redirect(action: "list", params: params)
@@ -59,50 +60,11 @@ class TimingController {
         }
     }
 
-    def update = {
-        def timingInstance
-        if (params.id){
-            timingInstance = Timing.get(params.id)
-        }
-        else {
-            timingInstance = new Timing()
-        }
-
-        if (timingInstance) {
-            if (params.version) {
-                def version = params.version.toLong()
-                if (timingInstance.version > version) {
-                    
-                    timingInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'timing.label', default: 'Timing')] as Object[], "Another user has updated this Timing while you were editing")
-                    render(view: "edit", model: [timingInstance: timingInstance])
-                    return
-                }
-            }
-            timingInstance.properties = params
-            timingInstance.power = params.containsKey("power")
-            timingInstance.monday = params.containsKey("monday")
-            timingInstance.tuesday = params.containsKey("tuesday")
-            timingInstance.wednesday = params.containsKey("wednesday")
-            timingInstance.thursday = params.containsKey("thursday")
-            timingInstance.friday = params.containsKey("friday")
-            timingInstance.saturday = params.containsKey("saturday")
-            timingInstance.sunday = params.containsKey("sunday")
-            
-            if (timingInstance.dimmValue == null && !timingInstance.power) {
-                timingInstance.dimmValue=0
-            }
-            if (timingInstance.dimmValue == null && timingInstance.power) {
-                timingInstance.dimmValue=150
-            }
-                
-            
-            if (!timingInstance.hasErrors() && timingInstance.save(flush: true)) {
-                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'timing.label', default: 'Timing'), timingInstance.id])}"
-                redirect(action: "list", id: timingInstance.id)
-            }
-            else {
-                render(view: "edit", model: [timingInstance: timingInstance])
-            }
+    def update = {        
+        println params
+        if (timingModelService.saveTiming(params)) {
+            flash.message = "${message(code: 'default.updated.message', args: [message(code: 'timing.label', default: 'Timing'), params.id])}"
+            redirect(action: "list", id: params.id)
         }
         else {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'timing.label', default: 'Timing'), params.id])}"
@@ -114,7 +76,7 @@ class TimingController {
         def timingInstance = Timing.get(params.id)
         if (timingInstance) {
             try {
-                timingInstance.delete(flush: true)
+                timingModelService.deleteTiming(params)
                 flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'timing.label', default: 'Timing'), params.id])}"
                 redirect(action: "list")
             }

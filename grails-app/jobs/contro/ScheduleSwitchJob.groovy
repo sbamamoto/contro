@@ -66,6 +66,11 @@ class ScheduleSwitchJob {
                 def url = device.controller.url
                     .replace("#address#", device.device)
                     .replace("#brightness#", timing.dimmValue)
+
+                if (device.channel) {
+                    url = url.replace("#channel#", device.channel)
+                }
+
                 Thread.sleep(500)
                 runcgi(url)
             }
@@ -88,6 +93,10 @@ class ScheduleSwitchJob {
                 def url = device.controller.url
                     .replace("#address#", device.device)
                     .replace("#brightness#", timing.dimmValue)
+                
+                if (device.channel) {
+                    url = url.replace("#channel#", device.channel)
+                }                    
                 runcgi(url)
             }
 

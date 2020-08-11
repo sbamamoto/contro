@@ -1,5 +1,9 @@
 package contro
 
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.ZoneId
+
 class WeekViewController {
 
     def checkTiming (index, timing, device, week) {
@@ -107,7 +111,7 @@ class WeekViewController {
         def powerOn = ""
         def powerOff = ""
         def offset = 0
-        
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         timings.each {            
             mondayOfWeek = today.getTime()
             if (it.monday) {
@@ -115,93 +119,101 @@ class WeekViewController {
                     onSchedule.add(it)
                 }
                 else if (!it.power && onSchedule.size() == 0) {
-                    powerOff = mondayOfWeek.format("yyyy-MM-dd")+"T"+it.timing+":00"
+                    powerOff = sdf.format(mondayOfWeek)+"T"+it.timing+":00"
                     myJson = myJson+"{title: '"+it.description+"', start: '" + powerOff +"', end: '"+ powerOff + "', offid: '" + it.id + "', devid: '"+ params['id'] +"'},"
                 }
                 else if (!it.power) {
-                    powerOff = mondayOfWeek.format("yyyy-MM-dd")+"T"+it.timing+":00"
+                    powerOff = sdf.format(mondayOfWeek)+"T"+it.timing+":00"
                     onSchedule.each { on ->
-                        powerOn = mondayOfWeek.format("yyyy-MM-dd")+"T"+on.timing+":00"
+                        powerOn = sdf.format(mondayOfWeek)+"T"+on.timing+":00"
                         myJson = myJson+"{title: '" + on.description + "', start: '" + powerOn +"', end: '"+ powerOff  + "', onid: '"+ on.id +"', offid: '" + it.id + "', devid: '"+ params['id'] +"'},"
                     }
                     onSchedule = []
                 }
             }          
         }
-        mondayOfWeek = today.getTime()+1
+        //mondayOfWeek = today.getTime()+1
+        // LocalDateTime.from(mondayOfWeek.toInstant()).plusDays(1);
+
+        def localDate = LocalDateTime.ofInstant(mondayOfWeek.toInstant(), ZoneId.systemDefault()).plusDays(1)
+        mondayOfWeek = java.util.Date.from(localDate.atZone(ZoneId.systemDefault()).toInstant());
+
         timings.each {
             if (it.tuesday) {
                 if (it.power) {  // Startzeit
                     onSchedule.add(it)
                 }
                 else if (!it.power && onSchedule.size() == 0) {
-                    powerOff = mondayOfWeek.format("yyyy-MM-dd")+"T"+it.timing+":00"
+                    powerOff = sdf.format(mondayOfWeek)+"T"+it.timing+":00"
                     myJson = myJson+"{title: '"+it.description+"', start: '" + powerOff +"', end: '"+ powerOff + "', offid: '" + it.id + "', devid: '"+ params['id'] +"'},"
                 }
                 else if (!it.power) {
-                    powerOff = mondayOfWeek.format("yyyy-MM-dd")+"T"+it.timing+":00"
+                    powerOff = sdf.format(mondayOfWeek)+"T"+it.timing+":00"
                     onSchedule.each { on ->
-                        powerOn = mondayOfWeek.format("yyyy-MM-dd")+"T"+on.timing+":00"
+                        powerOn = sdf.format(mondayOfWeek)+"T"+on.timing+":00"
                         myJson = myJson+"{title: '" + on.description + "', start: '" + powerOn +"', end: '"+ powerOff  + "', onid: '"+ on.id +"', offid: '" + it.id + "', devid: '"+ params['id'] +"'},"
                     }
                     onSchedule = []
                 }
             }          
         }
-        mondayOfWeek = mondayOfWeek+1
+        localDate = LocalDateTime.ofInstant(mondayOfWeek.toInstant(), ZoneId.systemDefault()).plusDays(1)
+        mondayOfWeek = java.util.Date.from(localDate.atZone(ZoneId.systemDefault()).toInstant());
         timings.each {
             if (it.wednesday) {
                 if (it.power) {  // Startzeit
                     onSchedule.add(it)
                 }
                 else if (!it.power && onSchedule.size() == 0) {
-                    powerOff = mondayOfWeek.format("yyyy-MM-dd")+"T"+it.timing+":00"
+                    powerOff = sdf.format(mondayOfWeek)+"T"+it.timing+":00"
                     myJson = myJson+"{title: '"+it.description+"', start: '" + powerOff +"', end: '"+ powerOff + "', offid: '" + it.id +"', devid: '"+ params['id'] +"'},"
                 }
                 else if (!it.power) {
-                    powerOff = mondayOfWeek.format("yyyy-MM-dd")+"T"+it.timing+":00"
+                    powerOff = sdf.format(mondayOfWeek)+"T"+it.timing+":00"
                     onSchedule.each { on ->
-                        powerOn = mondayOfWeek.format("yyyy-MM-dd")+"T"+on.timing+":00"
+                        powerOn = sdf.format(mondayOfWeek)+"T"+on.timing+":00"
                         myJson = myJson+"{title: '" + on.description + "', start: '" + powerOn +"', end: '"+ powerOff  + "', onid: '"+ on.id +"', offid: '" + it.id + "', devid: '"+ params['id'] +"'},"
                     }
                     onSchedule = []
                 }
             }          
         }
-        mondayOfWeek = mondayOfWeek+1
+       localDate = LocalDateTime.ofInstant(mondayOfWeek.toInstant(), ZoneId.systemDefault()).plusDays(1)
+        mondayOfWeek = java.util.Date.from(localDate.atZone(ZoneId.systemDefault()).toInstant());
         timings.each {
             if (it.thursday) {
                 if (it.power) {  // Startzeit
                     onSchedule.add(it)
                 }
                 else if (!it.power && onSchedule.size() == 0) {
-                    powerOff = mondayOfWeek.format("yyyy-MM-dd")+"T"+it.timing+":00"
+                    powerOff = sdf.format(mondayOfWeek)+"T"+it.timing+":00"
                     myJson = myJson+"{title: '"+it.description+"', start: '" + powerOff +"', end: '"+ powerOff + "', offid: '" + it.id + "', devid: '"+ params['id'] +"'},"
                 }
                 else if (!it.power) {
-                    powerOff = mondayOfWeek.format("yyyy-MM-dd")+"T"+it.timing+":00"
+                    powerOff = sdf.format(mondayOfWeek)+"T"+it.timing+":00"
                     onSchedule.each { on ->
-                        powerOn = mondayOfWeek.format("yyyy-MM-dd")+"T"+on.timing+":00"
+                        powerOn = sdf.format(mondayOfWeek)+"T"+on.timing+":00"
                         myJson = myJson+"{title: '" + on.description + "', start: '" + powerOn +"', end: '"+ powerOff  + "', onid: '"+ on.id +"', offid: '" + it.id + "', devid: '"+ params['id'] +"'},"
                     }
                     onSchedule = []
                 }
             }          
         }
-        mondayOfWeek = mondayOfWeek+1
+        localDate = LocalDateTime.ofInstant(mondayOfWeek.toInstant(), ZoneId.systemDefault()).plusDays(1)
+        mondayOfWeek = java.util.Date.from(localDate.atZone(ZoneId.systemDefault()).toInstant());
         timings.each {
             if (it.friday) {
                 if (it.power) {  // Startzeit
                     onSchedule.add(it)
                 }
                 else if (!it.power && onSchedule.size() == 0) {
-                    powerOff = mondayOfWeek.format("yyyy-MM-dd")+"T"+it.timing+":00"
+                    powerOff = sdf.format(mondayOfWeek)+"T"+it.timing+":00"
                     myJson = myJson+"{title: '"+it.description+"', start: '" + powerOff +"', end: '"+ powerOff + "', offid: '" + it.id + "', devid: '"+ params['id'] +"'},"
                 }
                 else if (!it.power) {
-                    powerOff = mondayOfWeek.format("yyyy-MM-dd")+"T"+it.timing+":00"
+                    powerOff = sdf.format(mondayOfWeek)+"T"+it.timing+":00"
                     onSchedule.each { on ->
-                        powerOn = mondayOfWeek.format("yyyy-MM-dd")+"T"+on.timing+":00"
+                        powerOn = sdf.format(mondayOfWeek)+"T"+on.timing+":00"
                         myJson = myJson+"{title: '" + on.description + "', start: '" + powerOn +"', end: '"+ powerOff  + "', onid: '"+ on.id +"', offid: '" + it.id + "', devid: '"+ params['id'] +"'},"
                     }
                     onSchedule = []
@@ -209,20 +221,21 @@ class WeekViewController {
             }          
         }
         
-        mondayOfWeek = mondayOfWeek+1
+        localDate = LocalDateTime.ofInstant(mondayOfWeek.toInstant(), ZoneId.systemDefault()).plusDays(1)
+        mondayOfWeek = java.util.Date.from(localDate.atZone(ZoneId.systemDefault()).toInstant());
         timings.each {
             if (it.saturday) {
                 if (it.power) {  // Startzeit
                     onSchedule.add(it)
                 }
                 else if (!it.power && onSchedule.size() == 0) {
-                    powerOff = mondayOfWeek.format("yyyy-MM-dd")+"T"+it.timing+":00"
+                    powerOff = sdf.format(mondayOfWeek)+"T"+it.timing+":00"
                     myJson = myJson+"{title: '"+it.description+"', start: '" + powerOff +"', end: '"+ powerOff + "', offid: '" + it.id + "', devid: '"+ params['id'] +"'},"
                 }
                 else if (!it.power) {
-                    powerOff = mondayOfWeek.format("yyyy-MM-dd")+"T"+it.timing+":00"
+                    powerOff = sdf.format(mondayOfWeek)+"T"+it.timing+":00"
                     onSchedule.each { on ->
-                        powerOn = mondayOfWeek.format("yyyy-MM-dd")+"T"+on.timing+":00"
+                        powerOn = sdf.format(mondayOfWeek)+"T"+on.timing+":00"
                         myJson = myJson+"{title: '" + on.description + "', start: '" + powerOn +"', end: '"+ powerOff  + "', onid: '"+ on.id +"', offid: '" + it.id + "', devid: '"+ params['id'] +"'},"
                     }
                     onSchedule = []
@@ -230,7 +243,8 @@ class WeekViewController {
             }          
         }
         
-        mondayOfWeek = mondayOfWeek+1
+        localDate = LocalDateTime.ofInstant(mondayOfWeek.toInstant(), ZoneId.systemDefault()).plusDays(1)
+        mondayOfWeek = java.util.Date.from(localDate.atZone(ZoneId.systemDefault()).toInstant());
         
         timings.each {
             if (it.sunday) {
@@ -241,13 +255,13 @@ class WeekViewController {
                     onSchedule.add(it)
                 }
                 else if (!it.power && onSchedule.size() == 0) {
-                    powerOff = mondayOfWeek.format("yyyy-MM-dd")+"T"+it.timing+":00"
+                    powerOff = sdf.format(mondayOfWeek)+"T"+it.timing+":00"
                     myJson = myJson+"{title: '"+it.description+"', start: '" + powerOff +"', end: '"+ powerOff + "', offid: '" + it.id +"', devid: '"+ params['id'] +"'},"
                 }
                 else if (!it.power) {
-                    powerOff = mondayOfWeek.format("yyyy-MM-dd")+"T"+it.timing+":00"
+                    powerOff = sdf.format(mondayOfWeek)+"T"+it.timing+":00"
                     onSchedule.each { on ->
-                        powerOn = mondayOfWeek.format("yyyy-MM-dd")+"T"+on.timing+":00"
+                        powerOn = sdf.format(mondayOfWeek)+"T"+on.timing+":00"
                         myJson = myJson+"{title: '" + on.description + "', start: '" + powerOn +"', end: '"+ powerOff  + "', onid: '"+ on.id +"', offid: '" + it.id + "', devid: '"+ params['id'] +"'},"
                     }
                     onSchedule = []
@@ -255,6 +269,7 @@ class WeekViewController {
             }          
         }
         def date = new Date()
+        println myJson
         [events:myJson, date:date, device:device]
     }
 }

@@ -9,13 +9,14 @@
 
     </head>
     <body>
-        <div class="container">
-            <div class="col-md-4">
+        <div class="container-fluid">
+            <div class="row justify-content-md-center">
+            <div class="col-md-6">
                 <nav>
                     <ul class="pager">
                         <li class="previous"><g:link action="list"><span aria-hidden="true">&larr;</span> Controllerliste</g:link></li>
-                        </ul>
-                    </nav>
+                    </ul>
+                </nav>
                 <g:form action="saveInterface">
                     <div class="form-group">
                         <label for="description">Beschreibung:</label>
@@ -29,6 +30,7 @@
                     <g:hiddenField name="interfacex.id" value="${interfaceInstance?.id}" />
                     <button type="submit" class="btn btn-primary">Save</button>
                 </g:form>    
+            </div>
             </div>
         </div>
     </body>

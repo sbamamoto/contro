@@ -16,7 +16,7 @@
     <body>
 
         <div class="container">
-            <h1>Timingliste <button class="btn btn-primary" onclick="location.href='${createLink(action:"create")}';"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+            <h1>Timingliste <button class="btn btn-primary" onclick="location.href='${createLink(action:"create")}';"><span class="fa fa-plus" aria-hidden="true"></span></button>
             </h1>
             <g:if test="${flash.message}">
                 <div class="${flash.textClass}">${flash.message}</div>
@@ -41,7 +41,7 @@
 
                                 <td>${fieldValue(bean: timingInstance, field: "timing")}</td>
 
-                                <td><a href="${createLink (action:'delete')}/${timingInstance.id}"  onClick="return confirm('Timing: [${timingInstance.description}] löschen ?');"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+                                <td><a href="${createLink (action:'delete')}/${timingInstance.id}"  onClick="return confirm('Timing: [${timingInstance.description}] löschen ?');"><span class="fa fa-trash" aria-hidden="true"></span></a></td>
 
                             </tr>
                         </g:each>
