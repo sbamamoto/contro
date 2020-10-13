@@ -2,34 +2,66 @@ package contro
 
 import grails.gorm.transactions.Transactional
 import grails.web.servlet.mvc.GrailsParameterMap
+import grails.orm.HibernateCriteriaBuilder
 
 @Transactional
 class DeviceModelService {
 
     @Transactional
-    def saveDevice(GrailsParameterMap props) {
+    Device saveDevice(GrailsParameterMap props) {
         Device device
-        println ("***********************************")
+        println ('***********************************')
         println (props)
-        println ("***********************************")
-        if (props.id){
+        println ('***********************************')
+        if (props.id) {
             device = Device.get(props.id)
         }
         else {
+            // check if device with identically controller,address,channel already exists.
+            Device devices = Device.createCriteria().list {
+                eq('device', props.device)
+                controller {
+                    eq ('id', Long.valueOf(props.controller))
+                }
+                if (props.channel != null) {
+                    eq('channel', props.channel)
+                }
+            }
+
+            if (devices != null && devices.size() > 0) {
+                println ('# this thing is already known to the system')
+                return null
+            }
             device = new Device()
         }
         device.timings?.clear()
         device.properties = props
-        device.save(flush:true,failOnError:true)
-        
+        device.save(flush:true, failOnError:true)
+
         return device
     }
 
     @Transactional
-    def setState(id, state) {
+    Device setState(String id, String state) {
         Device device = Device.get(id)
         device.state = state
-        device.save(flush:true,failOnError:true)
+        device.save(flush:true, failOnError:true)
         return device
     }
+
+    @Transactional
+    void deleteDevice (Device dev) {
+        HibernateCriteriaBuilder c = Room.createCriteria()
+        List<Room> results = c.list {
+            devices {
+                eq('id', dev.id)
+            }
+        }
+        results.each {
+            it.removeFromDevices(deviceInstance)
+            it.save(flush:true, failOnError:true)
+        }
+        dev.delete(flush: true)
+    }
+
 }

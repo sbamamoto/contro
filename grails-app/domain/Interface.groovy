@@ -4,6 +4,8 @@ class Interface {
 
     String url
     String description
+    String type
+
     static constraints = {
         url(nullable:false)
     }

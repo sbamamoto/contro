@@ -1,0 +1,38 @@
+{
+    "extends": "recommended",
+    "rules": {
+        "ClassJavadoc": {
+            "enabled": false
+        },
+        "CompileStatic": {
+            "enabled": false
+        },
+        "DuplicateMapLiteral": {
+            "enabled": false
+        },
+        "DuplicateStringLiteral": {
+            "enabled": false
+        },
+        "FieldTypeRequired": {
+            "enabled": false
+        },
+        "GrailsMassAssignment": {
+            "enabled": false
+        },
+        "ImplicitClosureParameter": {
+            "enabled": false
+        },
+        "LineLength": {
+            "enabled": false
+        },
+        "MethodReturnTypeRequired": {
+            "enabled": false
+        },
+        "NoDef": {
+            "enabled": false
+        },
+        "StaticFieldsBeforeInstanceFields": {
+            "enabled": false
+        }
+    }
+}

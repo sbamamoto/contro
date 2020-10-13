@@ -26,6 +26,10 @@
                         <label for="description">Steuerungs URL:</label>
                         <input type="text" class="form-control" name="interfacex.url" id="description" placeHolder="URL der Steuerungssoftware" value="${interfaceInstance?.url}"/>
                     </div>
+                    <div class="form-group">
+                        <g:select from="${["HOMEMATIC", "433MHZ", "ARDUCONTRO"]}" class="form-control" name="interfacex.type" id="type" value="${interfaceInstance?.type}">
+                        </g:select>
+                    </div>
                     <br>
                     <g:hiddenField name="interfacex.id" value="${interfaceInstance?.id}" />
                     <button type="submit" class="btn btn-primary">Save</button>
