@@ -24,5 +24,27 @@ class AbilityModelService {
 
         return swAbility
     }
+     
+    @Transactional
+    Ability delete(String id) {
+        Ability p = Ability.get(id)
+        p.delete(failOnError:true, flush:true)
+    }
+
+    @Transactional
+    Ability addInitialData() {
+        Ability p = Ability.get(0)
+        if (p==null) {
+            p = new Ability(id: 0, name: "Switch ArduControl", description: "Arduino Gateway Switch",
+                type: "DIRECT", processor: Processor.get(0), readOnly:false)
+            p.save(failOnError: true, flush: true)
+            p = new Ability(id: 1, name: "WifiControl", description: "Arduino WLAN Switch",
+                type: "DIRECT", processor: Processor.get(1), readOnly:false)
+            p.save(failOnError: true, flush: true)
+            p = new Ability(id: 2, name: "HomematicThermostat", description: "Homematic Bridge Thermostat Control",
+                type: "DIRECT", processor: Processor.get(2), readOnly:false)
+            p.save(failOnError: true, flush: true)
+        }
+    }
 
 }

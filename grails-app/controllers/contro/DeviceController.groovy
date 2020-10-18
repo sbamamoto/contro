@@ -58,7 +58,7 @@ class DeviceController {
         }
     
         def deviceTimings = []
-        deviceInstance.timings.each {
+        deviceInstance.timedAbilites.each {
             deviceTimings.add(it.id)
         }
         def deviceTypeAbilities = []
@@ -78,7 +78,7 @@ class DeviceController {
         println '####'
 
 
-        return [deviceInstance: deviceInstance, allTimings: Timing.list().sort { it.timing },
+        return [deviceInstance: deviceInstance, allTimings: TimedAbilities.list().sort { it.timing },
             deviceTimings:deviceTimings, controllers:controllers,
             deviceTypes:deviceTypes, deviceTypeAbilities:deviceTypeAbilities, deviceAbilities:deviceAbilities]
     

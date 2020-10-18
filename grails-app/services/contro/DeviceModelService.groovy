@@ -15,6 +15,8 @@ class DeviceModelService {
         println ('***********************************')
         if (props.id) {
             device = Device.get(props.id)
+            device.timedAbilities.clear()
+            device.abilities?.clear()
         }
         else {
             // check if device with identically controller,address,channel already exists.
@@ -34,8 +36,7 @@ class DeviceModelService {
             }
             device = new Device()
         }
-        device.timings?.clear()
-        device.abilities?.clear()
+
         device.properties = props
         device.save(flush:true, failOnError:true)
         println '++++++++++++'

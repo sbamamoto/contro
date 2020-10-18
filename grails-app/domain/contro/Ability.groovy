@@ -4,6 +4,7 @@ class Ability {
 
     String name
     String description
+    String type
     Processor processor
     boolean readOnly
 
@@ -12,6 +13,7 @@ class Ability {
 
     static mapping = {
         readOnly defaultValue: false
+        id(generator: 'org.hibernate.id.enhanced.SequenceStyleGenerator', params: [sequence_name: 'start_seq', initial_value: 100])
     }
 
 }

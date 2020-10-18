@@ -35,6 +35,11 @@ class ScheduleSwitchJob {
         }
     }
 
+    def executeAbility() {
+
+    }
+
+
     def switchIt(device,timing,now) {
         Calendar cal = Calendar.getInstance();
         def dow = cal.get(Calendar.DAY_OF_WEEK)
@@ -108,14 +113,16 @@ class ScheduleSwitchJob {
 
     
     def execute() {
+        System.out.println ("Timer running")
         def mode = Setting.findBySetting('partymode')
+        System.out.println ("Timer running. PartyMode is: "+mode?.value)
         if (mode?.value=="OFF") {
             List devices = Device.list()
             Date now = new Date();
         
             devices.each { device ->
-                //System.out.println (device.description+" "+device.state+"  ("+device.device+")")
-                device.timings.each{switchIt(device,it,now)}
+                System.out.println (device.description+" "+device.state+"  ("+device.device+")")
+                device.timedAbilities.each{switchIt(device,it,now)}
             }
         }
     }

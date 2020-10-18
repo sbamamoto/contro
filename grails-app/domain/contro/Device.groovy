@@ -13,7 +13,7 @@ class Device {
     String channel
 
     static hasMany = [
-        timings : Timing,
+        timedAbilities : TimedAbility,
         abilities: Ability
     ]
 

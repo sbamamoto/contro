@@ -3,6 +3,7 @@ package contro
 class ProcessorController {
 
     def processorModelService;
+    def abilityModelService;
 
      def index(Integer max) {
         redirect(action: 'list', params: params)
@@ -47,6 +48,17 @@ class ProcessorController {
         Processor processorInstance = Processor.get(params.id)
         println processorInstance
         return [processorInstance: processorInstance]
+    }
+
+    def delete = {
+        processorModelService.delete(params.id)
+        redirect action:'list'
+    }
+
+    def addInitialData = {
+        processorModelService.addInitialData()
+        abilityModelService.addInitialData()
+        redirect action:'index'
     }
 
 }
