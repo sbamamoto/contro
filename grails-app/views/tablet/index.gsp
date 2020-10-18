@@ -10,8 +10,8 @@
             $("#tablet").addClass("active");
             });
 
-            function switchDevice (device, id, state) {
-                $.get('${createLink(action:"switchDevice", controller:"switchDevice")}', {device:device, id:id, state:state});
+            function switchDevice (deviceId, ability, value) {
+                $.get('${createLink(action:"switchDevice", controller:"switchDevice")}', {deviceId:deviceId, ability:ability, value:value});
                             
                 if (state > 0) {
                     
@@ -64,17 +64,18 @@
                                     <table class="tables">
                                         <g:each var="device" in='${room.devices.sort{it.description}}'>
                                             <tr>
-                                                <td style="padding-top:15px;padding-right:3px;"><button id="${device.device}-ON-${device.id}" type="button" class="btn btn-lg ${device.state=='ON' ? 'btn-default' : 'btn-primary'}" onclick="switchDevice('${device.device}', '${device.id}', '150')"><h1>ON</h1></button></td>
-                                                <td style="padding-top:15px;padding-right:15px;"><button id="${device.device}-OFF-${device.id}" type="button" class="btn btn-lg ${device.state=='OFF' ? 'btn-default' : 'btn-primary'}" onclick="switchDevice('${device.device}', '${device.id}', '0')"><h1>OFF</h1></button></td>
+                                                <td style="padding-top:15px;padding-right:3px;"><button id="${device.device}-ON-${device.id}" type="button" class="btn btn-lg ${device.state=='ON' ? 'btn-default' : 'btn-primary'}" onclick="switchDevice('${device.id}', '54', '150')"><h1>ON</h1></button></td>
+                                                <td style="padding-top:15px;padding-right:15px;"><button id="${device.device}-OFF-${device.id}" type="button" class="btn btn-lg ${device.state=='OFF' ? 'btn-default' : 'btn-primary'}" onclick="switchDevice('${device.id}', '54', '0')"><h1>OFF</h1></button></td>
                                                 <td style="padding-top:25px;"><label style="font-size:40px;">${device.description}</label></td>
                                             </tr>
                                             <g:if test="${device.canDimm}">
                                                 <tr> 
                                                     <td colspan="3">
-                                                        <g:each var="dimm" in="${(1..15)}">
-                                                            <button type="button" class="btn btn-danger btn-lg" onclick="switchDevice('${device.device}', '${dimm*10}')">
-                                                                <h1>${dimm}</h1></button>
-                                                        </g:each>
+                                                        <div class="range range-success">
+                                                            <input type="range" name="range" min="5" max="25" value="20" onchange="range.value=value">
+                                                            <output id="range">20</output>
+                                                            <button style="margin-left:25px" type="button" class="btn btn-info" onClick="switchDevice('${device.id}', '17', document.getElementById('range').value)">SET</button>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                             </g:if>

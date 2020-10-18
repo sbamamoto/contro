@@ -1,6 +1,7 @@
 package contro
 
 class Timing {
+
     boolean power
     boolean ramp
     String timing
@@ -13,6 +14,7 @@ class Timing {
     boolean friday
     boolean saturday
     boolean sunday
+    Processor processor
 
     static constraints = {
          power(nullable:true)
@@ -27,9 +29,10 @@ class Timing {
          friday(nullable:true)
          saturday(nullable:true)
          sunday(nullable:true)
+         processor(nullable:true)
     }
 
-    def String toString() {
+    String toString() {
         return description
     }
 }

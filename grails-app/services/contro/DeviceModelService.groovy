@@ -18,7 +18,7 @@ class DeviceModelService {
         }
         else {
             // check if device with identically controller,address,channel already exists.
-            Device devices = Device.createCriteria().list {
+            def devices = Device.createCriteria().list {
                 eq('device', props.device)
                 controller {
                     eq ('id', Long.valueOf(props.controller))
@@ -29,15 +29,17 @@ class DeviceModelService {
             }
 
             if (devices != null && devices.size() > 0) {
-                println ('# this thing is already known to the system')
+                println ('# this device is already known to the system')
                 return null
             }
             device = new Device()
         }
         device.timings?.clear()
+        device.abilities?.clear()
         device.properties = props
         device.save(flush:true, failOnError:true)
-
+        println '++++++++++++'
+        println device.abilities
         return device
     }
 

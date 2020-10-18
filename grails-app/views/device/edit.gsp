@@ -50,6 +50,11 @@
                                 <g:select from="${controllers}" class="form-control" id="controller" name="device.controller" value="${deviceInstance?.controller?.id}" optionKey="id" >
                                 </g:select>
                             </div>
+                            <div class="form-group">
+                                <label for="type">Type:</label>
+                                <g:select from="${deviceTypes}" class="form-control" id="type" name="device.type" value="${deviceInstance?.type?.id}" optionKey="id" optionValue="name">
+                                </g:select>
+                            </div>
                             <br/>
                             <div class="form-group">
                                 <label for="description">Adresse:</label>
@@ -72,8 +77,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                                                    <br>
+                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">            
                             <div style="height:500px;overflow-y: scroll;border: solid gainsboro thin; padding-left:5px;">
                                 <g:each in="${allTimings}">
                                     <div class="checkbox">
@@ -83,9 +87,24 @@
                                         </label>
                                     </div>
                                 </g:each>                
-                            </div><br>
+                            </div>
                         </div>
-                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
+                        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                            <div style="height:500px;overflow-y: scroll;border: solid gainsboro thin; padding-left:5px;">
+                                <g:each in="${deviceTypeAbilities}">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" value="${it.id}" name="device.abilities" ${deviceAbilities?.contains(it.id)?"checked":""}/>
+                                            ${it.description}
+                                        </label>
+                                    </div>
+                                </g:each>                
+                            </div>                        
+                        </div>
+                    </div>
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                        <label class="custom-control-label" for="customSwitch1">Toggle this switch element</label>
                     </div>
                     <g:hiddenField name="device.id" value="${deviceInstance?.id}" />
                     <button type="submit" class="btn btn-primary">Save</button>

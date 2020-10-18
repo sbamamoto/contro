@@ -2,6 +2,7 @@ package contro
 
 class SwitchDeviceController {
     def deviceModelService
+    def switchService
 
     def runcgi(url) {
         println ("URL: "+url)
@@ -24,32 +25,34 @@ class SwitchDeviceController {
     }
     
     def switchDevice = {
-        def state = ""
 
-        if (params.state.toInteger() > 0) {
-            state="ON"
-        }
-        else {
-            state="OFF"
-        }
+        Ability ability = Ability.get(params.ability)
 
-        def device = deviceModelService.setState(params.id, state)
+        GroovyShell shell = new GroovyShell(this.class.classLoader)
+        println params
 
-        def url = device.controller.url
-           .replace("#address#", params.device)
-            .replace("#brightness#", params.state)
+        String script = ability.processor.processingScript
 
-        if (device.channel) {
-            url = url.replace("#channel#", device.channel)
+        params.each { k, v -> 
+            script = 'def ' + k + ' = ' + '"' + v + '"' + '\n' + script
         }
 
-        runcgi(url)
-        redirect (controller:"tablet")
+        println script
+
+        shell.evaluate(script)
+
+        redirect (controller:'tablet')
     }
-    
+
+    def setValue = {
+        
+    }
+
+
+
     def switchRoom = {
         def room = Room.get(params.room)
-        
+    
         room.devices.each {
             if (params.state.toInteger() > 0) {
                 it.state="ON"
@@ -87,11 +90,13 @@ class SwitchDeviceController {
                 .replace("#address#", it.device)
                 .replace("#brightness#", it.state)
 
-                runcgi(url)
+                switchService.httpSwitch(url)
                 Thread.sleep(500);
             }
         }
         redirect (controller:"tablet")
     }
     
+
+
 }

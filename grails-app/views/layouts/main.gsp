@@ -10,7 +10,9 @@
         
         <link rel="stylesheet" href="${resource(dir:'css',file:'bootstrap.min.css')}" />
         <link rel="stylesheet" href="${resource(dir:'css',file:'bootstrap-theme.min.css')}" />
+        <link rel="stylesheet" href="${resource(dir:'css',file:'contro.css')}" />
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        
         <link rel="shortcut icon" href="${resource(dir:'images',file:'favicon.ico')}" type="image/x-icon" />	
         <g:layoutHead />
     <r:layoutResources />
@@ -38,6 +40,9 @@
                             <a class="dropdown-item" href="${createLink(controller:"timing")}"><h1>Zeiten</h1></a>
                             <a class="dropdown-item" href="${createLink(controller:"partymode")}"><h1>Partymode</h1></a>
                             <a class="dropdown-item" href="${createLink(controller:"interface")}"><h1>Controller</h1></a>
+                            <a class="dropdown-item" href="${createLink(controller:"processor")}"><h1>Processor</h1></a>
+                            <a class="dropdown-item" href="${createLink(controller:"deviceType")}"><h1>Gerätetyp</h1></a>
+                            <a class="dropdown-item" href="${createLink(controller:"Ability")}"><h1>Geräteeigenschaften</h1></a>
                         </div>
                     </li>
                     <li class="nav-item" id="all"><a class="nav-link" href="${createLink(controller:"general")}"><h1>Alle</h1></a></li>

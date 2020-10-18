@@ -70,7 +70,8 @@ class ScheduleSwitchJob {
                 if (device.channel) {
                     url = url.replace("#channel#", device.channel)
                 }
-
+                device.power = true
+                device.save()
                 Thread.sleep(500)
                 runcgi(url)
             }
@@ -97,6 +98,8 @@ class ScheduleSwitchJob {
                 if (device.channel) {
                     url = url.replace("#channel#", device.channel)
                 }                    
+                device.power = false
+                device.save()
                 runcgi(url)
             }
 

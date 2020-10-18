@@ -5,11 +5,9 @@ import grails.gorm.transactions.Transactional
 @Transactional
 class SwitchService {
 
-    def device(String id, String state) {
+    static def httpSwitch(String url) {
         try {
-            def url = "http://localhost/home/switchDevice.py?Helligkeit="+
-            state+"&device="+id
-            print url
+            println url
             URL u = new URL(url);
             InputStream is = u.openStream();
             InputStreamReader isr = new InputStreamReader(is);

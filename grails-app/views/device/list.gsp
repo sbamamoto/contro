@@ -22,7 +22,7 @@
     </head>
     <body>
         <div class="container">
-            <h1>Geräteliste <button class="btn btn-primary" onclick="location.href='${createLink(action:"create")}';"><span class="fa fa-plus" aria-hidden="true"></span></button></h1>
+            <h1>Geräteliste <button class="btn btn-primary" onclick="location.href='${createLink(action:"edit")}';"><span class="fa fa-plus" aria-hidden="true"></span></button></h1>
             <g:if test="${flash.message}">
                 <div class="${flash.textClass}">${flash.message}</div>
             </g:if>

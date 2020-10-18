@@ -8,7 +8,6 @@ class DeviceController {
 
     static allowedMethods = [save: 'POST', update: 'POST', delete: 'GET']
 
-    def switchService
     def deviceModelService
 
     def index = {
@@ -51,18 +50,39 @@ class DeviceController {
 
     def edit = {
         def controllers = Interface.list()
+        def deviceTypes = DeviceType.list()
         def deviceInstance = Device.get(params.id)
+
         if (!deviceInstance) {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'device.label', default: 'Device'), params.id])}"
-            redirect(action: 'list')
+            deviceInstance = new Device()
         }
-        else {
-            def deviceTimings = []
-            deviceInstance.timings.each {
-                deviceTimings.add(it.id)
-            }
-            return [deviceInstance: deviceInstance, allTimings: Timing.list().sort { it.timing }, deviceTimings:deviceTimings, controllers:controllers  ]
+    
+        def deviceTimings = []
+        deviceInstance.timings.each {
+            deviceTimings.add(it.id)
         }
+        def deviceTypeAbilities = []
+        deviceInstance.type?.abilities.each {
+            deviceTypeAbilities.add(it)
+        }
+
+        def deviceAbilities = [] 
+        deviceInstance.abilities?.each {
+            deviceAbilities.add(it.id)
+        }
+
+        println '########  '
+        println deviceTypeAbilities
+        println '####'
+        println deviceAbilities
+        println '####'
+
+
+        return [deviceInstance: deviceInstance, allTimings: Timing.list().sort { it.timing },
+            deviceTimings:deviceTimings, controllers:controllers,
+            deviceTypes:deviceTypes, deviceTypeAbilities:deviceTypeAbilities, deviceAbilities:deviceAbilities]
+    
+
     }
 
     def update = {
@@ -126,11 +146,6 @@ class DeviceController {
             flash.textClass = 'text-danger'
             redirect(action: 'list', id: params.id)
         }
-    }
-
-    def programDevice = {
-        switchService.device(params.id, '150')
-        println ('OK')
     }
 
 }

@@ -31,6 +31,11 @@
                         <input type="text" class="form-control" name="processorform.description" id="description" placeHolder="Beschreibung des Macros" value="${processorInstance?.description}"/>
                     </div>
                     <div class="form-group">
+                        <label for="description">Type:</label>
+                        <g:select from="${["SCRIPT", "TIMING", "BACKGROUND"]}" class="form-control" name="processorform.type" id="type" value="${processorInstance?.type}">
+                        </g:select>
+                    </div>                    
+                    <div class="form-group">
                         <pre id="editor" class="form-control" style="height:500px">${processorInstance?.processingScript}</pre>
                     </div>
                     <br>

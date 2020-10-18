@@ -25,7 +25,11 @@ class ProcessorController {
         GroovyShell shell = new GroovyShell(this.class.classLoader)
         println params
         Processor processor = Processor.get(params.id)
-        println processor.processingScript
+        String script = processor.processingScript
+        params.each {k,v -> 
+            script = 'def '+ k + '=' + '"' + v + '"' + '\n' +script
+        }
+        println script
         shell.evaluate(processor.processingScript)
         flash.message = "${message(code: 'default.updated.message', args: [message(code: 'processor.label', default: 'Processor'), processor.description])}"
         flash.textClass = 'text-success'
