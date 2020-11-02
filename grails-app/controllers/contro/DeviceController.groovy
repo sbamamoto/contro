@@ -56,32 +56,38 @@ class DeviceController {
         if (!deviceInstance) {
             deviceInstance = new Device()
         }
-    
+
         def deviceTimings = []
-        deviceInstance.timedAbilites.each {
+        deviceInstance.timings.each {
             deviceTimings.add(it.id)
         }
+
         def deviceTypeAbilities = []
         deviceInstance.type?.abilities.each {
             deviceTypeAbilities.add(it)
         }
 
-        def deviceAbilities = [] 
+        def deviceAbilities = []
         deviceInstance.abilities?.each {
             deviceAbilities.add(it.id)
+        }
+
+        def abilities = []
+        deviceInstance.abilities?.each {
+            abilities.add(it)
         }
 
         println '########  '
         println deviceTypeAbilities
         println '####'
-        println deviceAbilities
+        println deviceTimings
         println '####'
 
-
-        return [deviceInstance: deviceInstance, allTimings: TimedAbilities.list().sort { it.timing },
+        return [deviceInstance: deviceInstance, allTimings: Timing.list().sort { it.timing },
             deviceTimings:deviceTimings, controllers:controllers,
-            deviceTypes:deviceTypes, deviceTypeAbilities:deviceTypeAbilities, deviceAbilities:deviceAbilities]
-    
+            deviceTypes:deviceTypes, deviceTypeAbilities:deviceTypeAbilities, 
+            deviceAbilities:deviceAbilities,
+            abilities:abilities]
 
     }
 

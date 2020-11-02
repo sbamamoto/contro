@@ -14,6 +14,7 @@ class Timing {
     boolean friday
     boolean saturday
     boolean sunday
+    Ability ability
     Processor processor
 
     static constraints = {
@@ -30,9 +31,10 @@ class Timing {
          saturday(nullable:true)
          sunday(nullable:true)
          processor(nullable:true)
+         ability(nullabel:true)
     }
 
     String toString() {
-        return description
+        return timing + " - " + description
     }
 }

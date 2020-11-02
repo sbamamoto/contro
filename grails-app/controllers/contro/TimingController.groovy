@@ -17,7 +17,9 @@ class TimingController {
     def create = {
         def timingInstance = new Timing()
         timingInstance.properties = params
-        render (view:"edit", model:[timingInstance: timingInstance])
+        def abilities = Ability.list().sort{it.name}
+        println "++++++++++ " + abilities
+        render (view:"edit", model:[timingInstance: timingInstance,abilities:abilities])
     }
 
     def save = {
@@ -55,8 +57,8 @@ class TimingController {
                         eq('id', params.long("id"))
                     }
                 }
-            println results
-            return [timingInstance: timingInstance, devices:results.sort { it.description }]
+            println "######"+results
+            return [timingInstance: timingInstance, devices:results.sort { it.description }, abilities:Ability.list().sort{it.name}]
         }
     }
 

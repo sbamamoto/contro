@@ -32,7 +32,7 @@
                     </div>
                     <div class="form-group">
                         <label for="processor">Processor:</label>
-                        <g:select from="${processorList}" class="form-control" name="abilityform.processor" id="processor" optionKey="id" value="${abilityInstance?.processor}">
+                        <g:select from="${processorList}" class="form-control" name="abilityform.processor" id="processor" optionKey="id" value="${abilityInstance?.processor.id}">
                         </g:select>
                     </div>                    
                     <br>

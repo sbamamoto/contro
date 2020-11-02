@@ -83,10 +83,10 @@
                                     <div class="checkbox">
                                         <label>
                                             <input type="checkbox" value="${it.id}" name="device.timings" ${deviceTimings?.contains(it.id)?"checked":""}/>
-                                            ${it.description}
+                                            ${it}
                                         </label>
                                     </div>
-                                </g:each>                
+                                </g:each>     
                             </div>
                         </div>
                         <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
@@ -105,7 +105,7 @@
                     <div class="custom-control custom-switch">
                         <input type="checkbox" class="custom-control-input" id="customSwitch1">
                         <label class="custom-control-label" for="customSwitch1">Toggle this switch element</label>
-                    </div>
+                    </div>‚
                     <g:hiddenField name="device.id" value="${deviceInstance?.id}" />
                     <button type="submit" class="btn btn-primary">Save</button>
                 </g:form>    

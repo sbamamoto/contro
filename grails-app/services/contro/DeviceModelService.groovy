@@ -15,7 +15,6 @@ class DeviceModelService {
         println ('***********************************')
         if (props.id) {
             device = Device.get(props.id)
-            device.timedAbilities.clear()
             device.abilities?.clear()
         }
         else {

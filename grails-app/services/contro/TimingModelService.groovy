@@ -17,6 +17,8 @@ class TimingModelService {
             timingInstance = new Timing()
         }
 
+        println timingInstance
+
         if (timingInstance) {
             timingInstance.properties = params
             timingInstance.power = params.containsKey("power")
@@ -35,7 +37,7 @@ class TimingModelService {
                 timingInstance.dimmValue=150
             }
         }  
-        return timingInstance.save(flush:true)
+        return timingInstance.save(failOnError:true, flush:true)
     }
 
     @Transactional

@@ -42,7 +42,7 @@
                                     <div class="checkbox">
                                         <label>
                                             <input type="checkbox" value="${it.id}" name="deviceTypeForm.abilities" ${deviceTypeAbilities?.contains(it.id)?"checked":""}/>
-                                            ${it.description}
+                                            ${it.name}
                                         </label>
                                     </div>
                                 </g:each>                

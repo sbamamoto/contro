@@ -37,6 +37,11 @@
                             </label>
                         </div>
                         <div class="form-group">
+                            <label for="type">Ability:${abilities[0].name}</label>
+                            <g:select from="${abilities}" class="form-control" id="ability" name="ability" value="${timingInstance?.ability?.id}" optionKey="id" optionValue="name">
+                            </g:select>
+                        </div>                        
+                        <div class="form-group">
                             <label for="Intensity">Intensity:</label>
                             <input type="text" class="form-control" name="dimmValue" id="dimmValue" placeHolder="Intensity" value="${timingInstance.dimmValue}"/>
                         </div>

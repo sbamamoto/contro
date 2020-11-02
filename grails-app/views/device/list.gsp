@@ -45,7 +45,7 @@
                         <tr>
                         
                             <td><g:link action="edit" id="${deviceInstance.id}">${deviceInstance.description}</g:link></td>
-                            <td>${deviceInstance.timedAbilities.size()}</td>
+                            <td>${deviceInstance.timings.size()}</td>
                             <td>${deviceInstance.canDimm ? "Ja" : "Nein"}</td>
 
                             <td>${deviceInstance.state == "ON" ? "eingeschaltet" : "ausgeschaltet"}</td>

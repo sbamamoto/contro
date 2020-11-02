@@ -6,6 +6,7 @@ import contro.Setting
 
 class ScheduleSwitchJob {
     def timeout = 30000l // execute job once in 30 seconds
+    def scriptExecutorService
 
     static triggers = {
         simple repeatCount: 0 // execute job once in 5 seconds
@@ -51,12 +52,22 @@ class ScheduleSwitchJob {
         timing.friday && dow==Calendar.FRIDAY ||
         timing.saturday && dow==Calendar.SATURDAY
         def timeArray = timing.timing.split(":")
+
+        
         //        if (rightDay) {
         //            System.out.println("    NOW:"+now.getHours()+":"+now.getMinutes()+ "   DOW:"+cal.get(Calendar.DAY_OF_WEEK))
         //            System.out.println("    RUN:"+timing.timing)
         //        }
-        if (rightDay && now.getMinutes()==Integer.parseInt(timeArray[1]) &&
+        if (rightDay && now.getMinutes()==Integer.parseInt(timeArray[1]) &&            
             now.getHours()==Integer.parseInt(timeArray[0])) {
+            println " %%%%%%%%%%%%%%%  Switching [" + device.device + "] [" + timing.ability.description + "] [" + timing + "]"
+            
+            Map params = [:]
+            params.channel = device.channel
+            params.address = device.device
+            params.value = timing.dimmValue
+            scriptExecutorService.runScript(timing.ability.processor, params)
+
             if (!timing.power){
                 //System.out.println("    Switching OFF required")
                 Device.withTransaction {
@@ -122,7 +133,7 @@ class ScheduleSwitchJob {
         
             devices.each { device ->
                 System.out.println (device.description+" "+device.state+"  ("+device.device+")")
-                device.timedAbilities.each{switchIt(device,it,now)}
+                device.timings.each{switchIt(device,it,now)}
             }
         }
     }

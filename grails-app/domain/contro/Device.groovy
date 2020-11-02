@@ -13,8 +13,9 @@ class Device {
     String channel
 
     static hasMany = [
-        timedAbilities : TimedAbility,
-        abilities: Ability
+        timings : Timing,
+        abilities: Ability,
+        values: Value
     ]
 
     static constraints = {
@@ -24,6 +25,7 @@ class Device {
         state(nullable:false)
         dimm(nullable:false)
         channel(nullable:true)
+        values(nullable:true)
     }
 
     String toString() {
