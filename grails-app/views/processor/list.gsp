@@ -26,14 +26,37 @@
                         <tr>                        
                             <td><g:link action="edit" id="${processorInstance.id}">${processorInstance.name}</g:link></td>
                             <td>${processorInstance.description}</td>
-                            <td><a href="${createLink (action:'execute')}/${processorInstance.id}"  onClick="return confirm('Processor: [${processorInstance.name}] ausführen ?');"><span class="fa fa-play" aria-hidden="true"></span></a></td>
+                            <td><a href="#exampleModalCenter" data-toggle="modal" data-target="#exampleModalCenter" onClick="runScript(${processorInstance.id})"><span class="fa fa-play" aria-hidden="true"></span></a></td>
                             <td><a href="${createLink (action:'delete')}/${processorInstance.id}"  onClick="return confirm('Gerät: [${processorInstance.name}] löschen ?');"><span class="fa fa-trash" aria-hidden="true"></span></a></td>
                         </tr>
                     </g:each>
                     </tbody>
                 </table>
             </div>
-
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Script Output</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="scriptOutput" name="scriptOutput">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
         </div>
+        <script>
+            function runScript (processorId) {
+                $( "#scriptOutput" ).load( "${createLink (action:'execute')}/"+processorId );
+            }
+        </script
     </body>
 </html>

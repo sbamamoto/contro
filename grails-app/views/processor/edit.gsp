@@ -15,35 +15,39 @@
     <body>
         <div class="container-fluid">
             <div class="row justify-content-md-center">
-            <div class="col-md-6">
-                <nav>
-                    <ul class="pager">
-                        <li class="previous"><g:link action="list"><span aria-hidden="true">&larr;</span> Processorscriptliste</g:link></li>
-                    </ul>
-                </nav>
-                <g:form action="saveProcessor" onSubmit="storeProcessingscript();">
-                    <div class="form-group">
-                        <label for="name">Name:</label>
-                        <input type="text" class="form-control" name="processorform.name" id="name" placeHolder="Name" value="${processorInstance?.name}"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="description">Beschreibung:</label>
-                        <input type="text" class="form-control" name="processorform.description" id="description" placeHolder="Beschreibung des Macros" value="${processorInstance?.description}"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="description">Type:</label>
-                        <g:select from="${["SCRIPT", "TIMING", "BACKGROUND"]}" class="form-control" name="processorform.type" id="type" value="${processorInstance?.type}">
-                        </g:select>
-                    </div>                    
-                    <div class="form-group">
-                        <pre id="editor" class="form-control" style="height:500px">${processorInstance?.processingScript}</pre>
-                    </div>
-                    <br>
-                    <g:hiddenField name="processorform.id" value="${processorInstance?.id}" />
-                    <g:hiddenField name="processorform.processingScript" id='processingScript' value="${processorInstance?.processingScript}" />
-                    <button type="submit" class="btn btn-primary">Save</button>
-                </g:form>    
-            </div>
+                <div class="col-md-6">
+                    <nav>
+                        <ul class="pager">
+                            <li class="previous"><g:link action="list"><span aria-hidden="true">&larr;</span> Processorscriptliste</g:link></li>
+                        </ul>
+                    </nav>
+                    <g:form action="saveProcessor" onSubmit="storeProcessingscript();">
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <input type="text" class="form-control" name="processorform.name" id="name" placeHolder="Name" value="${processorInstance?.name}"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Beschreibung:</label>
+                            <input type="text" class="form-control" name="processorform.description" id="description" placeHolder="Beschreibung des Macros" value="${processorInstance?.description}"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Type:</label>
+                            <g:select from="${["SCRIPT", "EVENT", "BACKGROUND"]}" class="form-control" name="processorform.type" id="type" value="${processorInstance?.type}">
+                            </g:select>
+                        </div>        
+                        <div class="form-group">
+                            <label for="description">Event Key:</label>
+                            <input type="text" class="form-control" name="processorform.eventKey" id="eventKey" placeHolder="Schlüsselname des Events (nur wirksam bei Event Process)" value="${processorInstance?.eventKey}"/>
+                        </div>            
+                        <div class="form-group">
+                            <pre id="editor" class="form-control" style="height:500px">${processorInstance?.processingScript}</pre>
+                        </div>
+                        <br>
+                        <g:hiddenField name="processorform.id" value="${processorInstance?.id}" />
+                        <g:hiddenField name="processorform.processingScript" id='processingScript' value="${processorInstance?.processingScript}" />
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </g:form>    
+                </div>
             </div>
         </div>        
             <script>

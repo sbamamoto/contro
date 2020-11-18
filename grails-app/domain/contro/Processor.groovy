@@ -7,11 +7,14 @@ class Processor {
     String processingScript
     String type
 
+    String eventKey
+
     static hasMany = [
         processParams : ProcessParam
     ]
 
     static constraints = {
+        eventKey(nullable:true)
     }
 
     static mapping = {

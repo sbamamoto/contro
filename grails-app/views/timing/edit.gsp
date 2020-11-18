@@ -37,7 +37,7 @@
                             </label>
                         </div>
                         <div class="form-group">
-                            <label for="type">Ability:${abilities[0].name}</label>
+                            <label for="type">Ability</label>
                             <g:select from="${abilities}" class="form-control" id="ability" name="ability" value="${timingInstance?.ability?.id}" optionKey="id" optionValue="name">
                             </g:select>
                         </div>                        

@@ -23,18 +23,21 @@ class ProcessorController {
     }
 
     def execute = {
-        GroovyShell shell = new GroovyShell(this.class.classLoader)
+        Binding binding = new Binding()
+        StringWriter sw = new StringWriter()
+        binding.setProperty("out", sw)
+        GroovyShell shell = new GroovyShell(this.class.classLoader, binding)
         println params
         Processor processor = Processor.get(params.id)
         String script = processor.processingScript
-        params.each {k,v -> 
-            script = 'def '+ k + '=' + '"' + v + '"' + '\n' +script
+        params.each { k, v ->
+            script = 'def ' + k + '=' + '"' + v + '"' + '\n' + script
         }
+        //script = 'import contro.*\n' + script
         println script
         shell.evaluate(processor.processingScript)
-        flash.message = "${message(code: 'default.updated.message', args: [message(code: 'processor.label', default: 'Processor'), processor.description])}"
-        flash.textClass = 'text-success'
-        redirect action:'list'
+        //println sw.toString()
+        render sw.toString()
     }
 
     def create = {
