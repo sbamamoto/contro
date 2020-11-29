@@ -36,9 +36,13 @@
                             </g:select>
                         </div>        
                         <div class="form-group">
-                            <label for="description">Event Key:</label>
+                            <label for="eventKey">Event Key:</label>
                             <input type="text" class="form-control" name="processorform.eventKey" id="eventKey" placeHolder="Schlüsselname des Events (nur wirksam bei Event Process)" value="${processorInstance?.eventKey}"/>
                         </div>            
+                        <div class="form-group">
+                            <label for="eventAddress">Event Address:</label>
+                            <input type="text" class="form-control" name="processorform.eventAddress" id="eventAddress" placeHolder="Absenderadresse des Events (nur wirksam bei Event Process)" value="${processorInstance?.eventAddress}"/>
+                        </div>  
                         <div class="form-group">
                             <pre id="editor" class="form-control" style="height:500px">${processorInstance?.processingScript}</pre>
                         </div>

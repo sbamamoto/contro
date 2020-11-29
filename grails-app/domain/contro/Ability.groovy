@@ -5,10 +5,12 @@ class Ability {
     String name
     String description
     String type
+    String identifier
     Processor processor
     boolean readOnly
 
     static constraints = {
+        identifier(nullable:true)
     }
 
     static mapping = {

@@ -7,19 +7,20 @@ class HomematicController {
 
     def index() {
         def event = request.JSON
-        println '+++++++++++++   ' + event
+        //println '+++++++++++++   ' + event
         homematicDataModelService.updateData(event)
-
-        def observerList = Processor.findByEventKey(event['key'])
+        def hmAddress = event['address'].split(':')
+        def observerList = Processor.findAllByEventKeyAndEventAddress(event['key'], hmAddress[0])
         observerList.each {
-            println 'Executing: ' + it.description
+            //println 'Executing: ' + it.description
             Map params = [:]
-            params.put('channel', event['address'])
+            params.put('address', hmAddress[0])
+            params.put('channel', ':'+hmAddress[1])
             params.put('key', event['key'])
             params.put('value', event['value'])
             scriptExecutorService.runScript(it, params)
         }
-        println '------------- ' + observerList
+        //println '------------- ' + observerList
         render(text: 'OK')
      }
 

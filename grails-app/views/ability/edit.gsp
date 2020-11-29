@@ -31,12 +31,17 @@
                         <input type="text" class="form-control" name="abilityform.description" id="description" placeHolder="Beschreibung des Macros" value="${abilityInstance?.description}"/>
                     </div>
                     <div class="form-group">
+                        <label for="description">Identifier:</label>
+                        <input type="text" class="form-control" name="abilityform.identifier" id="identifier" placeHolder="Schlüsselwort" value="${abilityInstance?.identifier}"/>
+                    </div>
+                    <div class="form-group">
                         <label for="processor">Processor:</label>
-                        <g:select from="${processorList}" class="form-control" name="abilityform.processor" id="processor" optionKey="id" value="${abilityInstance?.processor.id}">
+                        <g:select from="${processorList}" class="form-control" name="abilityform.processor" id="processor" optionKey="id" value="${abilityInstance?.processor?.id}">
                         </g:select>
                     </div>                    
                     <br>
                     <g:hiddenField name="abilityform.id" value="${abilityInstance?.id}" />
+                    <g:hiddenField name="abilityform.type" value="DIRECT" />
                     <button type="submit" class="btn btn-primary">Save</button>
                 </g:form>    
             </div>

@@ -10,9 +10,7 @@ class DeviceModelService {
     @Transactional
     Device saveDevice(GrailsParameterMap props) {
         Device device
-        println ('***********************************')
-        println (props)
-        println ('***********************************')
+
         if (props.id) {
             device = Device.get(props.id)
             device.abilities?.clear()
@@ -24,14 +22,16 @@ class DeviceModelService {
                 controller {
                     eq ('id', Long.valueOf(props.controller))
                 }
-                if (props.channel != null) {
-                    eq('channel', props.channel)
-                }
             }
 
             if (devices != null && devices.size() > 0) {
                 println ('# this device is already known to the system')
                 return null
+            }
+            else {
+                println (' +++ Adding device to Contro devices +++' )
+                println (props)
+                println (' +++++++++++++++++++++++++++++++++++++++')
             }
             device = new Device()
         }
@@ -44,7 +44,7 @@ class DeviceModelService {
     }
 
     @Transactional
-    Device setState(String id, String state) {
+    Device setState(Long id, String state) {
         Device device = Device.get(id)
         device.state = state
         device.save(flush:true, failOnError:true)

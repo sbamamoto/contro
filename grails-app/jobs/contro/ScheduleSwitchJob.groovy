@@ -53,11 +53,6 @@ class ScheduleSwitchJob {
         timing.saturday && dow==Calendar.SATURDAY
         def timeArray = timing.timing.split(":")
 
-        
-        //        if (rightDay) {
-        //            System.out.println("    NOW:"+now.getHours()+":"+now.getMinutes()+ "   DOW:"+cal.get(Calendar.DAY_OF_WEEK))
-        //            System.out.println("    RUN:"+timing.timing)
-        //        }
         if (rightDay && now.getMinutes()==Integer.parseInt(timeArray[1]) &&            
             now.getHours()==Integer.parseInt(timeArray[0])) {
             println " %%%%%%%%%%%%%%%  Switching [" + device.device + "] [" + timing.ability.description + "] [" + timing + "]"
@@ -66,73 +61,23 @@ class ScheduleSwitchJob {
             params.channel = device.channel
             params.address = device.device
             params.value = timing.dimmValue
+            params.url = device.controller.url
             scriptExecutorService.runScript(timing.ability.processor, params)
-
-            if (!timing.power){
-                //System.out.println("    Switching OFF required")
-                Device.withTransaction {
-                    def dbdevice=Device.findById(device.id)
-                    dbdevice.state = "OFF"
-                    dbdevice.dimm ="0"
-
-                    if ( !dbdevice.save()) {
-                        dbdevice.errors.allErrors.each{println it.defaultMessage}
-                    }
-                }
-                def url = device.controller.url
-                    .replace("#address#", device.device)
-                    .replace("#brightness#", timing.dimmValue)
-
-                if (device.channel) {
-                    url = url.replace("#channel#", device.channel)
-                }
-                device.power = true
-                device.save()
-                Thread.sleep(500)
-                runcgi(url)
-            }
-            else {
-                //System.out.println("    Switching ON required")
-                Device.withTransaction {
-                    def dbdevice=Device.findById(device.id)
-                    dbdevice.state = "ON"
-                    if (dbdevice.canDimm) {
-                        dbdevice.dimm = timing.dimmValue
-                    }
-                    else {
-                        dbdevice.dimm = "150"
-                    }
-                    if ( !dbdevice.save()) {
-                        dbdevice.errors.allErrors.each{println it.defaultMessage}
-                    }
-                }
-                Thread.sleep(500)
-                def url = device.controller.url
-                    .replace("#address#", device.device)
-                    .replace("#brightness#", timing.dimmValue)
-                
-                if (device.channel) {
-                    url = url.replace("#channel#", device.channel)
-                }                    
-                device.power = false
-                device.save()
-                runcgi(url)
-            }
 
         }
     }
 
     
     def execute() {
-        System.out.println ("Timer running")
+        //System.out.println ("Timer running")
         def mode = Setting.findBySetting('partymode')
-        System.out.println ("Timer running. PartyMode is: "+mode?.value)
+        //System.out.println ("Timer running. PartyMode is: "+mode?.value)
         if (mode?.value=="OFF") {
             List devices = Device.list()
             Date now = new Date();
         
             devices.each { device ->
-                System.out.println (device.description+" "+device.state+"  ("+device.device+")")
+                //System.out.println (device.description+" "+device.state+"  ("+device.device+")")
                 device.timings.each{switchIt(device,it,now)}
             }
         }

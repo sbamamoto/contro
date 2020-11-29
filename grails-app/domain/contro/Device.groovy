@@ -8,6 +8,8 @@ class Device {
     String device
     String state = 'OFF'
     String dimm = '0'
+    String maxDimm= '100'
+    String minDimm = '0'
     Interface controller
     DeviceType type
     String channel

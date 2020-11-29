@@ -76,7 +76,19 @@
                                     dimmbar
                                 </label>
                             </div>
+
+                            <div class="form-group form-row">
+                                <div class="col">
+                                    <label for="description">Minimaler Dimmwert:</label>
+                                    <input type="text" class="form-control" name="device.minDimm" id="minDimm" placeHolder="Minimum" value="${deviceInstance?.minDimm}"/>
+                                </div>
+                                <div class="col">
+                                    <label for="description">Maximaler Dimmwert:</label>
+                                    <input type="text" class="form-control" name="device.maxDimm" id="maxDimm" placeHolder="Maximum" value="${deviceInstance?.maxDimm}"/>
+                                </div>
+                            </div>
                         </div>
+
                         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">            
                             <div style="height:500px;overflow-y: scroll;border: solid gainsboro thin; padding-left:5px;">
                                 <g:each in="${allTimings}">
@@ -102,10 +114,7 @@
                             </div>                        
                         </div>
                     </div>
-                    <div class="custom-control custom-switch">
-                        <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                        <label class="custom-control-label" for="customSwitch1">Toggle this switch element</label>
-                    </div>
+
                     <g:hiddenField name="device.id" value="${deviceInstance?.id}" />
                     <button type="submit" class="btn btn-primary">Save</button>
                 </g:form>    

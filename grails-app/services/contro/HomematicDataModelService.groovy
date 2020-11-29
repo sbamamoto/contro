@@ -8,12 +8,12 @@ class HomematicDataModelService {
     def updateData(updateTupel) {
         String deviceCode = updateTupel['address'].split(':')[0]
         Device device = Device.findByDevice(deviceCode)
-        println '*********** vchan= [' + updateTupel['address'] + ']  ********  vkey==[' + updateTupel['key'] + ']'
+        //println '*********** vchan= [' + updateTupel['address'] + ']  ********  vkey==[' + updateTupel['key'] + ']'
         if (device) {
             def value = device.values.find { value -> value.channel ==  updateTupel['address'] && value.key == updateTupel['key'] }
             if (value) {
-                println '-----------------------------------------------'
-                println ' ############### ---- ' + value
+                // println '-----------------------------------------------'
+                // println ' ############### ---- ' + value
                 value.value = updateTupel['value']
             }
             else {

@@ -8,6 +8,7 @@ class Processor {
     String type
 
     String eventKey
+    String eventAddress
 
     static hasMany = [
         processParams : ProcessParam
@@ -15,6 +16,7 @@ class Processor {
 
     static constraints = {
         eventKey(nullable:true)
+        eventAddress(nullable:true)
     }
 
     static mapping = {
