@@ -18,6 +18,7 @@ class HomematicController {
             params.put('channel', ':'+hmAddress[1])
             params.put('key', event['key'])
             params.put('value', event['value'])
+            params.put('sessionId', event['sessionId'])
             scriptExecutorService.runScript(it, params)
         }
         //println '------------- ' + observerList

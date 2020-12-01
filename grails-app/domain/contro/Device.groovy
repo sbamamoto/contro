@@ -8,11 +8,12 @@ class Device {
     String device
     String state = 'OFF'
     String dimm = '0'
-    String maxDimm= '100'
+    String maxDimm = '100'
     String minDimm = '0'
     Interface controller
     DeviceType type
     String channel
+    String sessionId
 
     static hasMany = [
         timings : Timing,
@@ -28,6 +29,7 @@ class Device {
         dimm(nullable:false)
         channel(nullable:true)
         values(nullable:true)
+        sessionId(nullable:true)
     }
 
     String toString() {

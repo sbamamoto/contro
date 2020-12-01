@@ -10,22 +10,22 @@ class DeviceModelService {
     @Transactional
     Device saveDevice(GrailsParameterMap props) {
         Device device
-
+        println ('# this [' + props.device + '] - [' + props.sessionId + '] is already known to the system. Updating device data.')
         if (props.id) {
             device = Device.get(props.id)
             device.abilities?.clear()
         }
         else {
             // check if device with identically controller,address,channel already exists.
-            def devices = Device.createCriteria().list {
-                eq('device', props.device)
-                controller {
-                    eq ('id', Long.valueOf(props.controller))
-                }
-            }
+            def devices = Device.findAllByDevice (props.device)
 
             if (devices != null && devices.size() > 0) {
-                println ('# this device is already known to the system')
+                
+                devices.each {
+                    
+                    it.sessionId = props.sessionId
+                    it.save(flush:true, failOnError:true)
+                }
                 return null
             }
             else {

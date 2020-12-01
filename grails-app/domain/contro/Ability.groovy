@@ -6,11 +6,13 @@ class Ability {
     String description
     String type
     String identifier
+    String parameter
     Processor processor
     boolean readOnly
 
     static constraints = {
         identifier(nullable:true)
+        parameter(nullable:false)
     }
 
     static mapping = {

@@ -38,7 +38,11 @@
                         <label for="processor">Processor:</label>
                         <g:select from="${processorList}" class="form-control" name="abilityform.processor" id="processor" optionKey="id" value="${abilityInstance?.processor?.id}">
                         </g:select>
-                    </div>                    
+                    </div>                  
+                    <div class="form-group">
+                        <label for="parameter">Parameter:</label>
+                        <input type="text" class="form-control" name="abilityform.parameter" id="parameter" placeHolder="Schlüsselwort" value="${abilityInstance?.parameter}"/>
+                    </div>  
                     <br>
                     <g:hiddenField name="abilityform.id" value="${abilityInstance?.id}" />
                     <g:hiddenField name="abilityform.type" value="DIRECT" />

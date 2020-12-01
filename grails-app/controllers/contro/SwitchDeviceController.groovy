@@ -31,16 +31,23 @@ class SwitchDeviceController {
         GroovyShell shell = new GroovyShell(this.class.classLoader, binding)
         println params
         String script = ability.processor.processingScript
+        Device dev = Device.findByDevice(params.address)
+        println " ++++  "+dev.sessionId
+        if (dev.sessionId) {
+            script = 'def sessionId = "' + dev.sessionId + '"\n' + script
+        }
 
         params.each { k, v ->
             script = 'def ' + k + ' = ' + '"' + v + '"' + '\n' + script
         }
 
+        script = 'def ' + ability.parameter + '\n' + script
+
         println script
         shell.evaluate(script)
         if (binding.hasVariable('state')) {
           println ( ' ###################### state:' + binding.getVariable('state') )
-          Device dev = Device.findByDevice(params.address)
+          
           deviceModelService.setState( dev.id, binding.getVariable('state') )
         }
         redirect (controller:'tablet')
