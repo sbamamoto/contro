@@ -3,6 +3,7 @@ package contro
 class HomematicController {
 
     def homematicDataModelService
+    def deviceModelService
     def scriptExecutorService
 
     def index() {
@@ -24,5 +25,18 @@ class HomematicController {
         //println '------------- ' + observerList
         render(text: 'OK')
      }
+
+    def addDevice() {
+        Device device = deviceModelService.incomingDevice(params.device)
+        def result = 'OK'
+        if (device) {
+            println ('Device added or updated')
+        }
+        else {
+            println ('#### Devcie update failed.')
+            result = 'NOK'
+        }
+        render (text: result)
+    }
 
 }

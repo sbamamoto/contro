@@ -62,7 +62,7 @@
                                                 <tr>
                                                     <td style="padding-top:15px;padding-right:3px;"><button id="${device.device.replaceAll('\\.','-')}-ON-${ability.id}" type="button" class="btn btn-lg ${device.state=='ON' ? 'btn-default' : 'btn-primary'}" onclick="switchDevice('${device.device}', '${device.channel}', '${ability.id}', '1.0', '${device.controller.url}')"><h1>ON</h1></button></td>
                                                     <td style="padding-top:15px;padding-right:15px;"><button id="${device.device.replaceAll('\\.','-')}-OFF-${ability.id}" type="button" class="btn btn-lg ${device.state=='OFF' ? 'btn-default' : 'btn-primary'}" onclick="switchDevice('${device.device}', '${device.channel}','${ability.id}', '0.0', '${device.controller.url}')"><h1>OFF</h1></button></td>
-                                                    <td style="padding-top:25px;"><label style="font-size:40px;">${device.description}</label></td>
+                                                    <td style="padding-top:25px;"><label style="font-size:40px;">${device.description} - ${ability?.description}</label></td>
                                                 </tr>
                                                 <g:if test="${device.canDimm}">
                                                     <tr> 

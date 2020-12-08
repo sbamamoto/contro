@@ -62,6 +62,11 @@ class ScheduleSwitchJob {
             params.address = device.device
             params.value = timing.dimmValue
             params.url = device.controller.url
+
+            if (device.sessionId) {
+                params.sessionId = device.sessionId
+            }
+
             scriptExecutorService.runScript(timing.ability.processor, params)
 
         }

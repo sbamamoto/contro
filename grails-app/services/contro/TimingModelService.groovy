@@ -34,7 +34,7 @@ class TimingModelService {
                 timingInstance.dimmValue=0
             }
             if (timingInstance.dimmValue == null && timingInstance.power) {
-                timingInstance.dimmValue=150
+                timingInstance.dimmValue=1
             }
         }  
         return timingInstance.save(failOnError:true, flush:true)

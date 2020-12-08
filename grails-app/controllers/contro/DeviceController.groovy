@@ -83,7 +83,17 @@ class DeviceController {
         println deviceTimings
         println '####'
 
-        return [deviceInstance: deviceInstance, allTimings: Timing.list().sort { it.timing },
+//        def acceptableTimings = Timing.executeQuery('select timing from Timing timing where timing.ability in elements(:deviceTypeAbilities)',
+        def acceptableTimings = Timing.executeQuery('select timing from Timing timing, Device device where device.id =:id and timing.ability in elements(device.type.abilities) order by timing.timing',
+        [id:deviceInstance.id])
+        
+        def timings = []
+        acceptableTimings.each {
+            println (" ************** "+it)
+            timings.add(it)
+        }
+
+        return [deviceInstance: deviceInstance, allTimings: timings,
             deviceTimings:deviceTimings, controllers:controllers,
             deviceTypes:deviceTypes, deviceTypeAbilities:deviceTypeAbilities, 
             deviceAbilities:deviceAbilities,

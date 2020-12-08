@@ -11,7 +11,7 @@ class ScriptExecutorService {
         params.each { k, v ->
             script = 'def ' + k + '=' + '"' + v + '"' + '\n' +script
         }
-        // println script
+        println script
         shell.evaluate(script)
     }
 

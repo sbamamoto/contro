@@ -40,14 +40,15 @@ class SwitchDeviceController {
         params.each { k, v ->
             script = 'def ' + k + ' = ' + '"' + v + '"' + '\n' + script
         }
-
-        script = 'def ' + ability.parameter + '\n' + script
-
+        
+        if (ability.parameter) {
+            script = 'def ' + ability.parameter + '\n' + script
+        }
+        
         println script
         shell.evaluate(script)
         if (binding.hasVariable('state')) {
           println ( ' ###################### state:' + binding.getVariable('state') )
-          
           deviceModelService.setState( dev.id, binding.getVariable('state') )
         }
         redirect (controller:'tablet')

@@ -12,12 +12,16 @@ class Ability {
 
     static constraints = {
         identifier(nullable:true)
-        parameter(nullable:false)
+        parameter(nullable:true)
     }
 
     static mapping = {
         readOnly defaultValue: false
         id(generator: 'org.hibernate.id.enhanced.SequenceStyleGenerator', params: [sequence_name: 'start_seq', initial_value: 100])
+    }
+
+    String toString() {
+        return name
     }
 
 }

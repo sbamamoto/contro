@@ -50,4 +50,10 @@ class AbilityController {
         return [abilityInstance: abilityInstance, processorList:processorList]
     }
 
+    def delete = {
+        //Ability abilityInstance = Ability.get(params.id)
+        abilityModelService.delete(params.id)
+        redirect action:'list'
+    }
+
 }

@@ -16,42 +16,46 @@
     <body>
 
         <div class="container">
-            <h1>Timingliste <button class="btn btn-primary" onclick="location.href='${createLink(action:"create")}';"><span class="fa fa-plus" aria-hidden="true"></span></button>
-            </h1>
-            <g:if test="${flash.message}">
-                <div class="${flash.textClass}">${flash.message}</div>
-            </g:if>
-            <div class="col-md-5">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Timing</th>
-                            <th>Gerät wird</th>
-                            <th>Uhrzeit</th>
-                            <th>Aktion</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <g:each in="${timingInstanceList}" status="i" var="timingInstance">
-                            <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-
-                                <td><g:link action="edit" id="${timingInstance.id}">${fieldValue(bean: timingInstance, field: "description")}</g:link></td>
-
-                                <td>${timingInstance.power ? "eingeschaltet" : "ausgeschaltet"}</td>
-
-                                <td>${fieldValue(bean: timingInstance, field: "timing")}</td>
-
-                                <td><a href="${createLink (action:'delete')}/${timingInstance.id}"  onClick="return confirm('Timing: [${timingInstance.description}] löschen ?');"><span class="fa fa-trash" aria-hidden="true"></span></a></td>
-
+            <div class="row justify-content-md-center">
+                <div class="col-md-12">
+                    <h1>Timingliste <button class="btn btn-primary" onclick="location.href='${createLink(action:"create")}';"><span class="fa fa-plus" aria-hidden="true"></span></button>
+                    </h1>
+                    <g:if test="${flash.message}">
+                        <div class="${flash.textClass}">${flash.message}</div>
+                    </g:if>
+                   
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Timing</th>
+                                <th>Gerät wird</th>
+                                <th>Geräteeigenschaft</th>
+                                <th>Wert</th>
+                                <th>Uhrzeit</th>
+                                <th>Aktion</th>
                             </tr>
-                        </g:each>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <g:each in="${timingInstanceList}" status="i" var="timingInstance">
+                                <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
+                                    <td><g:link action="edit" id="${timingInstance.id}">${timingInstance}</g:link></td>
+                                    <td>${timingInstance.power ? "eingeschaltet" : "ausgeschaltet"}</td>
+                                    <td>${timingInstance.ability}</td>
+                                    <td>${timingInstance.dimmValue}</td>
+                                    <td>${fieldValue(bean: timingInstance, field: "timing")}</td>
+
+                                    <td><a href="${createLink (action:'delete')}/${timingInstance.id}"  onClick="return confirm('Timing: [${timingInstance.description}] löschen ?');"><span class="fa fa-trash" aria-hidden="true"></span></a></td>
+
+                                </tr>
+                            </g:each>
+                        </tbody>
+                    </table>
+                
+                </div>
+                <div class="paginateButtons">
+                    <g:paginate total="${timingInstanceTotal}" />
+                </div>
             </div>
         </div>
-        <div class="paginateButtons">
-            <g:paginate total="${timingInstanceTotal}" />
-        </div>
-    </div>
-</body>
+    </body>
 </html>

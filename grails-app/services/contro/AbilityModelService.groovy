@@ -26,8 +26,33 @@ class AbilityModelService {
     }
      
     @Transactional
-    Ability delete(String id) {
+    void delete(String id) {
         Ability p = Ability.get(id)
+        def dependantDevices = Device.executeQuery(
+            'select device from Device device where :ability in elements(device.abilities)',
+            [ability: p])
+        
+        dependantDevices.each {
+            it.removeFromAbilities(p)
+            it.save(flush:true, failOnError:true)
+        }
+
+        def dependantDeviceTypes = DeviceType.executeQuery(
+            'select devicetype from DeviceType devicetype where :ability in elements(devicetype.abilities)',
+            [ability: p])
+        
+        dependantDeviceTypes.each {
+            it.removeFromAbilities(p)
+            it.save(flush:true, failOnError:true)
+        }
+
+        def dependantTimings = Timing.findAllByAbility(p)
+        
+        dependantTimings.each {
+            it.ability = null
+            it.save(flush:true, failOnError:true)
+        }        
+        
         p.delete(failOnError:true, flush:true)
     }
 

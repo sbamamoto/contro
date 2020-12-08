@@ -10,19 +10,52 @@ class DeviceModelService {
     @Transactional
     Device saveDevice(GrailsParameterMap props) {
         Device device
-        println ('# this [' + props.device + '] - [' + props.sessionId + '] is already known to the system. Updating device data.')
         if (props.id) {
             device = Device.get(props.id)
             device.abilities?.clear()
+            device.timings?.clear()
         }
         else {
-            // check if device with identically controller,address,channel already exists.
-            def devices = Device.findAllByDevice (props.device)
+            println (' +++ Adding device to Contro devices +++' )
 
+            device = new Device()
+        }
+
+        device.properties = props
+        device.save(flush:true, failOnError:true)
+        println '++++++++++++'
+        println (props)
+        println (' +++++++++++++++++++++++++++++++++++++++')
+        println device.abilities
+        return device
+    }
+
+    @Transactional
+    Device setState(Long id, String state) {
+        Device device = Device.get(id)
+        device.state = state
+        device.save(flush:true, failOnError:true)
+        return device
+    }
+
+    Device incomingDevice(GrailsParameterMap props) {
+        Device device
+        if (props.id) {
+            device = Device.get(props.id)
+            device.abilities?.clear()
+            println ('# this [' + props.device + '] - [' + props.description + '] is already known to the system. Updating device data.')
+        }
+        else {
+            println " ------- DEVICE: "+props.device
+            // check if device with identically controller,address,channel already exists.
+            // def devices = Device.findAllByDevice (props.device)
+            def query = Device.createCriteria()
+            def devices = query {
+                eq('device', props.device)
+            }
             if (devices != null && devices.size() > 0) {
-                
                 devices.each {
-                    
+                    println ('Device with address [' + it.device + '] [' + it.description + ']')
                     it.sessionId = props.sessionId
                     it.save(flush:true, failOnError:true)
                 }
@@ -40,14 +73,6 @@ class DeviceModelService {
         device.save(flush:true, failOnError:true)
         println '++++++++++++'
         println device.abilities
-        return device
-    }
-
-    @Transactional
-    Device setState(Long id, String state) {
-        Device device = Device.get(id)
-        device.state = state
-        device.save(flush:true, failOnError:true)
         return device
     }
 

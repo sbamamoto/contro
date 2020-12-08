@@ -31,10 +31,36 @@ class Timing {
          saturday(nullable:true)
          sunday(nullable:true)
          processor(nullable:true)
-         ability(nullabel:true)
+         ability(nullable:true)
     }
 
     String toString() {
-        return timing + " - " + description
+        String runningDay = ''
+        if (monday) {
+            runningDay += 'Mo,'
+        }
+        if (tuesday) {
+            runningDay += 'Di,'
+        }
+        if (wednesday) {
+            runningDay += 'Mi,'
+        }
+        if (thursday) {
+            runningDay += 'Do,'
+        }
+        if (friday) {
+            runningDay += 'Fr,'
+        }
+        if (saturday) {
+            runningDay += 'Sa,'
+        }
+        if (sunday) {
+            runningDay += 'So,'
+        }
+
+        if (runningDay.length() > 2) {
+            runningDay = runningDay[0..-2]
+        }
+        return timing + " - " + description + " (" + runningDay + ")"
     }
 }
