@@ -34,7 +34,7 @@
                         <g:each in="${roomInstanceList}" status="i" var="roomInstance">
                             <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                                 <td><g:link action="edit" id="${roomInstance.id}">${fieldValue(bean: roomInstance, field: "name")}</g:link></td>
-                                <td><a href="${createLink (action:'delete')}/${roomInstance.id}"  onClick="return confirm('Raum: [${roomInstance.name}] löschen ?');"><span class="fa fa-trash" aria-hidden="true"></span></a></td>
+                                <td><a href="${createLink (action:'delete')}/${roomInstance.id}"  onClick="return confirm('Raum: [${roomInstance.name}] löschen ?');"><span style="font-size:16pt;" class="mdi mdi-trash-can-outline" aria-hidden="true"></span></span></a></td>
                             </tr>
                         </g:each>
                     </tbody>

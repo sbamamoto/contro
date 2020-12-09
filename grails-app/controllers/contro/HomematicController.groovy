@@ -5,10 +5,14 @@ class HomematicController {
     def homematicDataModelService
     def deviceModelService
     def scriptExecutorService
+    def valueModelService
 
     def index() {
         def event = request.JSON
-        //println '+++++++++++++   ' + event
+
+        //FIXME: Doppelte Event Skriptstarts unterdrücken, wenn das Skript das festlegt. Vielleicht eine Eventqueue aufbauen.
+
+        // Starting listener for this specific channel and event.
         homematicDataModelService.updateData(event)
         def hmAddress = event['address'].split(':')
         def observerList = Processor.findAllByEventKeyAndEventAddress(event['key'], hmAddress[0])
@@ -22,7 +26,9 @@ class HomematicController {
             params.put('sessionId', event['sessionId'])
             scriptExecutorService.runScript(it, params)
         }
-        //println '------------- ' + observerList
+
+        // Update device values
+        valueModelService.updateValue(event['address'], event['key'], event['value'])        
         render(text: 'OK')
      }
 

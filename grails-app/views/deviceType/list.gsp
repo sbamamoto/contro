@@ -26,8 +26,7 @@
                         <tr>                        
                             <td><g:link action="edit" id="${deviceTypeInstance.id}">${deviceTypeInstance.name}</g:link></td>
                             <td>${deviceTypeInstance.description}</td>
-                            <td><a href="${createLink (action:'execute')}/${deviceTypeInstance.id}"  onClick="return confirm('DeviceType: [${deviceTypeInstance.name}] ausführen ?');"><span class="fa fa-play" aria-hidden="true"></span></a></td>
-                            <td><a href="${createLink (action:'delete')}/${deviceTypeInstance.id}"  onClick="return confirm('Gerät: [${deviceTypeInstance.name}] löschen ?');"><span class="fa fa-trash" aria-hidden="true"></span></a></td>
+                            <td><a href="${createLink (action:'delete')}/${deviceTypeInstance.id}"  onClick="return confirm('Gerät: [${deviceTypeInstance.name}] löschen ?');"><span style="font-size:16pt;" class="mdi mdi-trash-can-outline" aria-hidden="true"></span></span></a></td>
                         </tr>
                     </g:each>
                     </tbody>

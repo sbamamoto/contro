@@ -33,6 +33,7 @@
                             <tr>
                                 <th>Controller</th>
                                 <th>Steuerungs-URL</th>
+                                <th>Aktion</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -40,7 +41,7 @@
                             <tr>                        
                                 <td><g:link action="edit" id="${interfaceInstance.id}">${interfaceInstance.description}</g:link></td>
                                 <td>${interfaceInstance.url}</td>
-                                <td><a href="${createLink (action:'delete')}/${interfaceInstance.id}"  onClick="return confirm('Gerät: [${interfaceInstance.description}] löschen ?');"><span class="fa fa-trash" aria-hidden="true"></span></a></td>
+                                <td><a href="${createLink (action:'delete')}/${interfaceInstance.id}"  onClick="return confirm('Gerät: [${interfaceInstance.description}] löschen ?');"><span style="font-size:16pt;" class="mdi mdi-trash-can-outline" aria-hidden="true"></span></a></td>
                             </tr>
                         </g:each>
                         </tbody>

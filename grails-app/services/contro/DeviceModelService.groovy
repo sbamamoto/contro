@@ -85,9 +85,21 @@ class DeviceModelService {
             }
         }
         results.each {
-            it.removeFromDevices(deviceInstance)
+            it.removeFromDevices(dev)
             it.save(flush:true, failOnError:true)
         }
+
+        c = DeviceGroup.createCriteria()
+        List<DeviceGroup> groupResults = c.list {
+            devices {
+                eq('id', dev.id)
+            }
+        }
+        groupResults.each {
+            it.removeFromDevices(dev)
+            it.save(flush:true, failOnError:true)
+        }
+
         dev.delete(flush: true)
     }
 

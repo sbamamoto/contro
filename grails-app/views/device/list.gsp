@@ -54,7 +54,7 @@
                                 <td>${deviceInstance.device}</td>
                                 <td>${deviceInstance.channel}</td>
                                 <td>${deviceInstance.controller}</td>
-                                <td><a href="${createLink (action:'delete')}/${deviceInstance.id}"  onClick="return confirm('Gerät: [${deviceInstance.description}] löschen ?');"><span class="fa fa-trash" aria-hidden="true"></span></a></td>
+                                <td><a href="${createLink (action:'delete')}/${deviceInstance.id}"  onClick="return confirm('Gerät: [${deviceInstance.description}] löschen ?');"><span style="font-size:16pt;" class="mdi mdi-trash-can-outline" aria-hidden="true"></span></a></td>
                             </tr>
                         </g:each>
                         </tbody>

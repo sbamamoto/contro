@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="${resource(dir:'css',file:'bootstrap-theme.min.css')}" />
         <link rel="stylesheet" href="${resource(dir:'css',file:'contro.css')}" />
         <link rel="stylesheet" href="${resource(dir:'css',file:'bootstrap-slider.min.css')}" />
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="${resource(dir:'css',file:'materialdesignicons.min.css')}" />
         
         <link rel="shortcut icon" href="${resource(dir:'images',file:'favicon.ico')}" type="image/x-icon" />	
         <g:layoutHead />

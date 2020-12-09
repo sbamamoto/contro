@@ -34,7 +34,7 @@
                         <g:each in="${deviceGroupInstanceList}" status="i" var="deviceGroupInstance">
                             <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                                 <td><g:link action="edit" id="${deviceGroupInstance.id}">${fieldValue(bean: deviceGroupInstance, field: "name")}</g:link></td>
-                                <td><a href="${createLink (action:'delete')}/${deviceGroupInstance.id}"  onClick="return confirm('Gerätegruppe: [${deviceGroupInstance.name}] löschen ?');"><span class="fa fa-trash" aria-hidden="true"></span></a></td>
+                                <td><a href="${createLink (action:'delete')}/${deviceGroupInstance.id}"  onClick="return confirm('Gerätegruppe: [${deviceGroupInstance.name}] löschen ?');"><span style="font-size:16pt;" class="mdi mdi-trash-can-outline" aria-hidden="true"></span></a></td>
                             </tr>
                         </g:each>
                     </tbody>

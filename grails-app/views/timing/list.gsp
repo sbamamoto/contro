@@ -44,7 +44,7 @@
                                     <td>${timingInstance.dimmValue}</td>
                                     <td>${fieldValue(bean: timingInstance, field: "timing")}</td>
 
-                                    <td><a href="${createLink (action:'delete')}/${timingInstance.id}"  onClick="return confirm('Timing: [${timingInstance.description}] löschen ?');"><span class="fa fa-trash" aria-hidden="true"></span></a></td>
+                                    <td><a href="${createLink (action:'delete')}/${timingInstance.id}"  onClick="return confirm('Timing: [${timingInstance.description}] löschen ?');"><span style="font-size:16pt;" class="mdi mdi-trash-can-outline" aria-hidden="true"></span></a></td>
 
                                 </tr>
                             </g:each>

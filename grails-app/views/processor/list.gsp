@@ -26,8 +26,8 @@
                         <tr>                        
                             <td><g:link action="edit" id="${processorInstance.id}">${processorInstance.name}</g:link></td>
                             <td>${processorInstance.description}</td>
-                            <td><a href="#exampleModalCenter" data-toggle="modal" data-target="#exampleModalCenter" onClick="runScript(${processorInstance.id})"><span class="fa fa-play" aria-hidden="true"></span></a></td>
-                            <td><a href="${createLink (action:'delete')}/${processorInstance.id}"  onClick="return confirm('Gerät: [${processorInstance.name}] löschen ?');"><span class="fa fa-trash" aria-hidden="true"></span></a></td>
+                            <td><a href="#exampleModalCenter" data-toggle="modal" data-target="#exampleModalCenter" onClick="runScript(${processorInstance.id})"><span style="font-size:16pt;" class="mdi mdi-play" aria-hidden="true"></span></a></td>
+                            <td><a href="${createLink (action:'delete')}/${processorInstance.id}"  onClick="return confirm('Gerät: [${processorInstance.name}] löschen ?');"><span style="font-size:16pt;" class="mdi mdi-trash-can-outline" aria-hidden="true"></span></a></td>
                         </tr>
                     </g:each>
                     </tbody>

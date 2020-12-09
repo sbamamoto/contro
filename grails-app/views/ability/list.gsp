@@ -26,8 +26,7 @@
                         <tr>                        
                             <td><g:link action="edit" id="${abilityInstance.id}">${abilityInstance.name}</g:link></td>
                             <td>${abilityInstance.description}</td>
-                            <td><a href="${createLink (action:'execute')}/${abilityInstance.id}"  onClick="return confirm('Ability: [${abilityInstance.name}] ausführen ?');"><span class="fa fa-play" aria-hidden="true"></span></a></td>
-                            <td><a href="${createLink (action:'delete')}/${abilityInstance.id}"  onClick="return confirm('Gerät: [${abilityInstance.name}] löschen ?');"><span class="fa fa-trash" aria-hidden="true"></span></a></td>
+                            <td><a href="${createLink (action:'delete')}/${abilityInstance.id}"  onClick="return confirm('Gerät: [${abilityInstance.name}] löschen ?');"><span style="font-size:16pt;" class="mdi mdi-trash-can-outline" aria-hidden="true"></span></a></td>
                         </tr>
                     </g:each>
                     </tbody>
