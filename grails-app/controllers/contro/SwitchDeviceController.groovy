@@ -3,7 +3,8 @@ package contro
 class SwitchDeviceController {
 
     def deviceModelService
-    def switchService
+    def scriptExecutorService
+    //def switchService
 
     def runcgi(url) {
         println ('URL: ' + url)
@@ -14,43 +15,25 @@ class SwitchDeviceController {
             BufferedReader br = new BufferedReader(isr)
             String theLine
             while ((theLine = br.readLine()) != null) {
-                System.out.println(theLine)
+                println(theLine)
             }
         }
         catch (MalformedURLException ex) {
-            System.err.println(ex)
+            println(ex)
         }
         catch (IOException ex) {
-            System.err.println(ex)
+            println(ex)
         }
     }
 
     def switchDevice = {
         Ability ability = Ability.get(params.ability)
-        Binding binding = new Binding()
-        GroovyShell shell = new GroovyShell(this.class.classLoader, binding)
         println params
-        String script = ability.processor.processingScript
+        
+        String state = scriptExecutorService.runScript(ability.processor, params)
         Device dev = Device.findByDevice(params.address)
-        println " ++++  "+dev.sessionId
-        if (dev.sessionId) {
-            script = 'def sessionId = "' + dev.sessionId + '"\n' + script
-        }
+        deviceModelService.setState(dev, state)
 
-        params.each { k, v ->
-            script = 'def ' + k + ' = ' + '"' + v + '"' + '\n' + script
-        }
-        
-        if (ability.parameter) {
-            script = 'def ' + ability.parameter + '\n' + script
-        }
-        
-        println script
-        shell.evaluate(script)
-        if (binding.hasVariable('state')) {
-          println ( ' ###################### state:' + binding.getVariable('state') )
-          deviceModelService.setState( dev.id, binding.getVariable('state') )
-        }
         redirect (controller:'tablet')
     }
 

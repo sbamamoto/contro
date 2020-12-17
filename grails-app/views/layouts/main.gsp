@@ -32,6 +32,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li id="tablet" class="nav-item"><a class="nav-link" style="font-size:42px;font-weight:500" href="${createLink(controller:"tablet")}">Schalten</a></li>
+                    <li id="groups" class="nav-item"><a class="nav-link" style="font-size:42px;font-weight:500" href="${createLink(controller:'deviceGroup', action:'matrix')}">Gruppen</a></li>
                     <li id="week" class="nav-item"><a class="nav-link" style="font-size:42px;font-weight:500" href="${createLink(controller:"weekView")}">Wochenplan</a></li>
 
                     <li class="nav-item dropdown">

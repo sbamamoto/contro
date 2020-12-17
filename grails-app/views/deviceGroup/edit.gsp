@@ -5,7 +5,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />
-        <g:set var="entityName" value="${message(code: 'deviceGroup.label', default: 'Room')}" />
+        <g:set var="entityName" value="${message(code: 'deviceGroup.label', default: 'DeviceGroup')}" />
         <title><g:message code="default.edit.label" args="[entityName]" /></title>
     </head>
     <body>
@@ -18,10 +18,14 @@
                     </nav>
                 <g:form action="saveDeviceGroup">
                     <div class="form-group">
-                        <label for="deviceGroupName">Room:</label>
+                        <label for="deviceGroupName">Gruppe:</label>
                         <input type="text" class="form-control" name="name" id="name" placeHolder="Group Name" value="${deviceGroupInstance.name}"/>
                     </div>
-                    <g:each in="${allDevices}">
+                     <div class="form-group">
+                        <label for="deviceGroupDescription">Beschreibung:</label>
+                        <input type="text" class="form-control" name="description" id="description" placeHolder="Group Description" value="${deviceGroupInstance.description}"/>
+                    </div>
+                   <g:each in="${allDevices}">
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox" value="${it.id}" name="devices" ${associatedDevices?.contains(it.device)?"checked":""}/>

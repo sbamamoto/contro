@@ -4,6 +4,7 @@ class ProcessorController {
 
     def processorModelService;
     def abilityModelService;
+    def scriptExecutorService
 
      def index(Integer max) {
         redirect(action: 'list', params: params)
@@ -17,6 +18,7 @@ class ProcessorController {
     def saveProcessor = {
         println params
         Processor processor = processorModelService.saveProcessor(params.processorform)
+        scriptExecutorService.parseScript(processor)
         flash.message = "${message(code: 'default.updated.message', args: [message(code: 'processor.label', default: 'Processor'), processor.description])}"
         flash.textClass = 'text-success'
         redirect action:'list'

@@ -7,6 +7,7 @@ import contro.Setting
 class ScheduleSwitchJob {
     def timeout = 30000l // execute job once in 30 seconds
     def scriptExecutorService
+    def deviceModelService
 
     static triggers = {
         simple repeatCount: 0 // execute job once in 5 seconds
@@ -67,8 +68,8 @@ class ScheduleSwitchJob {
                 params.sessionId = device.sessionId
             }
 
-            scriptExecutorService.runScript(timing.ability.processor, params)
-
+            String state = scriptExecutorService.runScript(timing.ability.processor, params)
+            deviceModelService.setState(device, state)
         }
     }
 

@@ -41,19 +41,19 @@ class DeviceGroupController {
         def deviceGroupInstance = DeviceGroup.get(params.id)
         if (deviceGroupInstance) {
             try {
-                deviceGroupModelService.deleteRoom(params)
-                flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'deviceGroup.label', default: 'Raum'), params.id])}"
+                deviceGroupModelService.deleteDeviceGroup(params)
+                flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'deviceGroup.label', default: 'DeviceGroup'), params.id])}"
                 flash.textClass="text-success"
                 redirect(action: "list")
             }
             catch (org.springframework.dao.DataIntegrityViolationException e) {
-                flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'deviceGroup.label', default: 'Raum'), params.id])}"
+                flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'deviceGroup.label', default: 'DeviceGroup'), params.id])}"
                 flash.textClass="text-danger"
                 redirect(action: "show", id: params.id)
             }
         }
         else {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'deviceGroup.label', default: 'Raum'), params.id])}"
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'deviceGroup.label', default: 'DeviceGroup'), params.id])}"
             flash.textClass="text-danger"
             redirect(action: "list")
         }
@@ -75,5 +75,22 @@ class DeviceGroupController {
         flash.message="${message(code: 'default.updated.message', args: [message(code: 'deviceGroup.label', default: 'Raum '), deviceGroup.name])}"
         flash.textClass="text-success"
         redirect action:"list"
+    }
+
+    def matrix = {
+        return [deviceGroups:DeviceGroup.list()]
+    }
+
+    def deleteFromGroup = {
+        deviceGroupModelService.removeDeviceFromGroup(params.deviceGroupId, params.deviceId)
+        forward action:'groupDevices', params:[id:params.deviceGroupId]
+    }
+
+    def groupDevices = {
+        def deviceGroup = DeviceGroup.get(params.id)
+        def devices = deviceGroup.devices
+        println params.id
+        println devices
+        return [devices:devices, deviceGroup:deviceGroup]
     }
 }

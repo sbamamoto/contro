@@ -38,6 +38,13 @@ class DeviceModelService {
         return device
     }
 
+    @Transactional
+    Device setState(Device dev, String state) {
+        dev.state = state
+        dev.save(flush:true, failOnError:true)
+        return dev
+    }
+
     Device incomingDevice(GrailsParameterMap props) {
         Device device
         if (props.id) {
