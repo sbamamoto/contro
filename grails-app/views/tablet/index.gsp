@@ -37,22 +37,17 @@
     </head>
     <body>
         <div class="container-fluid">
-
-     
             <div class="row justify-content-md-center">
-            <div class="col-md-12">
+            <div class="col-12 col-md-12 col-lg-12 col-xl-8">
                 <div class="accordion" id="accordion">
                     <% def i=1%>
                     <g:findAll var="room" in="${rooms}" expr="${it.devices?.size() }">
-
                         <div class="card">
                             <div id="header-${room.name.replace(' ','_')}" class="card-headers" onclick="$('#${room.name.replace(' ','_')}').collapse('toggle');">
-                                <h4>
-                                    <a style="text-decoration: none;" data-toggle="collapse" data-parent="#accordion${i+=1}" href="#${room.name.replace(' ','_')}">
-                                        <h1>${room.name}<button style="float:right;display: inline;" class="btn btn-success btn-lg" onclick="switchRoom('${room.id}', '150')">All ON</button>
-                                        <button style="float:right;display: inline;" class="btn btn-success btn-lg" onclick="switchRoom('${room.id}', '0')">All OFF</button></h1>
-                                    </a>
-                                </h4>
+                                <a style="text-decoration: none;" data-toggle="collapse" data-parent="#accordion${i+=1}" href="#${room.name.replace(' ','_')}">
+                                    <span class="cntr-accordion-title">${room.name}</span><button style="float:right;display: inline;" class="btn btn-success btn-lg" onclick="switchRoom('${room.id}', '150')">All ON</button>
+                                    <button style="float:right;display: inline;" class="btn btn-success btn-lg" onclick="switchRoom('${room.id}', '0')">All OFF</button>
+                                </a>
                             </div>
                             <div id="${room.name.replace(' ','_')}" class="collapse" data-parent="#accordion">
                                 <div class="card-body">
@@ -62,49 +57,48 @@
                                                 <tr>
                                                     <td style="padding-top:15px;padding-right:3px;"><button id="${device.device.replaceAll('\\.','-')}-ON-${ability.id}" type="button" class="btn btn-lg ${device.state=='ON' ? 'btn-default' : 'btn-primary'}" onclick="switchDevice('${device.device}', '${device.channel}', '${ability.id}', '1.0', '${device.controller.url}')"><h1>ON</h1></button></td>
                                                     <td style="padding-top:15px;padding-right:15px;"><button id="${device.device.replaceAll('\\.','-')}-OFF-${ability.id}" type="button" class="btn btn-lg ${device.state=='OFF' ? 'btn-default' : 'btn-primary'}" onclick="switchDevice('${device.device}', '${device.channel}','${ability.id}', '0.0', '${device.controller.url}')"><h1>OFF</h1></button></td>
-                                                    <td style="padding-top:25px;"><label style="font-size:40px;">${device.description}</label></td>
-                                                    
-                                                    <td>
+                                                    <td style="padding-top:25px;" width="70%"><label class='cntr-accordion-text'>${device.description}</label></td>                                                    
+                                                    <td style="padding-top:25px;">                                                        
                                                         <g:if test="${device.values.stream().filter{it.key == 'OPERATING_VOLTAGE'}.findFirst().value}">
+                                                            <% def volts = device.values.stream().filter{it.key == 'OPERATING_VOLTAGE'}.findFirst().value?.value %>
                                                             <g:if test="${device.values.stream().filter{it.key == 'LOW_BAT'}.findFirst().value?.value.toBoolean()}">
-                                                                <span style="font-size:20pt;" class="mdi mdi-battery-alert"></span> ${device.values.stream().filter{it.key == 'OPERATING_VOLTAGE'}.findFirst().value?.value}V
+                                                                <span class="mdi mdi-battery-alert iconic-button">${volts}V</span> 
                                                             </g:if>
                                                             <g:elseif test="${device.values.stream().filter{it.key == 'OPERATING_VOLTAGE'}.findFirst().value?.value.toDouble() >= 2.8}">
-                                                                <span style="font-size:20pt;" class="mdi mdi-battery"></span> ${device.values.stream().filter{it.key == 'OPERATING_VOLTAGE'}.findFirst().value?.value}V
+                                                                <span class="mdi mdi-battery iconic-button"> <label class="d-none d-xl-table-cell">${volts}V</span>
                                                             </g:elseif> 
                                                             <g:elseif test="${device.values.stream().filter{it.key == 'OPERATING_VOLTAGE'}.findFirst().value?.value.toDouble() >= 2.7}">
-                                                                <span style="font-size:20pt;" class="mdi mdi-battery-80"></span> ${device.values.stream().filter{it.key == 'OPERATING_VOLTAGE'}.findFirst().value?.value}V
+                                                                <span class="mdi mdi-battery-80 iconic-button"><label class="d-none d-xl-table-cell">${volts}V</span>
                                                             </g:elseif> 
                                                             <g:elseif test="${device.values.stream().filter{it.key == 'OPERATING_VOLTAGE'}.findFirst().value?.value.toDouble() >= 2.6}">
-                                                                <span style="font-size:20pt;" class="mdi mdi-battery-50"></span> ${device.values.stream().filter{it.key == 'OPERATING_VOLTAGE'}.findFirst().value?.value}V
+                                                                <span class="mdi mdi-battery-50 iconic-button"><label class="d-none d-xl-table-cell">${volts}V</span>
                                                             </g:elseif> 
                                                             <g:elseif test="${device.values.stream().filter{it.key == 'OPERATING_VOLTAGE'}.findFirst().value?.value.toDouble() >= 2.5}">
-                                                                <span style="font-size:20pt;" class="mdi mdi-battery-20"></span> ${device.values.stream().filter{it.key == 'OPERATING_VOLTAGE'}.findFirst().value?.value}V
+                                                                <span class="mdi mdi-battery-20 iconic-button"><label class="d-none d-xl-table-cell">${volts}V</span>
                                                             </g:elseif> 
                                                             <g:elseif test="${device.values.stream().filter{it.key == 'OPERATING_VOLTAGE'}.findFirst().value?.value.toDouble() >= 2.4}">
-                                                                <span style="font-size:20pt;" class="mdi mdi-battery-10"></span> ${device.values.stream().filter{it.key == 'OPERATING_VOLTAGE'}.findFirst().value?.value}V
+                                                                <span class="mdi mdi-battery-10 iconic-button"><label class="d-none d-xl-table-cell">${volts}V</span>
                                                             </g:elseif> 
                                                             <g:else test="${device.values.stream().filter{it.key == 'OPERATING_VOLTAGE'}.findFirst().value?.value.toDouble() >= 2.4}">
-                                                                <span style="font-size:20pt;" class="mdi mdi-battery-unknown"></span> ${device.values.stream().filter{it.key == 'OPERATING_VOLTAGE'}.findFirst().value?.value}V
-                                                            </g:else> 
-                                                        </g:if>
+                                                                <span class="mdi mdi-battery-unknown iconic-button"></span>
+                                                            </g:else>                                                            
+                                                        </g:if>                                                        
                                                     </td>
-                                                    
-                                                    <td>
+                                                    <td style="padding-top:25px;">                                                    
                                                         <g:if test="${device.values.stream().filter{it.key == 'RSSI_DEVICE'}.findFirst().value}">
-                                                            <g:if test="${device.values.stream().filter{it.key == 'RSSI_DEVICE'}.findFirst().value.value.toInteger() <= -70}">
-                                                                <span style="font-size:20pt;margin-left:40px;"class="mdi mdi-signal-cellular-1"></span>
+                                                            <% def rssi = device.values.stream().filter{it.key == 'RSSI_DEVICE'}.findFirst().value?.value%>
+                                                            <g:if test="${rssi.toInteger() <= -70}">
+                                                                <span class="mdi mdi-signal-cellular-1 iconic-button"><label class="d-none d-xl-table-cell">${rssi}dBm</label></span>
                                                             </g:if>
-                                                            <g:elseif test="${device.values.stream().filter{it.key == 'RSSI_DEVICE'}.findFirst().value.value.toInteger() <= -60}">
-                                                                <span style="font-size:20pt;margin-left:40px;"class="mdi mdi-signal-cellular-2"></span>
+                                                            <g:elseif test="${rssi.toInteger() <= -60}">
+                                                                <span class="mdi mdi-signal-cellular-2 iconic-button"><label class="d-none d-xl-table-cell">${rssi}dBm</label></span>
                                                             </g:elseif>
                                                             <g:else>
-                                                                <span style="font-size:20pt;margin-left:40px;"class="mdi mdi-signal-cellular-3"></span>
+                                                                <span class="mdi mdi-signal-cellular-3 iconic-button"><label class="d-none d-xl-table-cell">${rssi}dBm</label></span>
                                                             </g:else>                                                         
-                                                            ${device.values.stream().filter{it.key == 'RSSI_DEVICE'}.findFirst().value?.value}dBm
-                                                        </g:if>
-                                                    </td>
-                                                    
+                                                            
+                                                        </g:if>                                                  
+                                                    </td>                                                    
                                                 </tr>
                                                 <g:if test="${device.canDimm}">
                                                     <tr> 

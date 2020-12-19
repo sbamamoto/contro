@@ -8,30 +8,35 @@
         <title><g:message code="default.list.label" args="[entityName]" /></title>
     </head>
     <body>
-        <div class="container">
-            <h1>Processorscriptliste <button class="btn btn-primary" onclick="location.href='${createLink(action:"create")}';"><span class="fa fa-plus" aria-hidden="true"></span></button></h1>
-            <g:if test="${flash.message}">
-                <div class="${flash.textClass}">${flash.message}</div>
-            </g:if>
-            <div class="col-md-8">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Beschreibung</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <g:each in="${processorInstanceList}" status="i" var="processorInstance">
-                        <tr>                        
-                            <td><g:link action="edit" id="${processorInstance.id}">${processorInstance.name}</g:link></td>
-                            <td>${processorInstance.description}</td>
-                            <td><a href="#exampleModalCenter" data-toggle="modal" data-target="#exampleModalCenter" onClick="runScript(${processorInstance.id})"><span style="font-size:16pt;" class="mdi mdi-play" aria-hidden="true"></span></a></td>
-                            <td><a href="${createLink (action:'delete')}/${processorInstance.id}"  onClick="return confirm('Gerät: [${processorInstance.name}] löschen ?');"><span style="font-size:16pt;" class="mdi mdi-trash-can-outline" aria-hidden="true"></span></a></td>
-                        </tr>
-                    </g:each>
-                    </tbody>
-                </table>
+        <div class="container-fluid">
+            <div class="row justify-content-md-center">           
+                <div class="col-12 col-xl-8">
+                    <h1>Processorscriptliste <button class="btn btn-primary" onclick="location.href='${createLink(action:"create")}';"><span class="fa fa-plus" aria-hidden="true"></span></button></h1>
+                    <g:if test="${flash.message}">
+                        <div class="${flash.textClass}">${flash.message}</div>
+                    </g:if>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="cntr-table-text">Name</th>
+                                <th class="d-none d-lg-table-cell">Beschreibung</th>
+                                <th class="d-none d-lg-table-cell">Typ</th>
+                                <th>Aktion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <g:each in="${processorInstanceList}" status="i" var="processorInstance">
+                            <tr>                        
+                                <td><g:link  class="cntr-text"action="edit" id="${processorInstance.id}">${processorInstance.name}</g:link></td>
+                                <td class="d-none d-lg-table-cell"><span class="cntr-text">${processorInstance.description}</span></td>
+                                <td class="d-none d-lg-table-cell">${processorInstance.type}</td>
+                                <td><a href="#exampleModalCenter" data-toggle="modal" data-target="#exampleModalCenter" onClick="runScript(${processorInstance.id})"><span class="mdi mdi-play iconic-button" aria-hidden="true"></span></a>
+                                <a href="${createLink (action:'delete')}/${processorInstance.id}"  onClick="return confirm('Gerät: [${processorInstance.name}] löschen ?');"><span class="mdi mdi-trash-can-outline iconic-button" aria-hidden="true"></span></a></td>
+                            </tr>
+                        </g:each>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <!-- Modal -->
             <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

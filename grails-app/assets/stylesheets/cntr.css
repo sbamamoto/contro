@@ -1,0 +1,60 @@
+@media (max-width:1200px) {
+    .cntr-text {
+        font-size: 40px;
+        font-weight: 300;
+    }
+
+    .cntr-table-text {
+        font-size: 40px;
+        font-weight: 300;
+    }
+
+    .cntr-card-title {
+        font-size: 60px;
+        font-weight: 700;
+    }
+
+    .cntr-card-text {
+        font-size: 40px;
+    }
+
+    .cntr-button {
+        font-size: 40px;
+        font-weight: 400;
+    }
+    
+    .cntr-accordion-title {
+        font-size: 60px;
+        font-weight: 600;
+    }
+
+    .cntr-accordion-text {
+        font-size: 40px;
+        font-weight: 600;
+    }
+
+    .iconic-button {
+        font-size: 50px;
+    }
+}
+@media (min-width:1201px) {
+    .iconic-button {
+        font-size: 25px;
+    }
+    .cntr-accordion-title {
+        font-size: 25px;
+        font-weight: 600;
+    }
+
+    .cntr-accordion-text {
+        font-size: 25px;
+        font-weight: 400;
+    }
+
+}
+
+.cntr-menu-item-text {
+    font-size:50px;
+    font-weight:500;
+}
+

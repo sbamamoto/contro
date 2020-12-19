@@ -13,6 +13,11 @@
 
     </head>
     <body>
+    <script>
+        $(function () {
+            $('[data-toggle="popover"]').popover()
+        })
+    </script>
         <div class="container-fluid">
             <div class="row justify-content-md-center">
                 <div class="col-md-6">

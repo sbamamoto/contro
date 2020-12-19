@@ -53,20 +53,19 @@ class DeviceModelService {
             println ('# this [' + props.device + '] - [' + props.description + '] is already known to the system. Updating device data.')
         }
         else {
-            println " ------- DEVICE: "+props.device
-            // check if device with identically controller,address,channel already exists.
-            // def devices = Device.findAllByDevice (props.device)
+            println ' ------- DEVICE: ' + props.device
+            // check if device with identically controller,address already exists.
             def query = Device.createCriteria()
             def devices = query {
                 eq('device', props.device)
             }
             if (devices != null && devices.size() > 0) {
                 devices.each {
-                    println ('Device with address [' + it.device + '] [' + it.description + ']')
+                    println ('Device with address [' + it.device + '] [' + it.description + '] already in storage updating session id')
                     it.sessionId = props.sessionId
                     it.save(flush:true, failOnError:true)
                 }
-                return null
+                return device
             }
             else {
                 println (' +++ Adding device to Contro devices +++' )
