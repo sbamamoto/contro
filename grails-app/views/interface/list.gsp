@@ -21,32 +21,30 @@
         </script>
     </head>
     <body>
-        <div class="container-fluid">
-            <div class="row justify-content-md-center">
-                <div class="col-md-8">
-                    <h1>Controllerliste <button class="btn btn-primary" onclick="location.href='${createLink(action:"create")}';"><span class="fa fa-plus" aria-hidden="true"></span></button></h1>
-                    <g:if test="${flash.message}">
-                        <div class="${flash.textClass}">${flash.message}</div>
-                    </g:if>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Controller</th>
-                                <th>Steuerungs-URL</th>
-                                <th>Aktion</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <g:each in="${interfaceInstanceList}" status="i" var="interfaceInstance">
-                            <tr>                        
-                                <td><g:link action="edit" id="${interfaceInstance.id}">${interfaceInstance.description}</g:link></td>
-                                <td>${interfaceInstance.url}</td>
-                                <td><a href="${createLink (action:'delete')}/${interfaceInstance.id}"  onClick="return confirm('Gerät: [${interfaceInstance.description}] löschen ?');"><span style="font-size:16pt;" class="mdi mdi-trash-can-outline" aria-hidden="true"></span></a></td>
-                            </tr>
-                        </g:each>
-                        </tbody>
-                    </table>
-                </div>
+        <div class="row justify-content-md-center">
+            <div class="col-12 col-lg-12 col-xl-8">
+                <h1>Controllerliste <button class="btn btn-primary" onclick="location.href='${createLink(action:"create")}';"><span class="fa fa-plus" aria-hidden="true"></span></button></h1>
+                <g:if test="${flash.message}">
+                    <div class="${flash.textClass}">${flash.message}</div>
+                </g:if>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="cntr-table-text">Controller</th>
+                            <th class="cntr-table-text d-none d-xl-table-cell">Steuerungs-URL</th>
+                            <th class="cntr-table-text">Aktion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <g:each in="${interfaceInstanceList}" status="i" var="interfaceInstance">
+                        <tr>                        
+                            <td class="cntr-table-text"><g:link action="edit" id="${interfaceInstance.id}">${interfaceInstance.description}</g:link></td>
+                            <td class="cntr-table-text d-none d-xl-table-cell">${interfaceInstance.url}</td>
+                            <td class="cntr-table-text"><a href="${createLink (action:'delete')}/${interfaceInstance.id}"  onClick="return confirm('Gerät: [${interfaceInstance.description}] löschen ?');"><span class="mdi mdi-trash-can-outline iconic-button" aria-hidden="true"></span></a></td>
+                        </tr>
+                    </g:each>
+                    </tbody>
+                </table>
             </div>
         </div>
     </body>

@@ -9,8 +9,8 @@
         <title><g:message code="default.edit.label" args="[entityName]" /></title>
     </head>
     <body>
-        <div class="container">
-            <div class="col-md-4">
+        <div class="row justify-content-md-center">
+            <div class="col-12 col-lg-12 col-xl-6">
                 <nav>
                     <ul class="pager">
                         <li class="previous"><g:link action="list"><span aria-hidden="true">&larr;</span> Raumliste</g:link></li>
@@ -22,8 +22,8 @@
                         <input type="text" class="form-control" name="name" id="name" placeHolder="Room Name" value="${roomInstance.name}"/>
                     </div>
                     <g:each in="${allDevices}">
-                        <div class="checkbox">
-                            <label>
+                        <div class="checkbox cntr-text">
+                            <label class="cntr-text">
                                 <input type="checkbox" value="${it.id}" name="devices" ${associatedDevices?.contains(it.device)?"checked":""}/>
                                 ${it.description}
                             </label>

@@ -8,31 +8,32 @@
         <title><g:message code="default.list.label" args="[entityName]" /></title>
     </head>
     <body>
-        <div class="container">
-            <h1>Abilityscriptliste <button class="btn btn-primary" onclick="location.href='${createLink(action:"create")}';"><span class="fa fa-plus" aria-hidden="true"></span></button></h1>
-            <g:if test="${flash.message}">
-                <div class="${flash.textClass}">${flash.message}</div>
-            </g:if>
-            <div class="col-md-8">
+        <div class="row justify-content-md-center">
+            <div class="col-12 col-lg-12 col-xl-8">
+                <h1>Abilityscriptliste <button class="btn btn-primary" onclick="location.href='${createLink(action:"create")}';"><span class="fa fa-plus" aria-hidden="true"></span></button></h1>
+                <g:if test="${flash.message}">
+                    <div class="${flash.textClass}">${flash.message}</div>
+                </g:if>
+
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Beschreibung</th>
+                            <th class="cntr-table-text">Name</th>
+                            <th class="cntr-table-text d-none d-xl-table-cell">Beschreibung</th>
+                            <th class="cntr-table-text">Aktion</th>
                         </tr>
                     </thead>
                     <tbody>
                     <g:each in="${abilityInstanceList}" status="i" var="abilityInstance">
                         <tr>                        
-                            <td><g:link action="edit" id="${abilityInstance.id}">${abilityInstance.name}</g:link></td>
-                            <td>${abilityInstance.description}</td>
-                            <td><a href="${createLink (action:'delete')}/${abilityInstance.id}"  onClick="return confirm('Gerät: [${abilityInstance.name}] löschen ?');"><span style="font-size:16pt;" class="mdi mdi-trash-can-outline" aria-hidden="true"></span></a></td>
+                            <td class="cntr-table-text"><g:link action="edit" id="${abilityInstance.id}">${abilityInstance.name}</g:link></td>
+                            <td class="cntr-table-text d-none d-xl-table-cell">${abilityInstance.description}</td>
+                            <td class="cntr-table-text"><a href="${createLink (action:'delete')}/${abilityInstance.id}"  onClick="return confirm('Gerät: [${abilityInstance.name}] löschen ?');"><span class="mdi mdi-trash-can-outline iconic-button" aria-hidden="true"></span></a></td>
                         </tr>
                     </g:each>
                     </tbody>
                 </table>
             </div>
-
         </div>
     </body>
 </html>

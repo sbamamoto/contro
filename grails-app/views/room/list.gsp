@@ -14,31 +14,32 @@
         </script>
     </head>
     <body>
-
-        <div class="container">
-            <h1>Raumliste <button class="btn btn-primary" onclick="location.href='${createLink(action:"create")}';"><span class="fa fa-plus" aria-hidden="true"></span></button></h1>
-            <g:if test="${flash.message}">
-                <div class="${flash.textClass}">${flash.message}</div>
-            </g:if>
-            <div class="col-md-3">
+        <div class="row justify-content-md-center">
+            <div class="col-12 col-lg-12 col-xl-6">
+                <h1>Raumliste <button class="btn btn-primary" onclick="location.href='${createLink(action:"create")}';"><span class="fa fa-plus" aria-hidden="true"></span></button></h1>
+                <g:if test="${flash.message}">
+                    <div class="${flash.textClass}">${flash.message}</div>
+                </g:if>
+            
                 <table class="table table-striped" >
                     <thead>
-                    <th>
+                    <th class="cntr-table-text">
                         Raum
                     </th>
-                    <th>
+                    <th class="cntr-table-text">
                         Aktion
                     </th>
                     </thead>
                     <tbody>
                         <g:each in="${roomInstanceList}" status="i" var="roomInstance">
-                            <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-                                <td><g:link action="edit" id="${roomInstance.id}">${fieldValue(bean: roomInstance, field: "name")}</g:link></td>
-                                <td><a href="${createLink (action:'delete')}/${roomInstance.id}"  onClick="return confirm('Raum: [${roomInstance.name}] löschen ?');"><span style="font-size:16pt;" class="mdi mdi-trash-can-outline" aria-hidden="true"></span></span></a></td>
+                            <tr>
+                                <td class="cntr-table-text"><g:link action="edit" id="${roomInstance.id}">${fieldValue(bean: roomInstance, field: "name")}</g:link></td>
+                                <td><a href="${createLink (action:'delete')}/${roomInstance.id}"  onClick="return confirm('Raum: [${roomInstance.name}] löschen ?');"><span class="mdi mdi-trash-can-outline iconic-button" aria-hidden="true"></span></span></a></td>
                             </tr>
                         </g:each>
                     </tbody>
                 </table>
+            
             </div>
         </div>
     </body>
