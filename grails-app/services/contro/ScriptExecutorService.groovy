@@ -4,16 +4,16 @@ class ScriptExecutorService {
 
     static Map <Long,Script> parsed = [:]
 
-    static Script parseScript (Processor processor) {
+    Script parseScript (Processor processor) {
         String scriptCode = processor.processingScript
-        def shell = new GroovyShell()
+        def shell = new GroovyShell(this.class.classLoader)
         println '   +++ Parsing script code'
         Script script = shell.parse(scriptCode)
         parsed.put (processor.id, script)
         return script
     }
 
-    static String runScript( Processor processor, Map params ) {
+    String runScript( Processor processor, Map params ) {
         Script script
         String scriptCode = processor.processingScript
 
