@@ -33,7 +33,12 @@
                             <div class="form-group">
                                 <label for="description">Beschreibung:</label>
                                 <input type="text" class="form-control" name="deviceTypeForm.description" id="description" placeHolder="Beschreibung des Macros" value="${deviceTypeInstance?.description}"/>
-                            </div>            
+                            </div>      
+                            <div class="form-group">
+                                <label for="type">Type:</label>
+                                <g:select from="['switch', 'slider']" class="form-control" id="type" name="device.guiController" value="${deviceInstance?.guiController}">
+                                </g:select>
+                            </div>      
                         </div>
 
                         <div class="tab-pane fade" id="nav-abilities" role="tabpanel" aria-labelledby="nav-abilities-tab">

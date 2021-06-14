@@ -4,12 +4,14 @@ class DeviceType {
 
     String description
     String name
+    String guiController
 
     static hasMany = [
         abilities: Ability
     ]
 
     static constraints = {
+        guiController(nullable:true)
     }
     
     static mapping = {

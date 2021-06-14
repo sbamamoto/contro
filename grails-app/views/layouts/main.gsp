@@ -30,14 +30,15 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav">
-                            <li id="tablet" class="nav-item"><a class="nav-link cntr-menu-item-text" href="${createLink(controller:"tablet")}">Schalten</a></li>
+                            <li id="tablet" class="nav-item"><a class="nav-link cntr-menu-item-text" href="${createLink(controller:'tablet')}">Schalten</a></li>
+                            <li id="tablet" class="nav-item"><a class="nav-link cntr-menu-item-text" href="${createLink(controller:'room', action:'index')}">Räume</a></li>
                             <li id="groups" class="nav-item"><a class="nav-link cntr-menu-item-text" href="${createLink(controller:'deviceGroup', action:'matrix')}">Gruppen</a></li>
-                            <li id="week" class="nav-item"><a class="nav-link cntr-menu-item-text" href="${createLink(controller:"weekView")}">Wochenplan</a></li>
+                            <li id="week" class="nav-item"><a class="nav-link cntr-menu-item-text" href="${createLink(controller:'weekView')}">Wochenplan</a></li>
 
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle cntr-menu-item-text" href="#" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Einstellungen</a>
                                 <div class="dropdown-menu cntr-menu-item-text" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item cntr-menu-item-text" href="${createLink(controller:"room")}">Räume</a>
+                                    <a class="dropdown-item cntr-menu-item-text" href="${createLink(controller:'room', action:'list')}">Räume</a>
                                     <a class="dropdown-item cntr-menu-item-text" href="${createLink(controller:"device")}">Geräte</a>
                                     <a class="dropdown-item cntr-menu-item-text" href="${createLink(controller:"deviceGroup")}">Gerätegruppen</a>
                                     <a class="dropdown-item cntr-menu-item-text" href="${createLink(controller:"timing")}">Zeiten</a>

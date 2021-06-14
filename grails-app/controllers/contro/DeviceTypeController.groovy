@@ -47,7 +47,7 @@ class DeviceTypeController {
         deviceTypeInstance.abilities.each {
             deviceTypeAbilities.add(it.id)
         }
-        println '************** '+deviceTypeAbilities
+        println '************** '+deviceTypeInstance.guiController
         return [deviceTypeInstance: deviceTypeInstance, abilityList:abilityList, deviceTypeAbilities:deviceTypeAbilities]
     }
 

@@ -6,13 +6,16 @@ class RoomController {
     def roomModelService
 
     def index = {
-        redirect(action: "list", params: params)
+        [rooms: Room.list().sort{ it.showOrder } , roomInstanceTotal: Room.count()]
+    }
+
+    def switchDevices = {
+        def room = Room.get(params.id)
+        [room:room]
     }
 
     def list = {
-        
-        [roomInstanceList: Room.list().sort{ it.name } , roomInstanceTotal: Room.count()]
-        
+        [roomInstanceList: Room.list().sort{ it.showOrder } , roomInstanceTotal: Room.count()]
     }
 
     def create = {

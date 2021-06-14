@@ -19,10 +19,6 @@ class ScriptExecutorService {
 
         if (parsed.get(processor.id) == null) {
             script = parseScript(processor)
-            // def shell = new GroovyShell()
-            // println '   +++ Parsing script code'
-            // script = shell.parse(scriptCode)
-            // parsed.put (processor.id, script)
         }
         else {
             println '   +++ Retreiveing parsed script'
@@ -53,7 +49,8 @@ class ScriptExecutorService {
 
         script.setBinding(bindings)
         script.run()
-        return bindings.getVariable('state') ? 'ON' : 'OFF'
+        println ('State after Script: ' + bindings.getVariable('state'))
+        return bindings.getVariable('state')
 
     }
 

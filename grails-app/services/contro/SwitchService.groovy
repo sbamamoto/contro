@@ -6,7 +6,7 @@ import grails.gorm.transactions.Transactional
 class SwitchService {
 
     static String httpSwitch(String url) {
-        try {
+        try {            
             println url
             URL u = new URL(url)
             InputStream is = u.openStream()
@@ -21,12 +21,12 @@ class SwitchService {
             return result
         }
         catch (MalformedURLException ex) {
-            System.err.println("Switch Service: " + ex)
+            System.err.println("Switch Service URL Error: " + ex)
         }
         catch (IOException ex) {
-            System.err.println("Switch Service: "+ex)
+            System.err.println("Switch Service IO Error: "+ex)
         }
-        return ""
+        return "ERROR"
     }
 
 }

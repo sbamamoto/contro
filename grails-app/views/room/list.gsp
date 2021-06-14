@@ -27,6 +27,9 @@
                         Raum
                     </th>
                     <th class="cntr-table-text">
+                        Reihenfolge
+                    </th>
+                    <th class="cntr-table-text">
                         Aktion
                     </th>
                     </thead>
@@ -34,6 +37,7 @@
                         <g:each in="${roomInstanceList}" status="i" var="roomInstance">
                             <tr>
                                 <td class="cntr-table-text"><g:link action="edit" id="${roomInstance.id}">${fieldValue(bean: roomInstance, field: "name")}</g:link></td>
+                                <td class="cntr-table-text">${roomInstance.showOrder}</td>
                                 <td><a href="${createLink (action:'delete')}/${roomInstance.id}"  onClick="return confirm('Raum: [${roomInstance.name}] löschen ?');"><span class="mdi mdi-trash-can-outline iconic-button" aria-hidden="true"></span></span></a></td>
                             </tr>
                         </g:each>

@@ -20,6 +20,14 @@ class RoomModelService {
     }
 
     @Transactional
+    def saveRoomImage (id, imagePath) {
+        Room room
+        room = Room.get(id)
+        room.image = imagePath
+        return room.save(flush: true)
+    }
+
+    @Transactional
     def deleteRoom(GrailsParameterMap params) {
         Room room
         if (params.id){
