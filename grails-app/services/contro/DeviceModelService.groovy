@@ -35,6 +35,7 @@ class DeviceModelService {
         Device device = Device.get(id)
         device.state = state
         device.save(flush:true, failOnError:true)
+        println "State: "+state+" saved"
         return device
     }
 

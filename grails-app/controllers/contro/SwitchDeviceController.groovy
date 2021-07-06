@@ -28,6 +28,7 @@ class SwitchDeviceController {
 
     def switchDevice = {
         Ability ability = Ability.get(params.ability)
+        println "##################################################################"
         println params
         
         String state = scriptExecutorService.runScript(ability.processor, params)

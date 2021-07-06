@@ -14,6 +14,21 @@ class HomematicController {
         homematicDataModelService.updateData(event)
         def hmAddress = event['address'].split(':')
         def observerList = Processor.findAllByEventKeyAndEventAddress(event['key'], event['address'])
+
+        def lister = Processor.createCriteria()
+        def results = lister.list {
+            eq('eventKey', event['key'])
+            and {
+                eq('eventAddress', event['address'])
+                or {
+                    eq('eventAddress', '*')
+                }
+            }
+        }
+        results.each{
+            println 'Event processor: '+ it.name
+        }
+
         observerList.each {
             if (it.type?.equals('EVENT')) {
                 println 'Executing: ' + it.description + ' ' + it.type
@@ -30,7 +45,7 @@ class HomematicController {
         // Update device values
         // valueModelService.updateValue(event['address'], event['key'], event['value'])
         render(text: 'OK')
-     }
+    }
 
     def addDevice() {
         Device device = deviceModelService.incomingDevice(params.device)

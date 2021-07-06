@@ -45,6 +45,15 @@ class TimingModelService {
         Timing timing
         if (params.id){
             timing = Timing.get(params.id)
+            def dependantDevices = Device.executeQuery(
+                'select device from Device device where :timing in elements(device.timings)',
+                [timing: timing])
+        
+            dependantDevices.each {
+                it.removeFromTimings(timing)
+                it.save(flush:true, failOnError:true)
+            }
+            
             timing.delete(flush: true)
         }
     }
