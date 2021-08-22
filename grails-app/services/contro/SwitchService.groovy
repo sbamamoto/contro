@@ -15,7 +15,7 @@ class SwitchService {
             String theLine
             String result = ''
             while ((theLine = br.readLine()) != null) {
-                System.out.println(theLine)
+                println(theLine)
                 result += theLine+"\n"
             }
             return result

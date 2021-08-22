@@ -164,4 +164,23 @@ class DeviceController {
         }
     }
 
+    def abilities = {
+        def abilities = Device.get(params.id)?.abilities
+        println "+++++++++++++++++"+abilities
+        String result = ""
+        response.setContentType("application/json")
+        if (!abilities) {
+            println " ###################### no abilities"
+            render '[]'
+        } else {
+            abilities.each {
+                result = result + '{"'+it.name+'": "'+it.id+'"},'
+            }
+            result = result.substring(0, result.length() - 1);
+            println "result:" + result
+            render result 
+        }
+
+    }
+
 }
