@@ -4,26 +4,22 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <meta name="layout" content="main" />
+        <meta name="dialog" content="dialog"/>
         <g:set var="entityName" value="${message(code: 'remoteControl.label', default: 'RemoteControl')}" />
         <title><g:message code="default.edit.label" args="[entityName]" /></title>
     </head>
     <body>
         <div class="row justify-content-md-center">
-            <div class="col-12 col-lg-12 col-xl-6">
-                <nav>
-                    <ul class="pager">
-                        <li class="previous"><g:link action="list"><span aria-hidden="true">&larr;</span> Raumliste</g:link></li>
-                        </ul>
-                    </nav>
-                <g:form action="saveRemoteControl">
+            <div class="col-12 col-lg-12 col-xl-8">
+                <g:form name="remoteControlForm" action="saveRemoteControl" controller="remote">
                     <div class="form-group">
-                        <label for="remoteControlIdentity">RemoteControl Identity:</label>
-                        <input type="text" class="form-control" name="identity" id="identity" placeHolder="RemoteControl Identity" value="${remoteControlInstance.identity}"/>
+                        <label for="remoteControlIdentity">Schalter Id:</label>
+                        <input type="text" class="form-control" name="identity" id="identity" placeHolder="Switch Identity" value="${remoteControlInstance.identity}"/>
                     </div>
                     <div class="form-group">
                         <label for="switchMode">Schaltmodus:</label>
-                        <input type="text" class="form-control" name="switchMode" id="switchMode" placeHolder="RemoteControl Identity" value="${remoteControlInstance.switchMode}"/>
+                         <g:select from="${["ON", "OFF", "TOGGLE"]}" class="form-control" name="switchMode" id="switchMode" value="${remoteControlInstance?.switchMode}">
+                            </g:select>
                     </div>                    
                     <div class="form-group">
                         <label for="value">Schaltwert:</label>
@@ -36,11 +32,12 @@
                     </div>  
                     <div class="form-group">
                         <label for="ability">Ability:</label>
-                        <g:select from="[]" optionKey="id" class="form-control" name="ability" id="ability">
+                        <g:select from="${remoteControlInstance?.device?.abilities}" optionKey="id" class="form-control" name="ability" id="ability" value="${remoteControlInstance?.ability}">
                         </g:select>
                     </div>  
                     <g:hiddenField name="id" value="${remoteControlInstance?.id}" />
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <g:hiddenField name="remoteId" value="${remoteId}" />
+                    <button class="btn btn-primary" type=submit>Save</button>
                 </g:form>    
             </div>
 
@@ -51,6 +48,7 @@
                 url = url + '/'+$('#device').find('option:selected').val();
                 $.getJSON( url, function( data ) {
                     var items = [];
+                    $('#ability').empty();
                     $.each( data, function( key, val ) {     
                         console.log(key+"-"+val);               
                         $('#ability').append(new Option(key, val, true, true));
@@ -58,6 +56,11 @@
 
                 });
             }
+            function EditFormSubmit() {
+                alert("XXX");
+                $(".remoteControlForm").submit();
+            }
+
         </script>
     </body>
 </html>

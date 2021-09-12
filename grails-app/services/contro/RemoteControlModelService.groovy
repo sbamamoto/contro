@@ -7,7 +7,7 @@ import grails.web.servlet.mvc.GrailsParameterMap
 class RemoteControlModelService {
 
     @Transactional
-    def saveRemote(GrailsParameterMap params) {
+    def saveRemoteControl(GrailsParameterMap params) {
         RemoteControl remoteControl
         if (params.id) {
             remoteControl = RemoteControl.get(params.id)
@@ -21,11 +21,12 @@ class RemoteControlModelService {
     }
 
     @Transactional
-    def deleteRemote(GrailsParameterMap params) {
+    def deleteRemoteControl(GrailsParameterMap params) {
         RemoteControl remoteControl
         if (params.id) {
             remoteControl = RemoteControl.get(params.id)
             remoteControl.delete(flush: true)
         }
     }
+
 }

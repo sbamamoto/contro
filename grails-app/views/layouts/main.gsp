@@ -39,14 +39,15 @@
                                 <a class="nav-link dropdown-toggle cntr-menu-item-text" href="#" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Einstellungen</a>
                                 <div class="dropdown-menu cntr-menu-item-text" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item cntr-menu-item-text" href="${createLink(controller:'room', action:'list')}">Räume</a>
+                                    <a class="dropdown-item cntr-menu-item-text" href="${createLink(controller:"timing")}">Zeiten</a>
                                     <a class="dropdown-item cntr-menu-item-text" href="${createLink(controller:"device")}">Geräte</a>
                                     <a class="dropdown-item cntr-menu-item-text" href="${createLink(controller:"deviceGroup")}">Gerätegruppen</a>
-                                    <a class="dropdown-item cntr-menu-item-text" href="${createLink(controller:"timing")}">Zeiten</a>
-                                    <a class="dropdown-item cntr-menu-item-text" href="${createLink(controller:"partymode")}">Partymode</a>
                                     <a class="dropdown-item cntr-menu-item-text" href="${createLink(controller:"interface")}">Controller</a>
-                                    <a class="dropdown-item cntr-menu-item-text" href="${createLink(controller:"processor")}">Processor</a>
-                                    <a class="dropdown-item cntr-menu-item-text" href="${createLink(controller:"deviceType")}">Gerätetyp</a>
+                                    <a class="dropdown-item cntr-menu-item-text" href="${createLink(controller:"processor")}">Processor</a>                               
+                                    <a class="dropdown-item cntr-menu-item-text" href="${createLink(controller:"remote")}">Schalter</a>                     
                                     <a class="dropdown-item cntr-menu-item-text" href="${createLink(controller:"Ability")}">Geräteeigenschaften</a>                     
+                                    <a class="dropdown-item cntr-menu-item-text" href="${createLink(controller:"deviceType")}">Gerätetyp</a>
+                                    <a class="dropdown-item cntr-menu-item-text" href="${createLink(controller:"partymode")}">Partymode</a>
                                 </div>
                             </li>
                             <li class="nav-item" id="all"><a class="nav-link cntr-menu-item-text" href="${createLink(controller:'general')}">Alle</a></li>

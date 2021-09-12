@@ -4,14 +4,40 @@ class RemoteController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "GET"]
     def remoteModelService
+    def remoteControlModelService
+    def scriptExecutorService
+    def deviceModelService
 
     def index = {
-        [remotes: Remote.list().sort{ it.showOrder } , remoteInstanceTotal: Remote.count()]
+        redirect(action: "list")
     }
 
-    def switchDevices = {
-        def remote = Remote.get(params.id)
-        [remote:remote]
+    def switchDevice = {
+        println "######################### switch"
+        
+        def remoteControl = RemoteControl.findByIdentity(params.id)
+        if (remoteControl) {
+            Map map = [:]
+            println "################ " + params.id
+            if (remoteControl.switchMode == "TOGGLE") {
+                if (remoteControl.device.state == "ON") {
+                    map ['value'] = '0.0'
+                }
+                else {
+                    map ['value'] = '1.0'
+                }
+            }
+            else {
+                map ['value'] = remoteControl.value
+            }
+            map ['address'] = remoteControl.device.device
+            map ['sessionId'] = remoteControl.device.sessionId
+            map ['channel'] = remoteControl.device.channel
+            map ['url'] = remoteControl.device.controller.url
+            Device dev = Device.get(remoteControl.device.id)
+            deviceModelService.setState(dev, scriptExecutorService.runScript(remoteControl.ability.processor, map))
+        }
+        render "OK"
     }
 
     def list = {
@@ -78,5 +104,40 @@ class RemoteController {
         flash.message="${message(code: 'default.updated.message', args: [message(code: 'remote.label', default: 'Raum '), remote.name])}"
         flash.textClass="text-success"
         redirect action:"list"
+    }
+
+    def deleteRemoteControl = {
+        def remote
+        println params
+        if (params.id) {
+            remote = Remote.get(params.id)
+        }
+        def remoteControl
+        if (params.remoteControlId) {
+            remoteControl = RemoteControl.get(params.remoteControlId)
+        }
+        remoteModelService.deleteRemoteControl(remote,remoteControl)
+    }
+
+    def saveRemoteControl = {
+        def remote
+        println params
+        if (params.remoteId) {
+            remote = Remote.get(params.remoteId)
+        }
+        else {
+            remote = new Remote();
+        }
+//        def remoteControl
+//        if (params.id) {
+//            remoteControl = remoteControl(params.id)
+//        }
+//        else {
+//            remoteControl = new RemotControl()
+//        }
+//        remoteControl.properties = params
+        def remoteControl = remoteControlModelService.saveRemoteControl(params)
+        remoteModelService.addRemoteControl(remote, remoteControl)
+        redirect (action:"list")
     }
 }

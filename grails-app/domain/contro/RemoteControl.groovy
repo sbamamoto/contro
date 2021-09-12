@@ -3,7 +3,7 @@ package contro
 class RemoteControl {
     String identity
     Device device
-    Ability ability
+    Ability ability     
     // use TOGGLE,SWITCH ON, or SWITCH OFF, DIMM
     String switchMode 
     // value can be ON, OFF, TOGGLE, or a value between 0.0 and 1.0

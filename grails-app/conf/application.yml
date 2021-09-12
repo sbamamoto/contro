@@ -119,7 +119,7 @@ environments:
             url: jdbc:postgresql://localhost/contro
     production:
         dataSource:
-            dbCreate: none
+            dbCreate: update
             url: jdbc:postgresql://localhost/contro
             properties:
                 jmxEnabled: true

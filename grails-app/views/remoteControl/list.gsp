@@ -8,8 +8,8 @@
         <title><g:message code="default.list.label" args="[entityName]" /></title>
         <script>
             $( document ).ready(function() {
-            $("li").removeClass("active");
-            $("#remoteControls").addClass("active");
+                $("li").removeClass("active");
+                $("#remoteControls").addClass("active");
             });
         </script>
     </head>
@@ -36,9 +36,9 @@
                     <tbody>
                         <g:each in="${remoteControlInstanceList}" status="i" var="remoteControlInstance">
                             <tr>
-                                <td class="cntr-table-text"><g:link action="edit" id="${remoteControlInstance.id}">${fieldValue(bean: remoteControlInstance, field: "name")}</g:link></td>
+                                <td class="cntr-table-text"><g:link action="edit" id="${remoteControlInstance.id}">${fieldValue(bean: remoteControlInstance, field: "identity")}</g:link></td>
                                 <td class="cntr-table-text">${remoteControlInstance.value}</td>
-                                <td><a href="${createLink (action:'delete')}/${remoteControlInstance.id}"  onClick="return confirm('Raum: [${remoteControlInstance.name}] löschen ?');"><span class="mdi mdi-trash-can-outline iconic-button" aria-hidden="true"></span></span></a></td>
+                                <td><a href="${createLink (action:'delete')}/${remoteControlInstance.id}"  onClick="return confirm('Raum: [${remoteControlInstance.identity}] löschen ?');"><span class="mdi mdi-trash-can-outline iconic-button" aria-hidden="true"></span></span></a></td>
                             </tr>
                         </g:each>
                     </tbody>
