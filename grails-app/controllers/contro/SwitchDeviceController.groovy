@@ -32,7 +32,13 @@ class SwitchDeviceController {
         println params
         
         String state = scriptExecutorService.runScript(ability.processor, params)
-        Device dev = Device.findByDevice(params.address)
+        Device dev
+        if (params.channel) {
+            dev = Device.findByDeviceAndChannel(params.address, params.channel)
+        }
+        else {
+            dev = Device.findByDevice(params.address)
+        }
         deviceModelService.setState(dev, state)
 
         redirect (controller:'tablet')
