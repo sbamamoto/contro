@@ -7,6 +7,7 @@ class RemoteController {
     def remoteControlModelService
     def scriptExecutorService
     def deviceModelService
+    def settingsModelService
 
     def index = {
         redirect(action: "list")
@@ -15,8 +16,8 @@ class RemoteController {
     def switchDevice = {
         println "######################### switch"
         
-        def remoteControl = RemoteControl.findByIdentity(params.id)
-        if (remoteControl) {
+        def remoteControls = RemoteControl.findAllByIdentity(params.id)
+        remoteControls.each  { remoteControl ->
             Map map = [:]
             println "################ " + params.id
             if (remoteControl.switchMode == "TOGGLE") {
@@ -37,7 +38,21 @@ class RemoteController {
             Device dev = Device.get(remoteControl.device.id)
             deviceModelService.setState(dev, scriptExecutorService.runScript(remoteControl.ability.processor, map))
         }
+        println "Storing Key"
+        settingsModelService.setValue("LastButtonPressed", params.id)
         render "OK"
+    }
+
+    def clearLastButton = {
+        println 'Last button cleared'
+        settingsModelService.setValue("LastButtonPressed", "NOK")
+        render '{"result":"OK"}'
+    }
+
+    def getLastButtonPressed = {
+        println "Last Button pressed"
+        def button = Setting.findBySetting("LastButtonPressed")
+        render '{"result":"'+button.value+'"}'
     }
 
     def list = {
@@ -121,23 +136,25 @@ class RemoteController {
 
     def saveRemoteControl = {
         def remote
+        println "save remote control *** "
         println params
+        println " ------ "
         if (params.remoteId) {
             remote = Remote.get(params.remoteId)
         }
         else {
             remote = new Remote();
         }
-//        def remoteControl
-//        if (params.id) {
-//            remoteControl = remoteControl(params.id)
-//        }
-//        else {
-//            remoteControl = new RemotControl()
-//        }
-//        remoteControl.properties = params
+        //        def remoteControl
+        //        if (params.id) {
+        //            remoteControl = remoteControl(params.id)
+        //        }
+        //        else {
+        //            remoteControl = new RemotControl()
+        //        }
+        //        remoteControl.properties = params
         def remoteControl = remoteControlModelService.saveRemoteControl(params)
         remoteModelService.addRemoteControl(remote, remoteControl)
-        redirect (action:"list")
+        redirect (action:"edit", params:["id":remote.id])
     }
 }

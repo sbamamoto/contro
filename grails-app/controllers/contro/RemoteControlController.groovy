@@ -27,6 +27,9 @@ class RemoteControlController {
     }
 
     def edit = {
+        println (" HERE edit")
+        println params
+        println ("--------------")
         def remoteControlInstance = RemoteControl.get(params.rcid)
         if (!remoteControlInstance) {
             remoteControlInstance = new RemoteControl()
@@ -36,7 +39,7 @@ class RemoteControlController {
             [remoteControlInstance: remoteControlInstance, deviceList: Device.list().sort { it.description }, remoteId: remoteId]
         }
         else {
-            return [remoteControlInstance: remoteControlInstance, deviceList:Device.list()]
+            return [remoteControlInstance: remoteControlInstance, deviceList:Device.list().sort { it.description }, remoteId:params.remoteId]
         }
     }
 
@@ -61,11 +64,10 @@ class RemoteControlController {
             redirect(action: "list")
         }
     }
-    
-    
+
     def saveRemoteControl = {
         def remoteControl
-        println params
+        println "save remote control", params
         if (params.id && params.id.length() > 0) {
             println "   -------------   [" + params.id + "] -------- "
             remoteControl = RemoteControl.get(params.id)
@@ -78,6 +80,6 @@ class RemoteControlController {
         remoteControlModelService.saveRemote(params)
         flash.message="${message(code: 'default.updated.message', args: [message(code: 'remoteControl.label', default: 'RemoteControl'), remoteControl.identity])}"
         flash.textClass="text-success"
-        redirect action:"list"
+        redirect (controller:'remote', action:'edit', params:[id:params.id])
     }
 }

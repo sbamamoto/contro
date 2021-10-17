@@ -14,7 +14,10 @@
                 <g:form name="remoteControlForm" action="saveRemoteControl" controller="remote">
                     <div class="form-group">
                         <label for="remoteControlIdentity">Schalter Id:</label>
-                        <input type="text" class="form-control" name="identity" id="identity" placeHolder="Switch Identity" value="${remoteControlInstance.identity}"/>
+                        <div class="input-group">
+                            <a class="btn btn-success" name="read" id ="read" onclick="waitforcode();" role="button" href="#">PRG</a>
+                            <input type="text" class="form-control" name="identity" id="identity" placeHolder="Switch Identity" value="${remoteControlInstance.identity}"/>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="switchMode">Schaltmodus:</label>
@@ -43,6 +46,9 @@
 
         </div>
         <script>
+            var timer;
+            var retriesLeft;
+
             function selected () {
                 var url = '${createLink(controller:"device",action:"abilities")}';
                 url = url + '/'+$('#device').find('option:selected').val();
@@ -59,6 +65,46 @@
             function EditFormSubmit() {
                 alert("XXX");
                 $(".remoteControlForm").submit();
+            }
+
+            function timerStopped() {
+                clearInterval(timer);
+                $('#read').removeClass('btn-danger');
+                $('#read').addClass('btn-success');
+                $('#read').text('PRG');
+            }
+
+            function getLastPress() {
+                
+                if (retriesLeft <= 0) {
+                    timerStopped();
+                }
+                else {
+                    retriesLeft = retriesLeft -1;
+                    $('#read').text(retriesLeft + ' Sek.');
+                }
+                let url = '${createLink(controller:"remote",action:"getLastButtonPressed")}';
+                $.getJSON( url, function( data ) {
+                    var items = [];                    
+                    $.each( data, function( key, val ) {     
+                        if (val != 'NOK') {
+                            $('#identity').val(val);
+                            timerStopped();
+                        }
+                    });
+                });
+            }
+
+            function waitforcode() {
+                let url = '${createLink(controller:"remote",action:"clearLastButton")}';
+                $.getJSON( url, function( data ) {
+                    retriesLeft = 10;
+                    timer = setInterval (getLastPress, 1000);  
+                    $('#identity').val("");
+                    $('#read').text(retriesLeft + ' Sek.');
+                    $('#read').removeClass('btn-success');
+                    $('#read').addClass('btn-danger');
+                });                
             }
 
         </script>

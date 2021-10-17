@@ -19,4 +19,16 @@ class SettingsModelService {
         return setting
     }
 
+    @Transactional
+    Setting setValue(String key, String value) {
+        Setting setting = Setting.findBySetting(key)
+
+        if (!setting) {
+            setting = new Setting(setting:key)
+        }
+        setting.value = value
+        setting.save(flush:true, failOnError:true)
+
+        return setting
+    }
 }
