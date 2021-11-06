@@ -8,38 +8,38 @@ class HomematicController {
 
     def index() {
         def event = request.JSON
-
         //FIXME: Doppelte Event Skriptstarts unterdrücken, wenn das Skript das festlegt. Vielleicht eine Eventqueue aufbauen.
         // Starting listener for this specific channel and event.
         homematicDataModelService.updateData(event)
         def hmAddress = event['address'].split(':')
-        def observerList = Processor.findAllByEventKeyAndEventAddress(event['key'], event['address'])
 
         def lister = Processor.createCriteria()
         def results = lister.list {
-            eq('eventKey', event['key'])
-            and {
-                eq('eventAddress', event['address'])
-                or {
-                    eq('eventAddress', '*')
-                }
+            eq('type', 'EVENT') and {
+                eq('eventKey', event['key'])
+                and {
+                    or {
+                        eq('eventAddress', event['address']) 
+                        eq('eventAddress', '*')
+                    }
+               }
             }
-        }
-        results.each{
-            println 'Event processor: '+ it.name
         }
 
-        observerList.each {
-            if (it.type?.equals('EVENT')) {
-                println 'Executing: ' + it.description + ' ' + it.type
-                Map params = [:]
-                params.put('address', hmAddress[0])
-                params.put('channel', ':' + hmAddress[1])
-                params.put('key', event['key'])
-                params.put('value', event['value'])
-                params.put('sessionId', event['sessionId'])
-                scriptExecutorService.runScript(it, params)
-            }
+        results.each{
+            println 'Event processor: ' + it.name
+        }
+
+        results.each {
+            println 'Executing: ' + it.description + ' ' + it.type
+            Map params = [:]
+            Device dev = Device.findByDevice(hmAddress[0])
+            params.put('address', hmAddress[0])
+            params.put('channel', ':' + hmAddress[1])
+            params.put('key', event['key'])
+            params.put('value', event['value'])
+            params.put('sessionId', event['sessionId'])
+            deviceModelService.setState(dev, scriptExecutorService.runScript(it, params), event['value'])
         }
 
         // Update device values

@@ -40,8 +40,11 @@ class DeviceModelService {
     }
 
     @Transactional
-    Device setState(Device dev, String state) {
+    Device setState(Device dev, String state, String value) {
         dev.state = state
+        if (dev.canDimm) {
+            dev.dimm = value
+        }
         dev.save(flush:true, failOnError:true)
         return dev
     }

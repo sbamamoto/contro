@@ -11,7 +11,7 @@ class AbilityController {
     def list = {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
         println '++++++++++++++++++++++++++'
-        [abilityInstanceList: Ability.list().sort { it.description }]
+        [abilityInstanceList: Ability.list().sort { it.name }]
     }
 
     def saveAbility = {

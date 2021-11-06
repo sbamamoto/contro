@@ -36,7 +36,7 @@ class RoomController {
             roomInstance.devices.each{
                 roomDevices.add(it.device)
             }
-            return [roomInstance: roomInstance, allDevices:Device.list(), associatedDevices:roomDevices]
+            return [roomInstance: roomInstance, allDevices:Device.list().sort{ it.description }, associatedDevices:roomDevices]
         }
     }
 

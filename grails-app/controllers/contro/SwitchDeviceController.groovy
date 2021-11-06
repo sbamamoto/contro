@@ -39,7 +39,7 @@ class SwitchDeviceController {
         else {
             dev = Device.findByDevice(params.address)
         }
-        deviceModelService.setState(dev, state)
+        deviceModelService.setState(dev, state, params.value)
 
         redirect (controller:'tablet')
     }
