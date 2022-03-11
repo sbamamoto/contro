@@ -36,7 +36,7 @@
                             </div>      
                             <div class="form-group">
                                 <label for="type">Type:</label>
-                                <g:select from="['switch', 'slider']" class="form-control" id="type" name="device.guiController" value="${deviceInstance?.guiController}">
+                                <g:select from="['TEMP', 'SLIDER', 'SWITCH']" class="form-control" id="type" name="device.guiController" value="${deviceInstance?.guiController}">
                                 </g:select>
                             </div>      
                         </div>

@@ -8,6 +8,7 @@ class ScheduleSwitchJob {
     def timeout = 30000l // execute job once in 30 seconds
     def scriptExecutorService
     def deviceModelService
+    def stairwayTimerModelService
 
     static triggers = {
         simple repeatCount: 0 // execute job once in 5 seconds
@@ -69,8 +70,9 @@ class ScheduleSwitchJob {
             }
 
             String state = scriptExecutorService.runScript(timing.ability.processor, params)
-            deviceModelService.setState(device, state)
+            deviceModelService.setState(device, state, timing.dimmValue)
         }
+
     }
 
     
@@ -85,6 +87,17 @@ class ScheduleSwitchJob {
             devices.each { device ->
                 //System.out.println (device.description+" "+device.state+"  ("+device.device+")")
                 device.timings.each{switchIt(device,it,now)}
+            }
+        }
+        // Check for stairway timers
+        print (" Execute ")
+        def stairwayDevices = StairwayTimer.list()
+        print (stairwayDevices)
+        stairwayDevices.each { stairwayTimer -> 
+            if (stairwayTimer.lastSeen.getTime() + stairwayTimer.minutesToWait*3600000 > new Date().getTime()) {
+                // Power OFF 
+                print (" POWERING OFF !!!")
+                stairwayTimerModelService.deleteTimer(stairwayTimer)
             }
         }
     }

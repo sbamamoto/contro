@@ -29,4 +29,8 @@ class SwitchService {
         return "ERROR"
     }
 
+    static void switchDevice (Device device, value) {
+
+    }
+
 }

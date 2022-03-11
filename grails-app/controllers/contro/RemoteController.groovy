@@ -36,7 +36,7 @@ class RemoteController {
             map ['channel'] = remoteControl.device.channel
             map ['url'] = remoteControl.device.controller.url
             Device dev = Device.get(remoteControl.device.id)
-            deviceModelService.setState(dev, scriptExecutorService.runScript(remoteControl.ability.processor, map))
+            deviceModelService.setState(dev, scriptExecutorService.runScript(remoteControl.ability.processor, map), map['value'])
         }
         println "Storing Key"
         settingsModelService.setValue("LastButtonPressed", params.id)

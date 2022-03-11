@@ -32,11 +32,11 @@
 				knob.setProperty('angleEnd', 0.75 * Math.PI);
 				knob.setProperty('colorFG', '#88ff88');
 				knob.setProperty('trackWidth', 0.4);
-				knob.setProperty('valMin', 0);
-				knob.setProperty('valMax', 100);
+				knob.setProperty('valMin', 5);
+				knob.setProperty('valMax', 28);
 
 				// Set initial value.
-				knob.setValue(50);
+				knob.setValue(tempVal);
 
 				/*
 				 * Event listener.
@@ -90,18 +90,20 @@
                 <g:findAll var="device" in='${room.devices.sort{it.description}}' expr='${it.abilities?.size() >0}'>
                     <div class="row justify-content-md-left" style="margin-left:10px;margin-top:10px;">
                         <div class="col-12 col-lg-12 col-xl-10" > 
-                            <div class="cntr-slider">                
-                                <input type="checkbox" class="cntr-slider-checkbox" id="SWX-${device.id}" ${device.state == 'ON' ? "checked":""} onClick="switchDevice(this, '${device.device}', '${device.channel}', '${device.abilities.getAt(0).id}', '${device.controller.url}')"/>
-                                <label for="SWX-${device.id}" class="toggle">
-                                    <div class="slider"></div>
-                                </label>
-                            </div>
+                            <g:if test="${device.type.guiController == 'SWITCH'}">
+                                <div class="cntr-slider">                
+                                    <input type="checkbox" class="cntr-slider-checkbox" id="SWX-${device.id}" ${device.state == 'ON' ? "checked":""} onClick="switchDevice(this, '${device.device}', '${device.channel}', '${device.abilities.getAt(0).id}', '${device.controller.url}')"/>
+                                    <label for="SWX-${device.id}" class="toggle">
+                                        <div class="slider"></div>
+                                    </label>
+                                </div>
+                            </g:if>
                             <div class="cntr-switch-text">
-                                <g:if test="${false}"> <!-- Future use for Dimmer controls -->
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                <g:if test="${device.type.guiController == 'TEMP'}"> <!-- Future use for Dimmer controls -->
+                                    <span class="badge rounded-pill bg-danger text-light" style="font-size:16pt;width:65px;"  data-toggle="modal" data-target="#myModal"> 
                                         ${device.dimm}
-                                    </button>
-                                </g:if> 
+                                    </span>
+                                 </g:if> 
                                 ${device.description}
                                 <g:if test="${device.state == "ERROR"}">
                                     <button type="button" class="btn btn-danger">Gerätefehler</button>

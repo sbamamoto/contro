@@ -28,20 +28,22 @@ class ScriptExecutorService {
         def bindings = new Binding()
 
         Device dev = Device.findByDevice(params.address)
-        println ' ++++  '+dev.sessionId
-        if (dev.sessionId) {
-            bindings.setVariable('sessionId', dev.sessionId)
-        }
+        if (dev) {
+            println ' ++++  '+dev.sessionId
+            if (dev.sessionId) {
+                bindings.setVariable('sessionId', dev.sessionId)
+            }
 
-        if (dev.state) {
-            bindings.setVariable('state', dev.state)
+            if (dev.state) {
+                bindings.setVariable('state', dev.state)
+            }
+            else {
+                bindings.setVariable('state', 'OFF')
+            }
         }
-        else {
-            bindings.setVariable('state', 'OFF')
-        }
-
+        
         params.each { k, v ->
-            println ('   +++ Binding '+k+' : '+v+' added.')
+            println('   +++ Binding ' + k + ' : ' + v + ' added.')
             bindings.setVariable(k, v)
         }
 

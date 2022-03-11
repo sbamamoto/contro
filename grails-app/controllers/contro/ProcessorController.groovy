@@ -25,6 +25,7 @@ class ProcessorController {
     }
 
     def execute = {
+        /*
         Binding binding = new Binding()
         StringWriter sw = new StringWriter()
         binding.setProperty("out", sw)
@@ -40,6 +41,10 @@ class ProcessorController {
         shell.evaluate(processor.processingScript)
         //println sw.toString()
         render sw.toString()
+        */
+        params['state', 'N/A']
+        Processor processor = Processor.get(params.id)
+        scriptExecutorService.runScript(processor, params)
     }
 
     def create = {

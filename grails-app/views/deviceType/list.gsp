@@ -18,6 +18,7 @@
                     <thead>
                         <tr>
                             <th class="cntr-table-text">Name</th>
+                            <th class="cntr-table-text">Type</th>
                             <th class="cntr-table-text d-none d-xl-table-cell">Beschreibung</th>
                             <th class="cntr-table-text">Aktion</th>
                         </tr>
@@ -26,6 +27,7 @@
                     <g:each in="${deviceTypeInstanceList}" status="i" var="deviceTypeInstance">
                         <tr>                        
                             <td class="cntr-table-text"><g:link action="edit" id="${deviceTypeInstance.id}">${deviceTypeInstance.name}</g:link></td>
+                            <td class="cntr-table-text">${deviceTypeInstance.guiController}</td>
                             <td class="cntr-table-text d-none d-xl-table-cell">${deviceTypeInstance.description}</td>
                             <td class="cntr-table-text"><a href="${createLink (action:'delete')}/${deviceTypeInstance.id}"  onClick="return confirm('Gerät: [${deviceTypeInstance.name}] löschen ?');"><span class="mdi mdi-trash-can-outline iconic-button" aria-hidden="true"></span></span></a></td>
                         </tr>
