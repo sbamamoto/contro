@@ -13,6 +13,7 @@ class ValueModelService {
         if (!deviceValue) {
             deviceValue = new Value(key:key, channel:channel)
         }
+        deviceValue.lastChange = new Date();
         deviceValue.value = value
         deviceValue.save(flush:true, failOnError:true)
 

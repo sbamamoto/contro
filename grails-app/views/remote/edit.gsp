@@ -17,7 +17,7 @@
                 <g:form action="saveRemote">
                     <div class="form-group">
                         <label for="type">Type:</label>
-                        <g:select from="['SonOff']" class="form-control" id="type" name="type" value="0">
+                        <g:select from="['SonOff','HomeMatic']" class="form-control" id="type" name="type" value="0">
                         </g:select>
                     </div>
                     <div class="form-group">
