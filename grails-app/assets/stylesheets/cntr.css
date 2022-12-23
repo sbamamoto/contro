@@ -22,7 +22,7 @@
         font-size: 40px;
         font-weight: 400;
     }
-    
+
     .cntr-accordion-title {
         font-size: 60px;
         font-weight: 600;
@@ -62,9 +62,9 @@
         border-radius: 48px;
         display: flex;
         flex-direction: column;
-      }
-      
-      .toggle-active {
+    }
+
+    .toggle-active {
         background-color: blue;
         width: 180px;
         height: 96px;
@@ -72,27 +72,27 @@
         display: flex;
         flex-direction: column;
         align-items: flex-end;
-      }
-      
-      .cntr-slider-checkbox {
+    }
+
+    .cntr-slider-checkbox {
         display: none;
-      }
-      
-      .slider {
+    }
+
+    .slider {
         height: 72px;
         width: 72px;
         background-color: white;
         border-radius: 32px;
         margin: 12px;
-      }
-      
-      .cntr-slider-checkbox:checked + .toggle {
+    }
+
+    .cntr-slider-checkbox:checked + .toggle {
         background-color: green;
-      }
-      
-      .cntr-slider-checkbox:checked + .toggle > .slider {
+    }
+
+    .cntr-slider-checkbox:checked + .toggle > .slider {
         align-self: flex-end;
-      }
+    }
 
     .cntr-switch-text {
         font-size: 40px;
@@ -106,6 +106,43 @@
         width:200px;
     }
 
+    .value-btn {
+        font-size: 40px;
+        font-weight: 600;
+        height: 80px;
+        width: 180px;
+        margin-left: 16px;
+        margin-right: 16px;
+        padding: .45em .4em;
+    }
+
+    .modal-body {
+        position: relative;
+        overflow-y: auto;
+    }
+
+    .modal-title {
+        font-size: 50px;
+        font-weight: 600;
+    }
+
+    .tc-range-slider {
+        slider-width:"290px";
+        slider-height:"0.9rem";
+    }
+    
+    .value-display {
+        margin-left: 15px;
+        font-size:5em; 
+        font-weight:600;
+        text-align: right;
+        width: 5rem;
+    }
+
+    .btn-responsive {
+        font-size: 2.5em;
+    }
+    
 }
 @media (min-width:1201px) {
     .iconic-button {
@@ -140,7 +177,7 @@
 
     .cntr-slider {
         float:left;
-        width:80px;
+        width:100px;
     }
 
     .toggle {
@@ -150,9 +187,9 @@
         border-radius: 16px;
         display: flex;
         flex-direction: column;
-      }
-      
-      .toggle-active {
+    }
+
+    .toggle-active {
         background-color: blue;
         width: 60px;
         height: 32px;
@@ -160,37 +197,44 @@
         display: flex;
         flex-direction: column;
         align-items: flex-end;
-      }
-      
-      .cntr-slider-checkbox {
+    }
+
+    .cntr-slider-checkbox {
         display: none;
-      }
-      
-      .slider {
+    }
+
+    .slider {
         height: 24px;
         width: 24px;
         background-color: white;
         border-radius: 12px;
         margin: 4px;
-      }
-      
-      .cntr-slider-checkbox:checked + .toggle {
+    }
+
+    .cntr-slider-checkbox:checked + .toggle {
         background-color: green;
-      }
-      
-      .cntr-slider-checkbox:checked + .toggle > .slider {
+    }
+
+    .cntr-slider-checkbox:checked + .toggle > .slider {
         align-self: flex-end;
-      }
+    }
+
+    .value-btn {
+        width: 63px;
+        font-size: 16pt;
+        margin-left: 16px;
+        margin-right: 16px;
+    }
     
-
+    .cntr-menu-item-text {
+        font-size:40px;
+        font-weight:500;
+    }
 }
 
-.cntr-menu-item-text {
-    font-size:50px;
-    font-weight:500;
-}
 
-.cntr-switch-panel {    
+
+.cntr-switch-panel {
     background-size: cover;
     background-position: center;
     position: relative;

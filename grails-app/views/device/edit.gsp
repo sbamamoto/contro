@@ -77,6 +77,13 @@
                                 </label>
                             </div>
 
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="device.hasBatteries" ${deviceInstance.hasBatteries ?"checked":""}/>
+                                    has batteries
+                                </label>
+                            </div>
+
                             <div class="form-group form-row">
                                 <div class="col">
                                     <label for="description">Minimaler Dimmwert:</label>

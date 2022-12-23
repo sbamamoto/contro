@@ -9,13 +9,14 @@ class HomematicController {
 
     def index() {
         def event = request.JSON
-        //FIXME: Doppelte Event Skriptstarts unterdrücken, wenn das Skript das festlegt. Vielleicht eine Eventqueue aufbauen.
+        //FIXME: Doppelte Event Skriptstarts unterdrücken, wenn das 
+        // Skript das festlegt. Vielleicht eine Eventqueue aufbauen.
         // Starting listener for this specific channel and event.
         homematicDataModelService.updateData(event)
         //println("............................. "+event)
         def hmAddress = event['address'].split(':')
         if (event['key'] == 'PRESS_SHORT') {
-            println("++++++++++++++++++++++ Swicth detected")
+            println("++++ Switch event detected: " + event)
             def rc = RemoteControl.findByIdentity(event['address'])
             //println ("xxxxxxxxxxxx "+rc.ability.id)
             redirect(controller: "switchDevice", action:"switchDevice", 
@@ -56,7 +57,7 @@ class HomematicController {
         }
 
         // Update device values
-        valueModelService.updateValue(event['address'], event['key'], event['value'])
+        //valueModelService.updateValue(event['address'], event['key'], event['value'])
         render(text: 'OK')
     }
 

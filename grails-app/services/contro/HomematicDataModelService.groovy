@@ -15,9 +15,11 @@ class HomematicDataModelService {
                 // println '-----------------------------------------------'
                 // println ' ############### ---- ' + value
                 value.value = updateTupel['value']
+                value.lastChange = new Date()
             }
             else {
                 Value val = new Value(channel:updateTupel['address'], key:updateTupel['key'], value:updateTupel['value'])
+                val.lastChange = new Date() 
                 device.addToValues(val)
             }
             device.save(flush:true, failOnError:true)

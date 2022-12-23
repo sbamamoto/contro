@@ -58,8 +58,7 @@ class DeviceGroupController {
             redirect(action: "list")
         }
     }
-    
-    
+      
     def saveDeviceGroup = {
         def deviceGroup
         if (params.id) {
