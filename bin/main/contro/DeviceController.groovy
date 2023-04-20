@@ -151,6 +151,12 @@ class DeviceController {
 
     def saveDevice = {
         println('saveDevice')
+        if (!params.device.containsKey('canDimm')) {
+            params.device.canDimm = false
+        }
+        if (!params.device.containsKey('hasBatteries')) {
+            params.device.hasBatteries = false
+        }
         Device device = deviceModelService.saveDevice(params.device)
         if (device) {
             flash.message = "${message(code: 'default.updated.message', args: [message(code: 'device.label', default: 'Device'), device.description])}"

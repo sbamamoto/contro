@@ -4,6 +4,7 @@ class Device {
 
     boolean canDimm
     boolean power
+    boolean hasBatteries
     String description
     String device
     String state = 'OFF'
@@ -20,7 +21,11 @@ class Device {
         abilities: Ability,
         values: Value
     ]
-
+    
+    static mapping = {
+        hasBatteries defaultValue: true
+    }
+    
     static constraints = {
         canDimm(nullable:false)
         device(nullable:false)
@@ -30,6 +35,7 @@ class Device {
         channel(nullable:true)
         values(nullable:true)
         sessionId(nullable:true)
+        hasBatteries(nullable:true)
     }
 
     String toString() {

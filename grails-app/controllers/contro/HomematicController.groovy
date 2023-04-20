@@ -13,20 +13,35 @@ class HomematicController {
         // Skript das festlegt. Vielleicht eine Eventqueue aufbauen.
         // Starting listener for this specific channel and event.
         homematicDataModelService.updateData(event)
-        //println("............................. "+event)
+        println("............................. "+event)
         def hmAddress = event['address'].split(':')
-        if (event['key'] == 'PRESS_SHORT') {
+        if (event['key'] == 'PRESS_SHORT' || event['key'] == 'MOTION') {
             println("++++ Switch event detected: " + event)
             def rc = RemoteControl.findByIdentity(event['address'])
-            //println ("xxxxxxxxxxxx "+rc.ability.id)
-            redirect(controller: "switchDevice", action:"switchDevice", 
-                params:[
-                    ability:rc.ability.id,
-                    address:rc.device.device,
-                    url:rc.device.controller.url,
-                    value:rc.value
-                ]);
+            if (rc != null) {
+                //println ("xxxxxxxxxxxx "+rc.ability.id)
+                println("#### "+rc)
+                def switchValue = rc.value
+                if (event['key'] == 'MOTION') {
+                    if (event['value']=='true') {
+                        switchValue = '1.0'
+                    }
+                    else {
+                        switchValue = '0.0'
+                    }
+
+                }
+                redirect(controller: "switchDevice", action:"switchDevice", 
+                    params:[
+                        ability:rc.ability.id,
+                        address:rc.device.device,
+                        channel:rc.device.channel,
+                        url:rc.device.controller.url,
+                        value:switchValue
+                    ]);
+            } 
         }
+
         def lister = Processor.createCriteria()
         def results = lister.list {
             eq('type', 'EVENT') and {

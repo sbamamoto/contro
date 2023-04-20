@@ -36,9 +36,9 @@
                             </div>      
                             <div class="form-group">
                                 <label for="type">Type:</label>
-                                <g:select from="['TEMP', 'SLIDER', 'SWITCH']" class="form-control" id="type" name="device.guiController" value="${deviceInstance?.guiController}">
+                                <g:select from="['VALUE', 'SLIDER', 'SWITCH']" class="form-control" id="type" name="deviceTypeForm.guiController" value="${deviceTypeInstance?.guiController}">
                                 </g:select>
-                            </div>      
+                            </div>           
                         </div>
 
                         <div class="tab-pane fade" id="nav-abilities" role="tabpanel" aria-labelledby="nav-abilities-tab">

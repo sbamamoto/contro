@@ -132,6 +132,7 @@ class RemoteController {
             remoteControl = RemoteControl.get(params.remoteControlId)
         }
         remoteModelService.deleteRemoteControl(remote,remoteControl)
+        redirect (controller:'remote', action:'edit', params:['id':params.id])
     }
 
     def saveRemoteControl = {

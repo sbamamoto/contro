@@ -11,6 +11,7 @@ class RoomController {
 
     def switchDevices = {
         def room = Room.get(params.id)
+        println "++++++++++++++++++ "+room
         [room:room]
     }
 

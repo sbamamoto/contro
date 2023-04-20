@@ -29,7 +29,7 @@
     <body>  
         <div class="modal fade" id="myModal">
             <div class="modal-dialog modal-dialog-centered modal modal-lg modal-xl">
-                <div class="modal-content" style="min-height:900px;">
+                <div class="modal-content">
 
                     <div class="modal-header">
                         <h4 class="modal-title">Set Value</h4>
@@ -52,7 +52,7 @@
                                     max="25"
                                     value="15"
                                     slider-width="50px"
-                                    slider-height="650px"
+                                    slider-height="400px"
                                     pointer-width="90px"
                                     pointer-height="40px"
                                     pointer-radius="10px"
@@ -65,7 +65,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success btn-responsive" data-dismiss="modal">Speichern</button>
+                        <button type="button" class="btn btn-success btn-responsive" data-dismiss="modal" onClick="readSliderValue();">Speichern</button>
                         <button type="button" class="btn btn-danger btn-responsive" data-dismiss="modal">Abbrechen</button>
                     </div>
 
@@ -76,22 +76,20 @@
             <div class="col-12 col-lg-12 col-xl-10">
                 <g:form action="#">
                     <g:findAll var="device" in='${room.devices.sort{it.description}}' expr='${it.abilities?.size() >0}'>
-                        <g:each in="${device.values}" var="value">
-                            <g:if test="${value.isMainValue}">
                                 <div class="row justify-content-md-left justify-content-md-left" style="margin-left:10px;margin-top:10px;">
                                     <div class="col-12 col-lg-12 col-xl-10" > 
-                                        <g:if test="${value.guiControlType == 'SWITCH'}">
+                                        <g:if test="${device.type.guiController == 'SWITCH'}">
                                             <div class="cntr-slider">                
-                                                <input type="checkbox" class="cntr-slider-checkbox" id="SWX-${device.id}" ${value.value == 'ON' ? "checked":""} onClick="switchDevice(this, '${device.device}', '${device.channel}', '${device.abilities.getAt(0).id}', '${device.controller.url}')"/>
+                                                <input type="checkbox" class="cntr-slider-checkbox" id="SWX-${device.id}" ${device.state == 'ON' ? "checked":""} onClick="switchDevice(this, '${device.device}', '${device.channel}', '${device.abilities.getAt(0).id}', '${device.controller.url}')"/>
                                                 <label for="SWX-${device.id}" class="toggle">
                                                     <div class="slider"></div>
                                                 </label>
                                             </div>
                                         </g:if>
                                         <div class="cntr-switch-text">
-                                            <g:if test="${value.guiControlType == 'SLIDER'}"> <!-- Future use for Dimmer controls -->
-                                                <span class="badge rounded-pill bg-danger text-light value-btn" data-toggle="modal" data-target="#myModal"> 
-                                                    ${value.value}
+                                            <g:if test="${device.type.guiController == 'SLIDER'}"> <!-- Future use for Dimmer controls -->
+                                                <span id="SV-${device.id}" class="badge rounded-pill bg-danger text-light value-btn" data-toggle="modal" data-target="#myModal" onClick="setSliderValue(${value.value});"> 
+                                                    ${device.dimm}
                                                 </span>
                                             </g:if> 
                                             ${device.description}
@@ -101,19 +99,28 @@
                                         </div>
                                     </div>
                                 </div>
-                            </g:if>
-                        </g:each>
                     </g:findAll>
                 </g:form>
             </div>
         </div>  
         <g:javascript>
+            // Automatic round to 0.5 steps
             const $slider = document.getElementById( 'value-slider');
             const $temp_display = document.getElementById( 'value-display')
             $slider.addEventListener('change', (evt) => {
             const value = Math.round(evt.detail.value*2)/2;
-            $temp_display.textContent = value.toString();
+            $temp_display.textContent = value.toFixed(1); //toString();
             });
+            
+            function setSliderValue(value) {
+                $slider.value=value.toFixed(1);
+            }
+            
+            function readSliderValue() {
+                const $switch = document.getElementById('setValue');
+                $switch.textContent = $slider.value;
+                alert($switch.textContent);
+            }
         </g:javascript>
     </body>
 </html>

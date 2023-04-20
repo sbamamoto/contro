@@ -4,7 +4,7 @@ class SwitchDeviceController {
 
     def deviceModelService
     def scriptExecutorService
-    //def switchService
+    def switchService
 
     def runcgi(url) {
         println ('URL: ' + url)
@@ -29,7 +29,7 @@ class SwitchDeviceController {
     def switchDevice = {
         Ability ability = Ability.get(params.ability)
         println "##################################################################"
-        println params
+        println " ##### "+params
         
         String state = scriptExecutorService.runScript(ability.processor, params)
         Device dev
@@ -92,4 +92,20 @@ class SwitchDeviceController {
         redirect (controller:'tablet')
     }
 
+    def switchGroup = {
+        def deviceGroup = DeviceGroup.get(params.id)
+        println ("\n\n+++++++++++++++******"+deviceGroup.devices)
+        println ("++++++++++++++++++"+params)
+        def devs = deviceGroup.devices       
+        println ("\n\n+++++++++++++++******"+devs)
+        
+        devs.each {
+            Ability ab = it.abilities[0]
+            params.put("address", it.device)
+            params.put("channel", it.channel)
+            String state = scriptExecutorService.runScript(ab.processor, params)
+            deviceModelService.setState(it, state, params.value)
+        }
+    }   
+    
 }

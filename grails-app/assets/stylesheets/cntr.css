@@ -125,15 +125,14 @@
         font-size: 50px;
         font-weight: 600;
     }
-
-    .tc-range-slider {
-        slider-width:"290px";
-        slider-height:"0.9rem";
+    
+    .modal-content {
+        min-height: 900px;
     }
     
     .value-display {
         margin-left: 15px;
-        font-size:5em; 
+        font-size:5em;
         font-weight:600;
         text-align: right;
         width: 5rem;
@@ -142,8 +141,13 @@
     .btn-responsive {
         font-size: 2.5em;
     }
-    
+
+    .tc-range-slider {
+        slider-width:"50px";
+        slider-height:"650px";
+    }
 }
+
 @media (min-width:1201px) {
     .iconic-button {
         font-size: 25px;
@@ -225,10 +229,23 @@
         margin-left: 16px;
         margin-right: 16px;
     }
-    
+
     .cntr-menu-item-text {
         font-size:40px;
         font-weight:500;
+    }
+
+    .tc-range-slider {
+        width:50px;
+        height:650px;
+    }
+    
+    .value-display {
+        margin-left: 15px;
+        font-size:5em;
+        font-weight:600;
+        text-align: right;
+        width: 5rem;
     }
 }
 

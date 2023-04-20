@@ -38,6 +38,7 @@ class RemoteModelService {
     @Transactional
     def deleteRemoteControl (Remote remote, RemoteControl remoteControl) {
         remote.removeFromRemoteControls(remoteControl)
+        remoteControl.delete(flush: true)
         remote.save(flush:true)
     }    
 

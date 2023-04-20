@@ -15,7 +15,9 @@ class DeviceTypeController {
     }
 
     def saveDeviceType = {
+        println ("++++++++++++ ")
         println params
+        println ("++++++++++++ ")
         DeviceType deviceType = deviceTypeModelService.saveDeviceType(params.deviceTypeForm)
         flash.message = "${message(code: 'default.updated.message', args: [message(code: 'deviceType.label', default: 'DeviceType'), deviceType.description])}"
         flash.textClass = 'text-success'

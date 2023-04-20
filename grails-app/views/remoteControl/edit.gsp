@@ -21,7 +21,7 @@
                     </div>
                     <div class="form-group">
                         <label for="switchMode">Schaltmodus:</label>
-                         <g:select from="${["ON", "OFF", "TOGGLE"]}" class="form-control" name="switchMode" id="switchMode" value="${remoteControlInstance?.switchMode}">
+                         <g:select from="${["ON", "OFF", "TOGGLE", "MOTION"]}" class="form-control" name="switchMode" id="switchMode" value="${remoteControlInstance?.switchMode}">
                             </g:select>
                     </div>                    
                     <div class="form-group">
