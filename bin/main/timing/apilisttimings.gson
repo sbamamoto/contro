@@ -1,0 +1,7 @@
+import contro.Timing
+
+model  {
+    List<Timing> timings
+}
+
+json tmpl.apitiming(timings)

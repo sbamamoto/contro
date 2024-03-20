@@ -1,0 +1,13 @@
+import contro.Room
+
+model {
+    Room room
+}
+
+json {
+    id room.id
+    title room.name
+    showOrder room.showOrder
+    image room.image
+    devices tmpl.apismalldevice(room.devices)
+}

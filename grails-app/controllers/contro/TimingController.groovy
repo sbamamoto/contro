@@ -1,9 +1,29 @@
 package contro
 
+import grails.converters.JSON
+
 class TimingController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "GET"]
     def timingModelService
+
+    def apilisttimings = {
+        println "s#####################################"
+        def timings = Timing.list().sort{ it.timing }
+        println timings
+        [timings:timings]
+    }
+
+    def apigetemptytiming = {
+        def timing = new Timing()
+        [timing:timing]
+    }
+
+    def apiupdatetiming = {
+        println "-------------------- "+request.JSON
+        timingModelService.saveJsonTiming(request.JSON['timing'])
+        render "OK"
+    }
 
     def index = {
         redirect(action: "list", params: params)

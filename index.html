@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Room bearbeiten</title>
+        
+        <script src="/assets/jquery-3.3.1.min-316f4a4b08cacb4a8bcc0861d9dcd1d5.js"></script>
+        <script src="/static/js/jquery-ui.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+        <script src="/assets/bootstrap.min-87721e3c29de9056afe66679a29008c8.js"></script>
+
+        <link rel="stylesheet" href="/assets/bootstrap.min-37722be5eea5421bdf222f1ef5d70d60.css" />
+        <link rel="stylesheet" href="/static/css/bootstrap-theme.min.css" />
+        <link rel="stylesheet" href="/assets/contro-0d0984d45525f1ec492183309a8cb669.css" />
+        <link rel="stylesheet" href="/assets/bootstrap-slider.min-dda698a39155ff8227ff4d1ffb79c615.css" />
+        <link rel="stylesheet" href="/static/css/materialdesignicons.min.css" />
+        <link rel="stylesheet" href="/assets/cntr-e032d4295bcbd469151ab157caed2433.css" />        
+        <link rel="shortcut icon" href="/assets/favicon-49590fbc002f678b0b150e37e6276d71.ico" type="image/x-icon" />	
+        
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="layout" content="main"/>
+        
+        
+    
+        <r:layoutResources/>
+    </head>
+<body>    
+    <div class="container-fluid">
+        <div class="row justify-content-md-center">
+            <div class="col-12 col-lg-12 col-xl-10">
+
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <a class="navbar-brand" style="font-size:50px;font-weight:700" href="/processor/addInitialData"><b>Contro</b></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon iconic-button"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav">
+                            <li id="tablet" class="nav-item"><a class="nav-link cntr-menu-item-text" href="/tablet/index">Schalten</a></li>
+                            <li id="tablet" class="nav-item"><a class="nav-link cntr-menu-item-text" href="/">Räume</a></li>
+                            <li id="groups" class="nav-item"><a class="nav-link cntr-menu-item-text" href="/deviceGroup/matrix">Gruppen</a></li>
+                            <li id="week" class="nav-item"><a class="nav-link cntr-menu-item-text" href="/weekView/index">Wochenplan</a></li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle cntr-menu-item-text" href="#" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Einstellungen</a>
+                                <div class="dropdown-menu cntr-menu-item-text" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item cntr-menu-item-text" href="/room/list">Räume</a>
+                                    <a class="dropdown-item cntr-menu-item-text" href="/timing/index">Zeiten</a>
+                                    <a class="dropdown-item cntr-menu-item-text" href="/device/index">Geräte</a>
+                                    <a class="dropdown-item cntr-menu-item-text" href="/deviceGroup/index">Gerätegruppen</a>
+                                    <a class="dropdown-item cntr-menu-item-text" href="/interface/index">Controller</a>
+                                    <a class="dropdown-item cntr-menu-item-text" href="/processor/index">Processor</a>                               
+                                    <a class="dropdown-item cntr-menu-item-text" href="/remote/index">Schalter</a>                     
+                                    <a class="dropdown-item cntr-menu-item-text" href="/ability/index">Geräteeigenschaften</a>                     
+                                    <a class="dropdown-item cntr-menu-item-text" href="/deviceType/index">Gerätetyp</a>
+                                    <a class="dropdown-item cntr-menu-item-text" href="/partymode/index">Partymode</a>
+                                </div>
+                            </li>
+                            <li class="nav-item" id="all"><a class="nav-link cntr-menu-item-text" href="/general/index">Alle</a></li>
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </nav>
+            </div>
+        </div>
+        
+        <div class="row justify-content-md-center">
+            <div class="col-12 col-lg-12 col-xl-10">
+                
+                    <div class="cntr-switch-panel" style="background-image:url('/roomImage/renderImage?filename=bathroom.jpg')" onClick='location.href="/room/switchDevices/20011"';>
+                        <div class="cntr-switch-panel-title">
+                            <p>Badezimmer</p>
+                        </div>
+                    </div>
+                
+                    <div class="cntr-switch-panel" style="background-image:url('/roomImage/renderImage?filename=speaker.jpg')" onClick='location.href="/room/switchDevices/20300"';>
+                        <div class="cntr-switch-panel-title">
+                            <p>Lautsprecher</p>
+                        </div>
+                    </div>
+                
+                    <div class="cntr-switch-panel" style="background-image:url('/roomImage/renderImage?filename=lights.jpg')" onClick='location.href="/room/switchDevices/18739"';>
+                        <div class="cntr-switch-panel-title">
+                            <p>Lampen</p>
+                        </div>
+                    </div>
+                
+                    <div class="cntr-switch-panel" style="background-image:url('/roomImage/renderImage?filename=Christmas.jpg')" onClick='location.href="/room/switchDevices/20111"';>
+                        <div class="cntr-switch-panel-title">
+                            <p>Weihnachtsdeko</p>
+                        </div>
+                    </div>
+                
+                    <div class="cntr-switch-panel" style="background-image:url('/roomImage/renderImage?filename=watering.jpg')" onClick='location.href="/room/switchDevices/19963"';>
+                        <div class="cntr-switch-panel-title">
+                            <p>Garten</p>
+                        </div>
+                    </div>
+                
+                    <div class="cntr-switch-panel" style="background-image:url('/roomImage/renderImage?filename=radiator.jpg')" onClick='location.href="/room/switchDevices/20163"';>
+                        <div class="cntr-switch-panel-title">
+                            <p>Heizungen Dachgeschoss</p>
+                        </div>
+                    </div>
+                
+                    <div class="cntr-switch-panel" style="background-image:url('/roomImage/renderImage?filename=radiator.jpg')" onClick='location.href="/room/switchDevices/19256"';>
+                        <div class="cntr-switch-panel-title">
+                            <p>Heizungen Erdgeschoss</p>
+                        </div>
+                    </div>
+                
+                    <div class="cntr-switch-panel" style="background-image:url('/roomImage/renderImage?filename=bedroom.jpg')" onClick='location.href="/room/switchDevices/18706"';>
+                        <div class="cntr-switch-panel-title">
+                            <p>Schlafzimmer</p>
+                        </div>
+                    </div>
+                
+                    <div class="cntr-switch-panel" style="background-image:url('/roomImage/renderImage?filename=bar.jpg')" onClick='location.href="/room/switchDevices/20033"';>
+                        <div class="cntr-switch-panel-title">
+                            <p>Bar</p>
+                        </div>
+                    </div>
+                
+            </div>
+        </div>
+    
+    </div>
+</body>
+</html>

@@ -2,6 +2,7 @@ package contro
 
 import grails.gorm.transactions.Transactional
 import grails.web.servlet.mvc.GrailsParameterMap
+import org.grails.web.json.JSONObject
 
 @Transactional
 class TimingModelService {
@@ -38,6 +39,37 @@ class TimingModelService {
             }
         }  
         return timingInstance.save(failOnError:true, flush:true)
+    }
+
+    @Transactional
+    Timing saveJsonTiming(JSONObject jsonTiming) {
+        println "::::::::::::::: "+jsonTiming
+        println jsonTiming.title
+
+        Timing timing = Timing.get(jsonTiming.id)
+
+        if (timing == null) {
+            timing = new Timing();
+        }
+
+        Ability ability = Ability.get(jsonTiming.ability.id)
+
+        timing.power = jsonTiming.power
+        timing.timing = jsonTiming.timing
+        timing.dimmValue = jsonTiming.dimmValue
+        timing.ability = ability
+        timing.description = jsonTiming.title
+        timing.monday = jsonTiming.monday
+        timing.tuesday = jsonTiming.tuesday
+        timing.wednesday = jsonTiming.wednesday
+        timing.thursday = jsonTiming.thursday
+        timing.friday = jsonTiming.friday
+        timing.saturday = jsonTiming.saturday
+        timing.sunday = jsonTiming.sunday
+
+        timing.save(flush:true, failOnError:true)
+        println " ------------------------ SAVED -----------------------"
+        return timing;
     }
 
     @Transactional

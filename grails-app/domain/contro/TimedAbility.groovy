@@ -2,10 +2,14 @@ package contro
 
 class TimedAbility {
 
-    Timing timing
     Ability ability
 
+    static hasMany = [
+        timings: Timing
+    ]
+
     static constraints = {
+         timings(nullable:true)
     }
 
 }

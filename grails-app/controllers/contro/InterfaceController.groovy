@@ -1,6 +1,7 @@
 package contro
 
 import static org.springframework.http.HttpStatus.*
+import grails.converters.JSON
 
 class InterfaceController {
 
@@ -10,6 +11,11 @@ class InterfaceController {
 
     def index(Integer max) {
         redirect(action: "list", params: params)
+    }
+
+    def apilistinterfaces = {
+        def interfaces = Interface.list()
+        render interfaces as JSON
     }
 
     def list = {

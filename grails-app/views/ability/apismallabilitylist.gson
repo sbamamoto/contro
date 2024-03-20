@@ -1,0 +1,7 @@
+import contro.Ability
+
+model  {
+    List<Ability> abilities
+}
+
+json tmpl.apismallability(abilities)

@@ -1,11 +1,37 @@
 package contro
 
+import grails.converters.JSON
+import contro.Timing
+
 class DeviceTypeController {
 
     def deviceTypeModelService;
 
     def index(Integer max) {
         redirect(action: 'list', params: params)
+    }
+
+    def apilisttypes = {
+        def results = DeviceType.list().sort{ it.name }
+        println results
+        render results as JSON
+    }
+
+    def apitypeabilities = {
+        def type = DeviceType.get(params.id)
+        def result = [:]
+        println(" ##### " + params.id)
+        for (ability in type.abilities) {
+            def timings = Timing.findAllByAbility(ability)
+            result[ability.id] =  [ability: ability, timings:timings]
+        }
+
+        render result as JSON
+    }
+
+    def apigettype = {
+        def type = DeviceType.get(params.id)
+        render type as JSON
     }
 
     def list = {

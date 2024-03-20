@@ -1,0 +1,7 @@
+import contro.Room
+
+model  {
+    List<Room> rooms
+}
+
+json tmpl.apiroom(rooms)

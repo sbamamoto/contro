@@ -22,7 +22,6 @@ class Timing {
          ramp(nullable:true)
          timing(nullable:true)
          dimmValue(nullable:true)
-         description(nullable:true)
          monday(nullable:true)
          tuesday(nullable:true)
          wednesday(nullable:true)
@@ -31,7 +30,6 @@ class Timing {
          saturday(nullable:true)
          sunday(nullable:true)
          processor(nullable:true)
-         ability(nullable:true)
     }
 
     String toString() {

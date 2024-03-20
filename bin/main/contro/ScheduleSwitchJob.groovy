@@ -85,8 +85,12 @@ class ScheduleSwitchJob {
             Date now = new Date();
         
             devices.each { device ->
-                //System.out.println (device.description+" "+device.state+"  ("+device.device+")")
-                device.timings.each{switchIt(device,it,now)}
+                device.timedAbilities.each { timedAbility ->
+                    //System.out.println (device.description+" "+device.state+"  ("+device.device+")")
+                    timedAbility.timings.each{
+                        switchIt(device,it,now)
+                    }
+                }
             }
         }
         // Check for stairway timers

@@ -1,0 +1,10 @@
+import contro.Ability
+
+model {
+    Ability ability
+}
+
+json {
+    id ability?.id
+    title ability?.name
+}

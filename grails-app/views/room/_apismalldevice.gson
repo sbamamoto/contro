@@ -1,0 +1,10 @@
+import contro.Device
+
+model {
+    Device device
+}
+
+json {
+    id device.id
+    title device.description
+}

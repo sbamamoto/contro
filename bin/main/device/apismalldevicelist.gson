@@ -1,0 +1,7 @@
+import contro.Device
+
+model  {
+    List<Device> devices
+}
+
+json tmpl.apismalldevice(devices)

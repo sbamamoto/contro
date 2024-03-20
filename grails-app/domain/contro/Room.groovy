@@ -1,5 +1,7 @@
 package contro
 
+import grails.rest.Resource
+
 class Room {
 
     String name

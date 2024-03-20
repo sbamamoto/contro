@@ -1,5 +1,7 @@
 package contro
 
+import grails.converters.JSON
+
 class RoomController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "GET"]
@@ -8,6 +10,47 @@ class RoomController {
     def index = {
         [rooms: Room.list().sort{ it.showOrder } , roomInstanceTotal: Room.count()]
     }
+
+    def apilistrooms = {
+        println "s#####################################"
+        def rooms = Room.list().sort{ it.showOrder }
+        println rooms
+        [rooms:rooms]
+    }
+
+    def apigetemptyroom = {
+        render new Room() as JSON
+    }
+
+    def apiupdateroom = {
+        println "-------------------- "+request.JSON
+        roomModelService.saveJsonRoom(request.JSON['room'])
+        render "OK"
+    }
+
+    def apideleteroom = {
+        roomModelService.deleteRoom(params.id.toInteger())
+        render "OK"
+    }
+
+    def apilistdevices = {
+        def room = Room.get(params.id)
+
+        println room
+        def devices = []
+
+        for (device in room.devices) {
+            devices.add(device)
+        }
+
+        render devices as JSON
+    }
+
+    def apigetroom = {
+        def room = Room.get(params.id)
+        render room as JSON
+    }
+
 
     def switchDevices = {
         def room = Room.get(params.id)

@@ -27,7 +27,7 @@
                         <input type="text" class="form-control" name="interfacex.url" id="description" placeHolder="URL der Steuerungssoftware" value="${interfaceInstance?.url}"/>
                     </div>
                     <div class="form-group">
-                        <g:select from="${[ "433MHZ", "ARDUCONTRO", "HOMEMATIC", "TASMOTA", "SONOFF"]}" class="form-control" name="interfacex.type" id="type" value="${interfaceInstance?.type}">
+                        <g:select from="${[ "433MHZ", "ARDUCONTRO", "HOMEMATIC", "TASMOTA", "SONOFF", "SHELLY"]}" class="form-control" name="interfacex.type" id="type" value="${interfaceInstance?.type}">
                         </g:select>
                     </div>
                     <br>

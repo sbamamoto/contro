@@ -19,9 +19,4 @@ class Ability {
         readOnly defaultValue: false
         id(generator: 'org.hibernate.id.enhanced.SequenceStyleGenerator', params: [sequence_name: 'start_seq', initial_value: 100])
     }
-
-    String toString() {
-        return name
-    }
-
 }

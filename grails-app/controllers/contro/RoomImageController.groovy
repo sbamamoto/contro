@@ -9,9 +9,13 @@ class RoomImageController {
         def imagePath = Setting.findBySetting('room.image.path').value
         println '**************+++'+params
         def file = request.getFile('roomImage')
+        println file
         if (file && !file.empty) {
             roomModelService.saveRoomImage(params.roomId, file.getOriginalFilename())
             file.transferTo(new File(imagePath + '/' + file.getOriginalFilename()))
+        }
+        else {
+            println "########################## NO FILE #####################"
         }
         redirect(controller: 'room', action: 'edit', params: [id:params.id])
     }

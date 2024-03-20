@@ -1,0 +1,21 @@
+import contro.Timing
+
+model {
+    Timing timing
+}
+
+json {
+    id timing.id
+    ability g.render(template:"/ability/apismallability", model:[ability:timing.ability])
+    title timing.description
+    power timing.power
+    dimmValue timing.dimmValue
+    timing timing.timing
+    monday timing.monday
+    tuesday timing.tuesday
+    wednesday timing.wednesday
+    thursday timing.thursday
+    friday timing.friday
+    saturday timing.saturday
+    sunday timing.sunday
+}

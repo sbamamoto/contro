@@ -1,8 +1,32 @@
 package contro
 
+import grails.converters.JSON
+
 class AbilityController {
 
     def abilityModelService;
+
+    def apilistabilities= {
+        def results = Ability.list().sort{ it.name }
+        println results
+        render results as JSON
+    }
+
+    def apismallabilitylist = {
+        def results = Ability.list().sort{ it.name }
+        [abilities:results]
+    }
+
+    def apigetabilitytimings = {
+        println ("AbilContr: "+params)
+        println ("       id: "+params.ability)
+        def x = JSON.parse(params.ability)
+        println ("Object   : "+x)
+        def abil = Ability.get(x.id)
+        def timedAbilities = TimedAbility.findAllByAbility(abil)
+        println (timedAbilities)
+        render timedAbilities as JSON
+    }
 
     def index(Integer max) {
         redirect(action: 'list', params: params)

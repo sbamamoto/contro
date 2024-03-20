@@ -17,8 +17,7 @@ class Device {
     String sessionId
 
     static hasMany = [
-        timings : Timing,
-        abilities: Ability,
+        timedAbilities: TimedAbility,
         values: Value
     ]
     
@@ -34,6 +33,7 @@ class Device {
         dimm(nullable:false)
         channel(nullable:true)
         values(nullable:true)
+        timedAbilities(nullable:true)
         sessionId(nullable:true)
         hasBatteries(nullable:true)
     }
